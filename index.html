@@ -297,7 +297,7 @@ nav button.on:active .nic{transform:translateY(-20px) scale(.94)}
 
 /* ---- sheet / confirm ---- */
 .modal{position:fixed;inset:0;background:rgba(15,20,40,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center}
-.modal.ov{z-index:400}
+.modal.ov{z-index:1000}
 .sheet{width:100%;max-width:480px;background:var(--surface);border-radius:22px 22px 0 0;max-height:88vh;display:flex;flex-direction:column;animation:sheetup .2s ease}
 @keyframes sheetup{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
 .sheet .mh{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 6px}
@@ -702,8 +702,15 @@ function closeConfirm(){ document.getElementById('modals2').innerHTML=''; }
 // ═══ IndexedDB — mídia (fotos/vídeo) separada do banco principal ═══
 function idbOpen(){
   return new Promise((resolve,reject)=>{
-    const r = indexedDB.open('attimodrive_midia', 1);
-    r.onupgradeneeded = () => r.result.createObjectStore('midia');
+    const r = indexedDB.open('attimodrive_midia', 2);
+    r.onupgradeneeded = () => {
+      const db = r.result;
+      if(!db.objectStoreNames.contains('midia')) db.createObjectStore('midia');
+      // 'snap' e 'mirror' — proteção de dados (18ª rodada): pontos de restauração
+      // diários e um espelho automático do banco, ver bloco "PROTEÇÃO DE DADOS" abaixo.
+      if(!db.objectStoreNames.contains('snap')) db.createObjectStore('snap');
+      if(!db.objectStoreNames.contains('mirror')) db.createObjectStore('mirror');
+    };
     r.onsuccess = () => resolve(r.result);
     r.onerror = () => reject(r.error);
   });
@@ -805,6 +812,8 @@ async function persistDB(){
   } else {
     localStorage.setItem(LS_KEY, raw);
   }
+  agendarEspelho();
+  marcarAlteracao();
 }
 
 // ═══ Senha de acesso — a pedido do Bruno (16/09/2026), sem regras de tamanho ou
@@ -933,6 +942,7 @@ async function exportarBackup(){
     setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} a.remove(); }, 1500);
   }catch(e){ toast('Não foi possível salvar o arquivo.'); return; }
   try{ localStorage.setItem('ad_last_backup', isoDate(new Date())); }catch(e){}
+  zerarAlteracoes();
   toast('Backup salvo! Guarde o arquivo em local seguro (nuvem ou e-mail).');
   if(currentTab==='config') renderConfig();
 }
@@ -964,6 +974,118 @@ async function doRestaurarBackup(){
     toast('Backup restaurado com sucesso!');
     setTimeout(()=>location.reload(), 800);
   }catch(e){ toast('Falha ao restaurar o backup.'); }
+}
+
+/* ============ PROTEÇÃO DE DADOS: espelho automático + pontos de restauração (18ª rodada) ============
+   Camada extra de segurança, no mesmo espírito do app de referência (VetFlowCare): grava
+   uma cópia do banco no IndexedDB (sobrevive melhor que o localStorage a "limpar dados"
+   do navegador) e guarda um ponto de restauração por dia (últimos 7). NÃO substitui o
+   becape externo (some se o app for desinstalado) — só reduz o risco do dia a dia. */
+function idbStore(store, mode, fn){
+  return idbOpen().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(store, mode);
+    const out = fn(tx.objectStore(store));
+    tx.oncomplete = () => res(out && out.result !== undefined ? out.result : true);
+    tx.onerror = () => rej(tx.error);
+  }));
+}
+function temDadosParaBackup(){
+  return !!(DB && ((DB.veiculos||[]).length || (DB.consignantes||[]).length || (DB.agendamentos||[]).length));
+}
+// Espelho: cópia inteira do banco, sobrescrita a cada gravação (com atraso, para não
+// disparar a cada tecla digitada — mesmo debounce do save() principal).
+let _espelhoTimer = null;
+function agendarEspelho(){
+  clearTimeout(_espelhoTimer);
+  _espelhoTimer = setTimeout(gravarEspelho, 1500);
+}
+async function gravarEspelho(){
+  try{
+    const raw = JSON.stringify(DB);
+    await idbStore('mirror','readwrite', s => s.put({ raw, em:new Date().toISOString(), qtd:(DB.veiculos||[]).length }, 'atual'));
+  }catch(e){}
+}
+function lerEspelho(){ return idbStore('mirror','readonly', s => s.get('atual')).catch(()=>null); }
+// Contador de alterações desde o último becape externo — alimenta o aviso semanal.
+function marcarAlteracao(){
+  try{ localStorage.setItem('ad_alt', String((parseInt(localStorage.getItem('ad_alt')||'0')||0)+1)); }catch(e){}
+}
+function alteracoesSemBackup(){ return parseInt(localStorage.getItem('ad_alt')||'0')||0; }
+function zerarAlteracoes(){ try{ localStorage.setItem('ad_alt','0'); }catch(e){} }
+// Pontos de restauração automáticos: 1 por dia, guarda os últimos 7.
+async function snapshotDiario(){
+  try{
+    if(!temDadosParaBackup()) return;
+    const hoje = isoDate(new Date());
+    const existentes = await idbStore('snap','readonly', s => s.getAllKeys()).catch(()=>[]);
+    if(existentes.includes(hoje)) return;
+    await idbStore('snap','readwrite', s => s.put({raw:JSON.stringify(DB), qtd:DB.veiculos.length}, hoje));
+    const todas = (await idbStore('snap','readonly', s => s.getAllKeys()).catch(()=>[])).slice().sort();
+    while(todas.length > 7){ const k = todas.shift(); await idbStore('snap','readwrite', s => s.delete(k)); }
+  }catch(e){}
+}
+async function listarSnapshots(){
+  try{ return (await idbStore('snap','readonly', s => s.getAllKeys())).slice().sort().reverse(); }catch(e){ return []; }
+}
+async function criarPontoAgora(){
+  try{
+    if(!temDadosParaBackup()){ toast('Nada para guardar ainda.'); return; }
+    await idbStore('snap','readwrite', s => s.put({raw:JSON.stringify(DB), qtd:DB.veiculos.length}, isoDate(new Date())+' '+Date.now()));
+    toast('📸 Ponto de restauração criado!');
+    if(currentTab==='config') renderConfig();
+  }catch(e){ toast('Não foi possível criar o ponto.'); }
+}
+function restaurarPonto(key){
+  confirmar({ icon: ic('warning',30), title:'Restaurar este ponto?',
+    msg:'Os dados atuais deste aparelho (veículos, consignantes, agenda, financeiro) serão <b>substituídos</b> pelos deste ponto de restauração.',
+    noLabel:'Cancelar', yesLabel:'Restaurar', yesBg:'var(--primary)', yes:`doRestaurarPonto('${key.replace(/'/g,"\\'")}')` });
+}
+async function doRestaurarPonto(key){
+  try{
+    const rec = await idbStore('snap','readonly', s => s.get(key));
+    if(!rec || !rec.raw){ toast('Ponto não encontrado.'); return; }
+    DB = JSON.parse(rec.raw);
+    await persistDB();
+    toast('Restaurado! Recarregando…');
+    setTimeout(()=>location.reload(), 800);
+  }catch(e){ toast('Falha ao restaurar.'); }
+}
+// Na abertura do app: se o armazenamento principal está vazio (0 veículos/consignantes/
+// agenda) mas o espelho interno tem dados, oferece recuperar — cobre o caso do navegador
+// ter limpado o localStorage sozinho (pressão de espaço, "limpar dados do site" etc.).
+async function checarEspelhoNaAbertura(){
+  try{
+    if(temDadosParaBackup()) return; // já tem dado — nada a recuperar
+    const esp = await lerEspelho();
+    if(!esp || !esp.raw) return;
+    const parsed = JSON.parse(esp.raw);
+    if(!parsed || !(parsed.veiculos||[]).length) return;
+    window._pendEspelho = parsed;
+    confirmar({ icon: ic('shield',30), title:'Encontramos seus dados!',
+      msg:'Os dados deste aparelho estão vazios — provavelmente o navegador limpou.<br>Existe uma <b>cópia de segurança interna</b> com <b>'+parsed.veiculos.length+' veículo(s)</b> salva neste mesmo aparelho.',
+      noLabel:'Agora não', yesLabel:'🛟 Recuperar', yesBg:'var(--success)', yes:'doRecuperarEspelho()' });
+  }catch(e){}
+}
+async function doRecuperarEspelho(){
+  const p = window._pendEspelho; if(!p) return;
+  DB = p;
+  await persistDB();
+  toast('Dados recuperados! Recarregando…');
+  setTimeout(()=>location.reload(), 800);
+}
+// Aviso semanal de becape: dispara no máximo 1x por dia via notificação nativa (só se a
+// permissão já foi concedida) quando faz 7+ dias sem exportar um becape externo.
+function checarAvisoBackup(){
+  try{
+    if(!('Notification' in window) || Notification.permission!=='granted') return;
+    if(!temDadosParaBackup()) return;
+    const d = diasDesdeBackup();
+    if(d!==null && d<7) return;
+    const hoje = isoDate(new Date());
+    if(localStorage.getItem('ad_aviso_bkp_fired')===hoje) return;
+    localStorage.setItem('ad_aviso_bkp_fired', hoje);
+    notify('💾 Hora de fazer o becape', d===null ? 'Você ainda não fez nenhum becape — exporte em Ajustes para não perder nada.' : `${d} dias sem becape — exporte em Ajustes para não perder nada.`);
+  }catch(e){}
 }
 
 /* ============ VERSÃO PRO (senha-contra-senha, vinculada ao aparelho) ============ */
@@ -1323,6 +1445,10 @@ function boot(){
       toast('🎁 Você tem 30 dias grátis com tudo liberado!');
     }
   }catch(e){ DB = defaultDB(); }
+  // Confere se o armazenamento principal sumiu mas existe uma cópia de segurança interna
+  // (ver bloco PROTEÇÃO DE DADOS) — roda aqui e não só no enterApp() porque um DB vazio
+  // cai direto na tela de "primeiro acesso", que nunca chama enterApp().
+  try{ checarEspelhoNaAbertura(); }catch(e){}
   // Já existe senha criada → pede a senha antes de abrir (login normal).
   if(getAuth()){
     if(sessionStorage.getItem('unlocked')==='1'){ enterApp(); }
@@ -1527,6 +1653,9 @@ function enterApp(){
   try{ scheduleLocalCheck(); }catch(e){}
   try{ checarLembretesVisita(); }catch(e){}
   try{ checarRetornos(); }catch(e){}
+  try{ checarAvisoBackup(); }catch(e){}
+  try{ snapshotDiario(); }catch(e){}
+  try{ checarEspelhoNaAbertura(); }catch(e){}
   if(!window.__lembreteTimer){ window.__lembreteTimer=setInterval(()=>{ try{ checarLembretesVisita(); }catch(e){} }, 60000); }
   if(!localStorage.getItem('ad_tut_done')){
     setTimeout(()=>openTutorial(parseInt(localStorage.getItem('ad_tut_step')||'0')), 500);
@@ -1629,13 +1758,19 @@ function compromissosAviso(){
     .sort((x,y)=>x.d-y.d);
 }
 // Conta só o que exige atenção AGORA (vencido ou de hoje) — é o número do sino.
+function backupPendente(){
+  if(!temDadosParaBackup()) return false;
+  const d = diasDesdeBackup();
+  return d===null || d>=7;
+}
 function contarAvisosPendentes(){
-  return compromissosAviso().filter(({d})=>d<=0).length + ((typeof retornosVencidos==='function' && DB.settings && DB.settings.avisoHoje!==false) ? retornosVencidos().length : 0);
+  return compromissosAviso().filter(({d})=>d<=0).length + ((typeof retornosVencidos==='function' && DB.settings && DB.settings.avisoHoje!==false) ? retornosVencidos().length : 0) + (backupPendente()?1:0);
 }
 function abrirAvisos(){
   const itens = compromissosAviso();
   const rts = (typeof retornosVencidos==='function') ? retornosVencidos() : [];
-  if(!itens.length && !rts.length){
+  const bkPendente = backupPendente();
+  if(!itens.length && !rts.length && !bkPendente){
     showSheet('🔔 Avisos', `<div class="empty"><div class="big">${ic('calendar',40)}</div>Nenhum aviso no momento.<br><span style="font-size:12px">Compromissos vencidos, de hoje ou próximos aparecem aqui.</span></div>`,
       `<button class="btn gray" onclick="closeSheet()">Fechar</button><button class="btn" onclick="closeSheet();goTab('config')">Ajustar avisos</button>`);
     return;
@@ -1657,7 +1792,13 @@ function abrirAvisos(){
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span style="background:${r.data<hojeR?'var(--danger)':'var(--warning)'};color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:100px">RETORNO ${r.data<hojeR?'ATRASADO':'HOJE'}</span><span style="font-size:11px;color:var(--muted)">${fmtDataBR(r.data)}${r.hora?' · '+r.hora:''}</span></div>
       <div style="font-weight:800;font-size:14px;margin-top:6px">${esc(r.nome)}</div>
       <div style="font-size:11.5px;color:var(--muted);margin-top:2px">${esc(r.tipo||'')}${r.obs?' · '+esc(r.obs):''}</div></div>`).join('');
-  showSheet('🔔 Avisos', linhasRt + linhas, `<button class="btn gray" onclick="closeSheet()">Fechar</button><button class="btn" onclick="closeSheet();goTab('config')">Ajustar avisos</button>`);
+  const dBk = diasDesdeBackup();
+  const linhaBk = bkPendente ? `<div class="card" style="cursor:pointer;margin-bottom:10px;border-color:var(--danger)" onclick="closeSheet();exportarBackup()">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><span style="background:var(--danger);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:100px">BECAPE</span></div>
+      <div style="font-weight:800;font-size:14px;margin-top:6px">${dBk===null?'Você ainda não fez nenhum becape':'Último becape há '+dBk+' dia(s)'}</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:2px">Toque para exportar agora — leva poucos segundos.</div>
+    </div>` : '';
+  showSheet('🔔 Avisos', linhaBk + linhasRt + linhas, `<button class="btn gray" onclick="closeSheet()">Fechar</button><button class="btn" onclick="closeSheet();goTab('config')">Ajustar avisos</button>`);
 }
 // Notificação nativa do aparelho (só dispara se a permissão já foi concedida)
 function notify(title, body){
@@ -4479,14 +4620,20 @@ function renderConfig(){
       <button class="btn gray" style="margin-top:8px" onclick="window.open('https://wa.me/${PRO_WHATS}?text=' + encodeURIComponent('Oi! Preciso de ajuda com o AttimoDrive.'))">💬 Suporte e dúvidas (WhatsApp)</button>
     </div>
     <div class="stitle">Becape e proteção de dados</div>
-    <div class="card">
+    <div class="card"${backupPendente()?' style="border-color:var(--danger)"':''}>
       <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px">
         Seus dados ficam só neste aparelho. Faça o becape para não perder nada ao trocar de celular ou limpar o app.
-        ${(function(){ const d=diasDesdeBackup(); if(d==null) return '<br><b style="color:var(--danger)">Você ainda não fez nenhum becape.</b>'; return d>=7?`<br><b style="color:var(--danger)">Último becape há ${d} dia(s) — recomendo exportar de novo.</b>`:`<br>Último becape há ${d} dia(s).`; })()}
+        ${(function(){ const d=diasDesdeBackup(); const alt=alteracoesSemBackup(); const sufixo = alt ? ` · ${alt} alteraç${alt===1?'ão':'ões'} desde então` : ''; if(d==null) return '<br><b style="color:var(--danger)">Você ainda não fez nenhum becape.</b>'; return d>=7?`<br><b style="color:var(--danger)">Último becape há ${d} dia(s)${sufixo} — recomendo exportar de novo.</b>`:`<br>Último becape há ${d} dia(s)${sufixo}.`; })()}
       </div>
       <button class="btn" onclick="exportarBackup()">${ic('save',16)} Exportar backup</button>
       <button class="btn gray" style="margin-top:8px" onclick="var i=document.getElementById('impBackup'); if(i) i.click();">${ic('doc',16)} Importar backup</button>
       <input type="file" id="impBackup" accept="application/json,.json" style="display:none" onchange="importarBackup(this)">
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">${ic('shield',18)}<b style="font-size:12.5px">Proteção automática neste aparelho</b></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px">Além do becape que você exporta, o app guarda sozinho uma cópia de segurança e um ponto de restauração por dia (últimos 7). Não substitui o becape externo — some se você desinstalar o app — mas ajuda a desfazer uma perda rápida no dia a dia.</div>
+      <div id="snapListBox" style="font-size:12.5px;color:var(--muted)">Carregando pontos de restauração…</div>
+      <button class="btn gray" style="margin-top:10px" onclick="criarPontoAgora()">📸 Criar ponto agora</button>
     </div>
     <div class="stitle">Segurança e login</div>
     ${getAuth() ? `
@@ -4519,6 +4666,26 @@ function renderConfig(){
       App para vendedores de veículos autônomos — feirões, repasse e vendas diretas.
     </div>`;
   if(c.temFoto) idbGet(keyVendedorFoto()).then(d=>{ if(d){ const el=document.getElementById('cfgCorThumb'); if(el){ el.style.overflow='hidden'; el.innerHTML=`<img src="${d}" style="width:100%;height:100%;object-fit:cover">`; } } }).catch(()=>{});
+  listarSnapshots().then(snaps=>{
+    const box = document.getElementById('snapListBox'); if(!box) return;
+    if(!snaps.length){ box.textContent = 'Nenhum ponto ainda — o primeiro é criado automaticamente hoje.'; return; }
+    box.innerHTML = snaps.slice(0,7).map(k=>{
+      const s = String(k);
+      const auto = /^\d{4}-\d{2}-\d{2}$/.test(s); // ponto diário automático (chave = só a data)
+      let label;
+      if(auto){
+        label = '📅 '+fmtDataBR(s)+' <span style="color:var(--muted);font-weight:400">(automático)</span>';
+      } else {
+        const partes = s.split(' ');
+        const dt = new Date(parseInt(partes[1])||Date.now());
+        const hora = isNaN(dt.getTime()) ? '' : ' '+String(dt.getHours()).padStart(2,'0')+':'+String(dt.getMinutes()).padStart(2,'0');
+        label = '📸 '+fmtDataBR(partes[0])+hora+' <span style="color:var(--muted);font-weight:400">(manual)</span>';
+      }
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">
+        <span style="flex:1">${label}</span>
+        <button class="btn sm gray" onclick="restaurarPonto('${s.replace(/'/g,"\\'")}')">↩ Restaurar</button></div>`;
+    }).join('');
+  }).catch(()=>{ const box = document.getElementById('snapListBox'); if(box) box.textContent = 'Não foi possível carregar os pontos de restauração.'; });
   stopProCountdownTicker();
   if(isProReal()) startProCountdownTicker();
 }
