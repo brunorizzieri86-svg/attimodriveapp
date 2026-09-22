@@ -1,0 +1,17 @@
+{
+  "name": "AttimoDrive — Gestão & Aceleração Automotiva",
+  "short_name": "AttimoDrive",
+  "description": "App para vendedores de veículos autônomos — estoque, consignantes, propostas, feirões e financeiro, 100% offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F7FA",
+  "theme_color": "#10283F",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "icon192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon512_maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
