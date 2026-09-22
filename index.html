@@ -1089,7 +1089,12 @@ function checarAvisoBackup(){
 }
 
 /* ============ VERSÃO PRO (senha-contra-senha, vinculada ao aparelho) ============ */
-const PRO_WHATS = '5515998293087';
+// WhatsApp usado para assinar/renovar o plano Pro (número do Bruno, 22/09/2026).
+const PRO_WHATS = '5511953525141';
+// WhatsApp do botão "Suporte e dúvidas" em Ajustes: o número antigo era de outro
+// aplicativo (usado como base) e foi removido. Fica vazio/desabilitado até um
+// número de suporte correto ser cadastrado.
+const SUPPORT_WHATS = '';
 const PRO_PLANS = {1:'1 mês', 6:'6 meses', 12:'12 meses'};
 /* Preço promocional por tempo limitado — só o plano de 1 mês está à venda por enquanto. */
 const PRECOS_PRO = {1:'R$ 90,00', 6:'R$ 99,90', 12:'R$ 179,90'};
@@ -1142,7 +1147,7 @@ function maskProCode(el){
   el.value = out;
 }
 function copiarDevId(){ const d='AP-'+myDevId(); if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(d).then(function(){ toast('ID copiado!'); }).catch(function(){ toast(d); }); } else { toast(d); } }
-function abrirWhatsPro(){ const dev='AP-'+myDevId(); const msg='Oi! Quero assinar o aplicativo AttimoDrive Pro.\nMeu ID do aparelho é '+dev; window.open('https://wa.me/'+PRO_WHATS+'?text='+encodeURIComponent(msg),'_blank'); }
+function abrirWhatsPro(){ if(!PRO_WHATS){ toast('WhatsApp de assinatura indisponível no momento.'); return; } const dev='AP-'+myDevId(); const msg='Oi! Quero assinar o aplicativo AttimoDrive Pro.\nMeu ID do aparelho é '+dev; window.open('https://wa.me/'+PRO_WHATS+'?text='+encodeURIComponent(msg),'_blank'); }
 function openProModal(reason){
   const dev = 'AP-' + myDevId();
   showSheet('AttimoDrive Pro', `
@@ -1161,7 +1166,8 @@ function openProModal(reason){
       </div>
       <div style="font-size:11px;color:var(--muted);margin-top:6px">Seu código Pro é gerado para ESTE ID e só funciona neste aparelho.</div>
     </div>
-    <button class="btn" style="background:var(--gradient-whatsapp);margin-top:12px" onclick="abrirWhatsPro()">${ic('chat',16)} Assinar pelo WhatsApp</button>
+    <button class="btn" style="background:var(--gradient-whatsapp);margin-top:12px" ${PRO_WHATS?'onclick="abrirWhatsPro()"':'disabled'}>${ic('chat',16)} Assinar pelo WhatsApp</button>
+    ${PRO_WHATS?'':'<div style="font-size:11px;color:var(--muted);margin-top:4px">Temporariamente indisponível — use o código de ativação abaixo.</div>'}
     <label style="display:block;margin-top:14px;font-size:12px;font-weight:700;color:var(--muted)">Já tem um código? Digite aqui</label>
     <input id="proCode" placeholder="COR-XXXX-0000" autocapitalize="characters" style="text-transform:uppercase;letter-spacing:2px;text-align:center;font-weight:700" oninput="maskProCode(this)">
   `,
@@ -1949,10 +1955,10 @@ function abrirAvisoRenovacaoPro(dias){
   const lic = DB.license||{};
   showSheet('⏳ Seu plano Pro está acabando', `
     <div style="font-size:14px;line-height:1.7">Faltam <b>${dias} dia${dias===1?'':'s'}</b> para o fim do seu plano Pro${lic.expiresAt?` (válido até ${fmtDataBR(lic.expiresAt)})`:''}.</div>
-    <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Renove agora pelo WhatsApp para não perder o acesso aos recursos Pro.</div>
+    <div style="font-size:12.5px;color:var(--muted);margin-top:8px">${PRO_WHATS?'Renove agora pelo WhatsApp para não perder o acesso aos recursos Pro.':'Renovação pelo WhatsApp temporariamente indisponível — use o código de ativação em Ajustes → Plano.'}</div>
   `, `
     <button class="btn gray" onclick="fecharAvisoRenovacaoPro(${dias})">Deixe para depois</button>
-    <button class="btn" style="background:var(--gradient-whatsapp)" onclick="fecharAvisoRenovacaoPro(${dias});abrirWhatsPro()">${ic('chat',16)} Desejo renovar agora</button>
+    <button class="btn" style="background:var(--gradient-whatsapp)" ${PRO_WHATS?`onclick="fecharAvisoRenovacaoPro(${dias});abrirWhatsPro()"`:'disabled'}>${ic('chat',16)} Desejo renovar agora</button>
   `);
 }
 function fecharAvisoRenovacaoPro(dias){
@@ -4617,7 +4623,8 @@ function renderConfig(){
       <div style="font-size:11px;color:var(--muted);margin:6px 0 12px">Coloca o AttimoDrive como aplicativo de verdade: ícone próprio, tela cheia, sem barra do navegador.</div>
       <button class="btn gray" onclick="openTutorial(0)">📖 Ver tutorial do app</button>
       <button class="btn gray" style="margin-top:8px" onclick="showPermsOnboarding()">🔒 Sobre as permissões (câmera e avisos)</button>
-      <button class="btn gray" style="margin-top:8px" onclick="window.open('https://wa.me/${PRO_WHATS}?text=' + encodeURIComponent('Oi! Preciso de ajuda com o AttimoDrive.'))">💬 Suporte e dúvidas (WhatsApp)</button>
+      <button class="btn gray" style="margin-top:8px" ${SUPPORT_WHATS?`onclick="window.open('https://wa.me/${SUPPORT_WHATS}?text=' + encodeURIComponent('Oi! Preciso de ajuda com o AttimoDrive.'))"`:'disabled'}>💬 Suporte e dúvidas (WhatsApp)</button>
+      ${SUPPORT_WHATS?'':'<div style="font-size:11px;color:var(--muted);margin-top:4px">Temporariamente indisponível.</div>'}
     </div>
     <div class="stitle">Becape e proteção de dados</div>
     <div class="card"${backupPendente()?' style="border-color:var(--danger)"':''}>

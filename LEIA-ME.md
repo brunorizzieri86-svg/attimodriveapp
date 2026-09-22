@@ -114,6 +114,16 @@ Na ordem que você pediu (itens 1, 2, 3, 6 e 7 da análise do Cor Sync Imóveis 
 
 Testado com `node --check` e testes automatizados: retorno com telefone puxado sozinho, sino somando retornos vencidos, simulação (139.900 com 30% de entrada = 97.930 financiados, 48x de R$ 3.186,20 na PRICE), passagem para a ficha e recálculo da parcela ao mudar o prazo, catálogo em PDF, anexo e visualização de documento, e as mensagens (padrão e editada) saindo com os dados certos — sem erros de console.
 
+## 19ª rodada — número de WhatsApp errado (herdado de outro app) corrigido (22/09/2026)
+O número de WhatsApp `5515998293087` que estava fixo no código (constante `PRO_WHATS`) era de outro aplicativo seu, usado como base para montar o AttimoDrive, e nunca foi trocado. Ele estava sendo usado em **3 lugares**: no botão "💬 Suporte e dúvidas (WhatsApp)" em Ajustes, no botão "Assinar pelo WhatsApp" (tela do plano Pro) e no botão "Desejo renovar agora" (aviso de plano Pro acabando).
+
+- **Separei em duas constantes** no código, pra não misturar mais as duas coisas: `PRO_WHATS` (assinatura/renovação do plano Pro) e `SUPPORT_WHATS` (suporte e dúvidas em Ajustes).
+- **Suporte e dúvidas:** ficou **desabilitado por enquanto** (botão cinza, sem clique, com aviso "Temporariamente indisponível" embaixo) até você passar o número certo — nenhum vestígio do número antigo restou no `index.html`.
+- **Assinar/renovar o Pro pelo WhatsApp:** você passou o número certo para isso — `11 95352-5141` (seu). Os botões "Assinar pelo WhatsApp" e "Desejo renovar agora" voltaram a funcionar normalmente, agora apontando pro seu WhatsApp.
+- Conferido que o número antigo não aparece em mais nenhum lugar do `index.html` (só sobrou uma referência num arquivo de rascunho interno, `index_patched.html`, que **não faz parte do pacote entregue**).
+- `sw.js`: cache subiu de `v8` para `v9`.
+- Testado com Playwright: botão de Suporte com `disabled=true` e sem `onclick`; botões de Assinar e Renovar com `onclick` ativo apontando pro número novo; conferido visualmente nas 3 telas — sem erro de console.
+
 ## 18ª rodada — becape automático, aviso semanal e recuperação de dados (22/09/2026)
 Você mandou o `index.html` do VetFlowCare (outro app seu, de clínica veterinária) e pediu pra olhar as funções de becape dele — becape automático, aviso semanal etc. — e trazer o que fosse útil.
 

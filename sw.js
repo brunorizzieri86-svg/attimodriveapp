@@ -3,7 +3,7 @@
 // em segundo plano (stale-while-revalidate) para pegar novas versões sem
 // travar o uso offline. Nenhum dado do usuário passa por aqui — tudo fica
 // no localStorage/IndexedDB do aparelho.
-const CACHE_NAME = 'attimodrive-shell-v8';
+const CACHE_NAME = 'attimodrive-shell-v9';
 const APP_SHELL = [
   './index.html',
   './manifest.json',
