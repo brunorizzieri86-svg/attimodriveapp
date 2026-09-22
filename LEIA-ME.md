@@ -33,7 +33,7 @@ Depois de ver a tela de detalhe do veículo com vários botões de cor chapada (
 - Conferido visualmente com capturas de tela do app real rodando (Início, Estoque, detalhe do veículo, Agenda) antes desta entrega.
 
 ## Como visualizar
-A partir de agora, toda entrega inclui um `index.html` solto (fora do zip) para você conseguir abrir e conferir direto na conversa, sem precisar baixar e extrair nada. O zip completo (`CarroNaMao_App.zip`) continua sendo gerado com todos os arquivos do projeto (ícones, manifest, service worker) para quando você for instalar/publicar de verdade.
+A partir de agora, toda entrega inclui um `index.html` solto (fora do zip) para você conseguir abrir e conferir direto na conversa, sem precisar baixar e extrair nada. O zip completo (`AttimoDrive_App.zip`) continua sendo gerado com todos os arquivos do projeto (ícones, manifest, service worker) para quando você for instalar/publicar de verdade.
 
 ## Auditoria completa (16/09/2026) — o que foi testado e o que foi corrigido
 Rodei uma auditoria formal (metodologia AQC-TWA) na camada web/PWA do app — a única camada testável neste ambiente (sem APK/aparelho Android disponível aqui, essa parte fica para quando você gerar o pacote Android de verdade). Foram 17 casos de teste reais, cobrindo: cadastro/edição/exclusão de veículo com persistência confirmada após recarregar, cálculo de comissão do consignante, wizard de proposta completo (venda normal e com troca, testando os dois estados do botão "cadastrar veículo da troca automaticamente"), Agenda (test-drive e Feirão), Financeiro com extrato do veículo (saldo conferido), busca de montadora (aceita marca fora da lista), e checagem de erros de console em todas as telas visitadas.
@@ -113,6 +113,15 @@ Na ordem que você pediu (itens 1, 2, 3, 6 e 7 da análise do Cor Sync Imóveis 
 **7. Mensagens do WhatsApp editáveis.** Em **Ajustes › Mensagens do WhatsApp** você edita os textos de: confirmação de test-drive, retorno ao cliente, pós-feirão, atualização ao consignante, abertura do catálogo e envio de simulação. Os termos **{nome}**, **{veiculo}**, **{data}**, **{hora}** e **{vendedor}** são trocados sozinhos, e cada texto tem "voltar ao padrão". Os botões de WhatsApp da Agenda, dos leads de feirão, dos retornos e o novo "Avisar consignante" (no detalhe do veículo consignado) já abrem com a mensagem pronta — antes abriam a conversa em branco.
 
 Testado com `node --check` e testes automatizados: retorno com telefone puxado sozinho, sino somando retornos vencidos, simulação (139.900 com 30% de entrada = 97.930 financiados, 48x de R$ 3.186,20 na PRICE), passagem para a ficha e recálculo da parcela ao mudar o prazo, catálogo em PDF, anexo e visualização de documento, e as mensagens (padrão e editada) saindo com os dados certos — sem erros de console.
+
+## 12ª rodada — ícone só com texto na tela de acesso + símbolo branco no ícone do app (22/09/2026)
+Dois ajustes rápidos que você pediu:
+
+- **Tela de acesso:** tirei o símbolo (bússola+carro) do canto superior direito — ficou só o texto "AttimoDrive" (Attimo em branco, Drive em cobre), do jeito que você pediu.
+- **Ícone do aplicativo:** troquei o desenho de cobre para **branco** sobre o fundo azul-marinho, nos 4 arquivos (o que aparece na tela inicial do celular, o de 512px, a versão "maskable" e o favicon). Refeito com uma extração mais limpa do símbolo (sem o ruído que a compactação da imagem tinha deixado da primeira vez).
+
+**O que eu acho:** concordo com você — o branco chapado realmente se destaca mais e fica mais "ícone de app" (é o mesmo raciocínio de boa parte dos apps que você usa: Uber, Nubank, etc. usam símbolo sólido numa cor só sobre fundo de cor, não gradiente). O cobre com degradê é bonito em tamanho grande (na logo, na tela de splash, nos PDFs), mas em 48–64px ele perdia detalhe e ficava meio "sujo". Como sugestão: mantive o cobre nos lugares onde a logo aparece grande — a tela de splash e o canto da tela de acesso — porque lá o degradê ainda lê bem e dá aquele efeito mais premium; deixei só o ícone do app (a "vitrine" pequena, onde o contraste importa mais que o efeito) em branco chapado. Se preferir tudo com o mesmo padrão (por exemplo, o símbolo da splash também em branco), é só falar que eu ajusto.
+- Testado com `node --check` e Playwright (tela de acesso sem o símbolo, fluxo de criar conta) — sem erro de console.
 
 ## 11ª rodada — tela de splash refeita + marca d'água (22/09/2026)
 Você reparou que a tela de splash (a telinha rápida que aparece assim que o app abre, antes do login) estava feia — achei o motivo: um bug de CSS fazia o textinho "GESTÃO & ACELERAÇÃO AUTOMOTIVA" sair quase invisível (texto claro sobre fundo claro, sem contraste nenhum) dentro de uma pílula solta, e a logo ficava presa dentro de um cartão branco grande que não combinava com o fundo azul-marinho.
