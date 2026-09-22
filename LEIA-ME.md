@@ -114,6 +114,51 @@ Na ordem que você pediu (itens 1, 2, 3, 6 e 7 da análise do Cor Sync Imóveis 
 
 Testado com `node --check` e testes automatizados: retorno com telefone puxado sozinho, sino somando retornos vencidos, simulação (139.900 com 30% de entrada = 97.930 financiados, 48x de R$ 3.186,20 na PRICE), passagem para a ficha e recálculo da parcela ao mudar o prazo, catálogo em PDF, anexo e visualização de documento, e as mensagens (padrão e editada) saindo com os dados certos — sem erros de console.
 
+## 17ª rodada — ícone do app trocado pela arte nova, em alta qualidade (22/09/2026)
+Você mandou a logo nova (compasso+carro em relevo metálico cobre/bronze, com "AttimoDrive" embaixo) em duas prévias — uma sobre fundo preto, outra sobre fundo branco — e pediu pra usar **exatamente essa arte** no ícone do app quando instalado no celular.
+
+- **Arquivo já veio pronto para uso:** dessa vez a imagem enviada já é um PNG com fundo **transparente de verdade** (não uma foto com fundo preto/branco "pintado") — então não precisei recortar fundo feito nas rodadas 12–14; foi só compor a arte em cima do fundo branco do ícone, sem nenhum tratamento intermediário. Resultado: sem ruído, sem numerozinhos ilegíveis, sem ghost-ring — a mesma nitidez da arte que você mandou.
+- **Ícones regerados nos 4 arquivos:**
+  - `icon192.png` e `icon512.png` — arte completa (compasso+carro+"AttimoDrive") sobre fundo branco, preenchendo ~82% do quadrado.
+  - `icon512_maskable.png` — mesma arte, um pouco menor (~56%) para sobrar margem de segurança quando o Android recorta em círculo/cantos arredondados.
+  - `favicon.png` (64px, aba do navegador) — só o símbolo (compasso+carro), sem o texto "AttimoDrive", que fica ilegível nesse tamanho.
+- `sw.js`: cache subiu de `v6` para `v7`, para os aparelhos que já têm o app instalado buscarem o ícone novo.
+- Testado com Playwright (ícones carregando 200 OK, app abrindo sem erro de console).
+
+## 16ª rodada — ajuste da fonte do banner: itálica trocada por bold, sem serifa (22/09/2026)
+Você achou a fonte itálica/serifada da rodada anterior "afeminada" e pediu pra garantir que o texto fique branco de verdade.
+
+- **Fonte trocada:** saiu a Playfair Display (itálica, serifada) e entrou a própria Montserrat do app, só que no peso mais pesado (800/Extra Bold), reta (sem itálico) — visual mais forte e direto, sem o ar "delicado" de antes.
+- **Branco garantido:** `color:#ffffff` explícito e uma sombra em duas camadas (uma bem colada ao texto + outra mais espalhada) pra garantir que o branco não pareça "lavado" em cima de fotos claras ou escuras.
+- Removida a importação da fonte Playfair Display do `<head>` (não é mais usada em lugar nenhum do app).
+- Testado com `node --check` e Playwright — sem erro de console.
+
+## 15ª rodada — frase do banner da Início em fonte mais elegante e branca (22/09/2026)
+Você pediu pra deixar a frase "Pronto pra vender mais um hoje?" (que aparece no banner do carro, na tela Início) com uma fonte mais bonita e em branco, pra destacar mais.
+
+- **Fonte nova só pra essa frase:** adicionei a Playfair Display (itálica) — uma fonte serifada mais elegante, tipo "editorial/revista" — só para essa fraseinha de efeito; o resto do app continua na Montserrat de sempre, sem misturar fontes em excesso.
+- **Deixei bem branca e maior:** subiu de 13px pra 19px, com uma sombrinha suave atrás pra garantir contraste em cima de qualquer foto de fundo (a foto do banner muda dependendo da luz/cor do carro).
+- Testado com `node --check` e Playwright (tela Início carregando, sem erro de console). **Ajustada na rodada seguinte, ver 16ª — o Bruno achou a itálica "afeminada".**
+
+## 14ª rodada — corrigido o "ruído" no ícone (símbolo saiu desfigurado) (22/09/2026)
+Você viu o ícone da 13ª rodada de perto e reparou que o desenho saiu "desfigurado", com uma sujeira em volta do círculo da bússola — com razão, ficou ruim mesmo.
+
+- **Causa raiz:** não foi erro de conversão de formato (o arquivo já era PNG, sem compressão). O problema é que a arte original que você mandou (a folha com as 6 variantes da logo) tem, ao redor do círculo da bússola, uns numerozinhos/tracinhos de grau minúsculos — e na resolução em que essa arte foi gerada, esses numerozinhos já saem meio ilegíveis/borrados de propósito (é um detalhe decorativo bem miudinho, tipo os números de um relógio analógico visto de longe). Quando eu ampliei o símbolo pra caber no ícone de 512px, esse miudinho borrado virou a "sujeira" que você viu.
+- **Correção:** identifiquei e removi especificamente esses numerozinhos/marcas de grau (mantendo o anel externo "dentado", a agulha N-S, as pontas menores NE/SE/SW/NW, a letra "N" e o carro — tudo isso continua igual, só o miudinho ilegível saiu). Ícone ficou mais limpo e, na prática, mais parecido com um ícone de app de verdade (ícone pequeno não deveria ter texto ilegível mesmo).
+- Regerados os 4 arquivos de novo (`favicon.png`, `icon192.png`, `icon512.png`, `icon512_maskable.png`) e o `sw.js` (cache `v3`→`v4`).
+- Testado com `node --check` e Playwright — sem erro de console — e conferido por md5 que os arquivos batem entre a pasta de trabalho e a de entrega.
+
+## 13ª rodada — ícone do app: fundo branco + desenho e "AttimoDrive" em cobre (22/09/2026)
+Você viu o ícone branco-sobre-navy da rodada anterior instalado de verdade no celular e achou que ainda estava ruim, e mandou uma referência mostrando o que queria: fundo **branco**, o desenho do carro+bússola e o texto "AttimoDrive" os dois na cor **cobre**, junto dentro do próprio ícone.
+
+- **Ícone do app refeito do zero** nos 4 arquivos (`favicon.png`, `icon192.png`, `icon512.png`, `icon512_maskable.png`): fundo branco liso, símbolo (bússola+carro) extraído limpo em cobre/bronze com degradê, e o texto "AttimoDrive" desenhado abaixo do símbolo na mesma paleta cobre — igual à referência que você mandou.
+- **Extração do símbolo redobrada:** a mesma técnica de máscara por distância dupla da rodada 12 deixou uma linha finíssima meio acinzentada contornando o ícone (sobra do recorte do quadrado navy original, invisível sobre fundo navy mas visível sobre fundo branco). Troquei a lógica: em vez de só medir "está perto do branco ou do navy", passei a detectar especificamente pixels que ficam **na linha de mistura entre branco e navy** (a borda do quadrado antigo) e removê-los à parte — o resultado ficou limpo, sem nenhum contorno fantasma, mantendo os traços finos do desenho (agulha da bússola, ponteiros) intactos.
+- **Favicon (ícone da aba do navegador, 64px):** ficou só com o símbolo, sem o texto "AttimoDrive" — nesse tamanho minúsculo o texto vira uma mancha ilegível, então segui o mesmo critério já usado desde a 9ª rodada (o texto só entra nos tamanhos que o celular realmente mostra no ícone do app: 192px e 512px).
+- **Versão "maskable" (obrigatória pro Android)** com margem de segurança maior (o desenho+texto ocupam uma fatia menor do quadrado) pra garantir que o recorte circular/arredondado que alguns Android aplicam não corte o texto "Drive" na borda.
+- `sw.js`: cache do app (`CACHE_NAME`) subiu de `v2` para `v3` de novo, pra forçar celulares que já instalaram o app a baixar os ícones novos em vez de continuar mostrando os antigos do cache.
+- **Nada mudou na tela de acesso nem na splash** — esse pedido foi só sobre o ícone instalado na tela inicial do celular; a tela de acesso continua só com o texto "AttimoDrive" (da 12ª rodada) e a splash continua com a logo em cobre sobre navy (da 11ª rodada).
+- Testado com `node --check` e Playwright (fluxo completo, sem erro de console) e conferido que os 4 arquivos de ícone batem (md5) entre a pasta de trabalho e a pasta de entrega.
+
 ## 12ª rodada — ícone só com texto na tela de acesso + símbolo branco no ícone do app (22/09/2026)
 Dois ajustes rápidos que você pediu:
 
