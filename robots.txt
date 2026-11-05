@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://attimodrive.com.br/sitemap.xml
