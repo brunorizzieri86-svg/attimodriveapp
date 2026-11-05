@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.0.0.0</title>
+<title>MEU MECÂNICO · V1.0.2.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -191,6 +191,14 @@ label.chk input{margin:0}
 .sumcards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.sumcards>div{background:var(--bg-soft,#f3f5f8);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column}.sumcards span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}.sumcards b{font-size:17px}
 .planbox{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}.planhead{margin-bottom:8px;display:flex;gap:8px;align-items:baseline}
 .stepper .step span{margin-left:6px}
+.calgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.calwd{text-align:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;padding:4px 0}
+.calday{min-height:92px;border:1px solid var(--line);border-radius:10px;background:var(--card,#fff);padding:5px;text-align:left;display:flex;flex-direction:column;gap:2px;cursor:pointer;color:inherit;overflow:hidden}.calday:hover{border-color:var(--accent,#f26a1b)}.calday.out{opacity:.4}.calday.today .dn{background:var(--accent,#f26a1b);color:#fff}.calday.sel{outline:2px solid var(--accent,#f26a1b)}
+.calday .dn{font-weight:700;font-size:12px;width:22px;height:22px;display:grid;place-items:center;border-radius:50%}
+.ev{display:block;font-size:10.5px;line-height:1.3;padding:1px 5px;border-radius:5px;background:rgba(56,130,246,.15);color:#2456b3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ev.ok{background:rgba(46,157,91,.16);color:#1d7a43}.ev.run{background:rgba(242,106,27,.18);color:#b34a0c}.ev.os{background:rgba(120,120,140,.18);color:#444}.more{font-size:10px;color:var(--muted)}
+.calleg{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}.calleg i{display:inline-block;width:12px;height:12px;vertical-align:middle;margin-right:4px;padding:0}
+.wapp.os{background:rgba(120,120,140,.15)}
+@media(max-width:700px){.calday{min-height:58px;padding:3px}.ev{font-size:9px}.calday .ev:nth-of-type(n+3){display:none}}
+.grid .appt{flex-wrap:wrap;align-items:flex-start}.grid .appt .grow{flex:1 1 140px}.grid .appt .acts{width:100%}
 
 </style>
 </head>
@@ -200,13 +208,15 @@ label.chk input{margin:0}
 <aside class="sidebar">
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
-  <div class="side-footer">MEU MECÂNICO · V1.0.0.0<br>Dados guardados localmente neste computador.</div>
+  <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
+  <div class="side-footer">MEU MECÂNICO · V1.0.2.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
     <div class="top-title"><b id="topTitle">Minha Oficina</b><small id="topSub">Início</small></div>
     <button class="top-search" id="searchBtn" data-action="global-search" aria-label="Busca global"></button>
     <div class="top-actions">
+      <button class="btn accent sm hidden" id="installBtn" data-action="install-app" title="Instalar como aplicativo no Windows" style="white-space:nowrap">⬇ Instalar aplicativo</button>
       <button class="icon-btn" id="helpBtn" data-action="open-lessons" aria-label="Aulas práticas" title="Aulas práticas"><svg class="ico" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></button>
       <button class="icon-btn" id="bellBtn" data-action="show-attention" aria-label="Pendências"></button>
     </div>
@@ -226,7 +236,7 @@ label.chk input{margin:0}
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.0.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.0.2.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -1896,6 +1906,7 @@ reg({key:'suppliers',label:'Fornecedores',icon:'truck',group:'Cadastros',render:
 /* ============================================================
    AGENDA DA OFICINA
    ============================================================ */
+const wdNum=s=>parseISO(s).getDay();
 const APPT_ST={Agendado:['sent','Agendado'],Confirmado:['ok','Confirmado'],Chegou:['run','Chegou'],Concluído:['done','Concluído'],Faltou:['bad','Faltou'],Cancelado:['bad','Cancelado']};
 function apptForm(a={}){
  return `<div class="form-grid">
@@ -1945,18 +1956,45 @@ function apptCard(a){
  return `<div class="appt ${a.status==='Cancelado'||a.status==='Faltou'?'off':''}"><div class="atime">${esc(a.time)}<small>${a.duration||60} min</small></div><div class="grow"><b>${esc(c?c.name:'—')}</b> ${chip(a.status,APPT_ST)}<div class="small">${v?plateHTML(v)+' '+esc(vehLabel(v))+' · ':''}${esc(a.service||'')}</div><div class="tiny muted">${a.bayId?esc(state.bays.find(b=>b.id===a.bayId)?.name||'')+' · ':''}${a.mechId?esc(mechName(a.mechId)):''}</div></div>
  <div class="acts">${['Agendado','Confirmado'].includes(a.status)?`<button class="btn xs wa" data-action="appt-wa" data-id="${a.id}" title="Enviar confirmação por WhatsApp">${ICON.wa}</button><button class="btn xs" data-action="appt-status" data-id="${a.id}" data-st="Confirmado" title="Marcar confirmado">${ICON.check}</button><button class="btn xs accent" data-action="appt-checkin" data-id="${a.id}" title="Cliente chegou: abrir OS">Chegou</button>`:''}${a.orderId?`<button class="btn xs" data-route="orders" data-sub="view" data-id="${a.orderId}">OS</button>`:''}<button class="btn xs" data-action="edit-appt" data-id="${a.id}">${ICON.edit}</button></div></div>`;
 }
+
+const MONTHS_PT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+function dayEvents(d){
+ const ap=state.appointments.filter(a=>a.date===d&&!['Cancelado'].includes(a.status)).sort((a,b)=>a.time.localeCompare(b.time));
+ const os=state.orders.filter(o=>orderActive(o)&&o.promisedAt&&o.promisedAt.slice(0,10)===d);
+ return {ap,os};
+}
+A['appt-month']=el=>{const d=UI.f.agendaDate||todayISO();UI.f.agendaDate=addMonths(d.slice(0,8)+'01',Number(el.dataset.d));render()};
+H['appt-m']=el=>{const d=UI.f.agendaDate||todayISO();UI.f.agendaDate=d.slice(0,4)+'-'+String(Number(el.value)+1).padStart(2,'0')+'-01';render()};
+H['appt-y']=el=>{const d=UI.f.agendaDate||todayISO();UI.f.agendaDate=el.value+d.slice(4,8)+'01';render()};
+A['appt-pick']=el=>{UI.f.agendaDate=el.dataset.d;render()};
+A['appt-new-day']=()=>openAppt('',{date:UI.f.agendaDate||todayISO()});
+function monthGrid(d){
+ const y=Number(d.slice(0,4)),m=Number(d.slice(5,7));const first=`${y}-${String(m).padStart(2,'0')}-01`,lead=wdNum(first);
+ const start=addDays(first,-lead);const cells=[];
+ for(let i=0;i<42;i++){const dt=addDays(start,i);if(i>=35&&dt.slice(5,7)!==String(m).padStart(2,'0'))break;cells.push(dt)}
+ return `<div class="calgrid">${WSHORT.map(w=>`<div class="calwd">${w}</div>`).join('')}${cells.map(dt=>{
+  const out=dt.slice(5,7)!==String(m).padStart(2,'0'),ev=dayEvents(dt),n=ev.ap.length+ev.os.length;
+  return `<button class="calday ${out?'out':''} ${dt===todayISO()?'today':''} ${dt===d?'sel':''}" data-action="appt-pick" data-d="${dt}"><span class="dn">${Number(dt.slice(8))}</span>${ev.ap.slice(0,3).map(a=>`<span class="ev ${a.status==='Confirmado'?'ok':a.status==='Chegou'?'run':''}">${esc(a.time)} ${esc(firstName(custName(a.customerId)))}</span>`).join('')}${ev.os.slice(0,Math.max(0,3-ev.ap.length)).map(o=>`<span class="ev os">🔧 ${esc(o.code)}</span>`).join('')}${n>3?`<span class="more">+${n-3} mais</span>`:''}</button>`}).join('')}</div>`;
+}
 function renderAgenda(){
- const d=UI.f.agendaDate||todayISO(),f=tabOf('agenda','day');
- const day=state.appointments.filter(a=>a.date===d).sort((a,b)=>a.time.localeCompare(b.time));
+ const d=UI.f.agendaDate||todayISO(),f=tabOf('agenda','month'),y=Number(d.slice(0,4)),m=Number(d.slice(5,7));
+ const ev=dayEvents(d);
+ const dayList=`<div class="card"><div class="card-head"><h2>${WDAYS_FULL[wdNum(d)]}, ${brDate(d)}</h2>${btn('Agendar','appt-new-day',{cls:'accent sm',icon:'plus'})}</div>${ev.ap.length?ev.ap.map(apptCard).join(''):'<div class="muted small" style="padding:8px 0">Nenhum horário marcado neste dia.</div>'}${ev.os.length?`<h3 class="mt12">Entregas previstas</h3>${ev.os.map(o=>`<div class="row"><b>${esc(o.code)}</b><div class="grow small">${esc(custName(o.customerId))} · ${esc(vehLabel(o.vehicleId))}</div><button class="btn xs" data-route="orders" data-sub="view" data-id="${o.id}">Abrir</button></div>`).join('')}`:''}</div>`;
  let body;
  if(f==='week'){
-  const start=addDays(d,-weekday(d));body=`<div class="weekgrid">${[0,1,2,3,4,5,6].map(i=>{const dt=addDays(start,i),arr=state.appointments.filter(a=>a.date===dt).sort((x,y)=>x.time.localeCompare(y.time));return `<div class="wcol ${dt===todayISO()?'today':''}"><div class="whead">${WDAYS[i]} <b>${dt.slice(8)}</b></div>${arr.map(a=>`<div class="wapp" data-action="edit-appt" data-id="${a.id}"><b>${a.time}</b> ${esc(firstName(custName(a.customerId)))}<div class="tiny muted">${esc(a.service||'')}</div></div>`).join('')||'<div class="tiny muted">—</div>'}</div>`}).join('')}</div>`;
- }else body=day.length?`<div class="card">${day.map(apptCard).join('')}</div>`:`<div class="card">${empty('cal','Dia livre','Nenhum agendamento para '+brDate(d)+'.',btn('Agendar cliente','new-appt',{cls:'accent',icon:'plus'}))}</div>`;
+  const start=addDays(d,-wdNum(d));body=`<div class="weekgrid">${[0,1,2,3,4,5,6].map(i=>{const dt=addDays(start,i),e=dayEvents(dt);return `<div class="wcol ${dt===todayISO()?'today':''}"><div class="whead" data-action="appt-pick" data-d="${dt}" style="cursor:pointer">${WSHORT[i]} <b>${dt.slice(8)}</b></div>${e.ap.map(a=>`<div class="wapp" data-action="edit-appt" data-id="${a.id}"><b>${a.time}</b> ${esc(firstName(custName(a.customerId)))}<div class="tiny muted">${esc(a.service||'')}</div></div>`).join('')}${e.os.map(o=>`<div class="wapp os">🔧 ${esc(o.code)}</div>`).join('')}${!e.ap.length&&!e.os.length?'<div class="tiny muted">—</div>':''}</div>`}).join('')}</div>`;
+ }else if(f==='day')body=dayList;
+ else body=`<div class="grid g2-1"><div class="card">${monthGrid(d)}<div class="calleg tiny muted"><span><i class="ev"></i> Agendado</span><span><i class="ev ok"></i> Confirmado</span><span><i class="ev run"></i> Cliente chegou</span><span><i class="ev os"></i> Entrega prevista de OS</span></div></div>${dayList}</div>`;
  const upcoming=state.appointments.filter(a=>a.date>=todayISO()&&['Agendado','Confirmado'].includes(a.status)).length;
- return head('Agenda','Horários de clientes por dia e por box. Confirme pelo WhatsApp e dê entrada com um clique.',btn('Novo agendamento','new-appt',{cls:'accent',icon:'plus'}))
- +`<div class="toolbar"><button class="btn sm" data-action="appt-day" data-d="${f==='week'?-7:-1}">${ICON.chevl}</button><input type="date" value="${d}" data-ch="appt-date" style="width:auto"><button class="btn sm" data-action="appt-day" data-d="${f==='week'?7:1}" style="transform:scaleX(-1)">${ICON.chevl}</button><button class="btn sm" data-action="appt-day" data-d="today">Hoje</button><span class="muted small" style="margin-left:auto">${upcoming} agendamento(s) futuros</span></div>`
- +tabsHTML('agenda',[{k:'day',l:'Dia',n:day.length},{k:'week',l:'Semana'}],f)+body;
+ const yrs=[];for(let k=y-3;k<=y+3;k++)yrs.push(k);
+ const nav=f==='month'?`<button class="btn sm" data-action="appt-month" data-d="-1" title="Mês anterior">${ICON.chevl}</button><select data-ch="appt-m" style="width:auto" aria-label="Mês">${MONTHS_PT.map((n,i)=>`<option value="${i}" ${i===m-1?'selected':''}>${n}</option>`).join('')}</select><select data-ch="appt-y" style="width:auto" aria-label="Ano">${yrs.map(k=>`<option ${k===y?'selected':''}>${k}</option>`).join('')}</select><button class="btn sm" data-action="appt-month" data-d="1" title="Próximo mês" style="transform:scaleX(-1)">${ICON.chevl}</button>`
+  :`<button class="btn sm" data-action="appt-day" data-d="${f==='week'?-7:-1}">${ICON.chevl}</button><input type="date" value="${d}" data-ch="appt-date" style="width:auto"><button class="btn sm" data-action="appt-day" data-d="${f==='week'?7:1}" style="transform:scaleX(-1)">${ICON.chevl}</button>`;
+ return head('Agenda','Calendário da oficina: clique em um dia para ver os horários, agendar e confirmar pelo WhatsApp.',btn('Novo agendamento','new-appt',{cls:'accent',icon:'plus'}))
+ +`<div class="toolbar">${nav}<button class="btn sm" data-action="appt-day" data-d="today">Hoje</button><span class="muted small" style="margin-left:auto">${upcoming} agendamento(s) futuros</span></div>`
+ +tabsHTML('agenda',[{k:'month',l:'Mês'},{k:'week',l:'Semana'},{k:'day',l:'Dia'}],f)+body;
 }
+const WSHORT=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const WDAYS_FULL=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
 reg({key:'agenda',label:'Agenda',icon:'cal',group:'Atendimento',render:renderAgenda,badge:()=>state.appointments.filter(a=>a.date===todayISO()&&['Agendado','Confirmado'].includes(a.status)).length});
 
 /* ============================================================
@@ -2402,6 +2440,21 @@ A['tour-end']=()=>{TOUR=null;$$('.tour-hl').forEach(x=>x.classList.remove('tour-
   document.body.innerHTML='<div style="padding:40px;font-family:system-ui;max-width:560px;margin:auto"><h2>Não foi possível abrir o sistema</h2><p>Recarregue a página. Se o problema continuar, avise o suporte.</p></div>';
  }
 })();
+
+/* ---------- instalar como aplicativo (PWA) ---------- */
+let deferredInstall=null;
+const isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+function refreshInstallBtn(){
+ const show=!isStandalone();
+ ['installBtn','installBtn2'].forEach(id=>{const b=document.getElementById(id);if(b)b.classList.toggle('hidden',!show)});
+}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;refreshInstallBtn()});
+window.addEventListener('appinstalled',()=>{deferredInstall=null;refreshInstallBtn();toast('Aplicativo instalado! Procure “Meu Mecânico” no menu Iniciar ou na área de trabalho.','ok')});
+A['install-app']=async()=>{
+ if(deferredInstall){deferredInstall.prompt();const r=await deferredInstall.userChoice;deferredInstall=null;if(r.outcome==='accepted')toast('Instalando…','ok');refreshInstallBtn();return}
+ showModal('Instalar como aplicativo',`<p>Para usar o sistema como um programa do Windows (com ícone próprio, sem barra do navegador):</p><ol style="line-height:1.9"><li>No <b>Chrome</b> ou <b>Edge</b>, clique no ícone de instalar <b>⊕ / 🖥</b> no final da barra de endereço, ou</li><li>Menu <b>⋮</b> → <b>Salvar e compartilhar</b> → <b>Instalar página como app</b> (Edge: <b>Aplicativos → Instalar este site como um aplicativo</b>).</li><li>Confirme em <b>Instalar</b>.</li></ol><p class="muted small">O aplicativo funciona sem internet e seus dados continuam guardados neste computador.</p>`,`<button class="btn primary" data-action="close-modal">Entendi</button>`,'sm');
+};
+refreshInstallBtn();
 
 </script>
 </body>
