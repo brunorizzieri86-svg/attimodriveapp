@@ -1,44 +1,10 @@
-// AttimoDrive — Service Worker (offline-first shell cache)
-// Estratégia simples: cache-first para os arquivos do app, com atualização
-// em segundo plano (stale-while-revalidate) para pegar novas versões sem
-// travar o uso offline. Nenhum dado do usuário passa por aqui — tudo fica
-// no localStorage/IndexedDB do aparelho.
-const CACHE_NAME = 'attimodrive-shell-v9';
-const APP_SHELL = [
-  './index.html',
-  './manifest.json',
-  './icon192.png',
-  './icon512.png',
-  './icon512_maskable.png'
-];
-
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).catch(() => {})
-  );
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const fetchPromise = fetch(event.request).then((networkResp) => {
-        if (networkResp && networkResp.ok) {
-          const copy = networkResp.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {});
-        }
-        return networkResp;
-      }).catch(() => cached);
-      return cached || fetchPromise;
-    })
-  );
+const CACHE='meumecanico-v1000';
+const ASSETS=['./','./index.html','./manifest.json','./manual.html','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png','./icons/icon-180.png','./icons/favicon-64.png'];
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}))});
+self.addEventListener('activate',e=>{e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('meumecanico-')&&k!==CACHE).map(k=>caches.delete(k))))]))});
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  const isNav=e.request.mode==='navigate'||new URL(e.request.url).pathname.endsWith('/index.html');
+  if(isNav){e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(CACHE).then(c=>c.put('./index.html',cp)).catch(()=>{});return r}).catch(()=>caches.match('./index.html').then(r=>r||caches.match('./'))));return}
+  e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{const cp=r.clone();caches.open(CACHE).then(x=>x.put(e.request,cp)).catch(()=>{});return r})));
 });
