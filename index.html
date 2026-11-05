@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.0.2.0</title>
+<title>MEU MECÂNICO · V1.2.0.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -199,6 +199,19 @@ label.chk input{margin:0}
 .wapp.os{background:rgba(120,120,140,.15)}
 @media(max-width:700px){.calday{min-height:58px;padding:3px}.ev{font-size:9px}.calday .ev:nth-of-type(n+3){display:none}}
 .grid .appt{flex-wrap:wrap;align-items:flex-start}.grid .appt .grow{flex:1 1 140px}.grid .appt .acts{width:100%}
+body.locked .app-shell{filter:blur(14px);pointer-events:none}
+.lockbox{max-height:94vh;overflow:auto;width:min(400px,94vw);text-align:left}.lockbox h1{font-size:20px;text-align:center;margin:4px 0}.lockbox p{text-align:center;color:#aab4c2;font-size:14px;margin:0}
+.lockbox .lk{display:grid;gap:4px;font-size:12px;color:#aab4c2;font-weight:600}.lockbox input{text-align:left;letter-spacing:normal;font-size:16px;width:100%}.lockbox .pw{position:relative;display:block}.lockbox .pw input{padding-right:42px}.lockbox .eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;font-size:16px;opacity:.7}
+.lockbox .btn{width:100%;justify-content:center}.lockbox .btn.link{background:none;border:0;color:#aab4c2;text-decoration:underline}.lockbox .brandmark{margin:0 auto}
+.reccode{font-family:ui-monospace,Consolas,monospace;font-size:26px;font-weight:800;letter-spacing:3px;text-align:center;background:#0e131a;border:2px dashed var(--accent,#f26a1b);border-radius:12px;padding:16px;margin:10px 0;color:#fff}
+.lockbox .btn.primary{background:var(--accent,#f26a1b);border-color:var(--accent,#f26a1b);color:#fff}.lockbox .btn:not(.primary):not(.link){background:#232c38;color:#fff;border-color:#313c4b}
+
+/* demonstração e relatórios */
+.demo-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff3cd;border:1px solid #f0c24b;color:#5b4300;border-radius:10px;padding:10px 14px;margin-bottom:14px}.demo-banner small{display:block;font-weight:400;opacity:.85}
+.demo-nav{margin-top:6px;border:1px dashed var(--line,#cbd2db)}
+.wa-prev{background:#dcf8c6;border-radius:10px;padding:12px 14px;white-space:normal;line-height:1.5;color:#1d232b}
+.rep-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}.rep-bar label{display:flex;flex-direction:column;font-size:12px;gap:3px;font-weight:600}.rep-bar select,.rep-bar input{padding:7px 9px;border:1px solid #cbd2db;border-radius:8px;font:inherit}
+.rep-card p{min-height:38px}.grp-title{margin:20px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted,#6a7584)}
 
 </style>
 </head>
@@ -209,7 +222,7 @@ label.chk input{margin:0}
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.0.2.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.2.0.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -236,7 +249,7 @@ label.chk input{margin:0}
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.0.2.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.2.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -370,6 +383,7 @@ async function loadState(){
 }
 function persist(opts={}){
  persistQ=persistQ.then(async()=>{
+  if(window.__DEMO)return;
   if(window.__LOCKDOWN)throw new Error('Operação bloqueada.');
   state.updatedAt=iso();
   if(!db){if(memoryMode)return;throw new Error('Banco local indisponível.')}
@@ -388,7 +402,7 @@ function showConflict(){if($('#conflictBar'))return;document.body.insertAdjacent
 /* pontos de restauração automáticos: 7 diários, 4 semanais, 6 mensais, 5 de segurança */
 function weekKey(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+'-W'+pad(Math.ceil(((t-y0)/864e5+1)/7))}
 async function maybeSnapshot(force=''){
- if(!db)return;const now=new Date(),per={daily:todayISO(),weekly:weekKey(now),monthly:todayISO().slice(0,7)};
+ if(!db||window.__DEMO)return;const now=new Date(),per={daily:todayISO(),weekly:weekKey(now),monthly:todayISO().slice(0,7)};
  const keep={daily:7,weekly:4,monthly:6,safety:5,manual:5};
  const all=await idbAll('snapshots');const types=force?[force]:Object.keys(per).filter(t=>!all.some(s=>s.type===t&&s.period===per[t]));
  for(const t of types){const id=t+'_'+(per[t]||Date.now());const snap={id:t==='safety'||t==='manual'?t+'_'+Date.now():id,type:t,period:per[t]||'',at:iso(),label:force&&state.__snapLabel||'',checksum:checksum(state),data:clone(state)};await idbSet('snapshots',snap.id,snap)}
@@ -533,6 +547,7 @@ function hbars(rows,o={}){const max=Math.max(1,...rows.map(r=>r.value));return r
 /* ---------- WhatsApp ---------- */
 const waURL=(phone,text)=>`https://wa.me/${waNumber(phone)}?text=${encodeURIComponent(text||'')}`;
 function openWA(phone,text){
+ if(window.__DEMO)return showModal('Pré-visualização do WhatsApp (demonstração)',`<p class="muted small">Na demonstração nada é enviado. Assim a mensagem seguiria para <b>${esc(fmtPhone(phone||''))||'o cliente'}</b>:</p><div class="wa-prev">${esc(text||'(mensagem em branco)').replace(/\n/g,'<br>')}</div>`,`<button class="btn" data-action="close-modal">Fechar</button>`,'sm');
  const u=waURL(phone,text);const w=window.open(u,'_blank','noopener');
  if(!w)showModal('Abrir WhatsApp',`<p>O navegador bloqueou a abertura automática. Use o botão abaixo:</p><p><a class="btn wa" href="${esc(u)}" target="_blank" rel="noopener">${ICON.wa}Abrir WhatsApp</a></p>`,`<button class="btn" data-action="close-modal">Fechar</button>`,'sm');
 }
@@ -593,7 +608,7 @@ function render(){
  let m=modOf(R.name);if(!m){R={name:'home',sub:'',id:''};m=modOf('home')}
  const v=$('#view');let html;
  try{html=m.render(R)}catch(err){console.error(err);html=`<div class="card"><h2>Não foi possível abrir esta tela</h2><p class="muted">${esc(err.message)}</p><p><button class="btn primary" data-route="home">Voltar ao início</button></p></div>`}
- v.innerHTML=html;
+ v.innerHTML=(typeof demoBanner==='function'?demoBanner():'')+html;
  $$('#sideNav [data-route],#mobileNav [data-route]').forEach(b=>b.classList.toggle('on',b.dataset.route===R.name||(R.name!=='home'&&b.dataset.route==='more'&&!['orders','customers','agenda','home'].includes(R.name))));
  const top=$('#topTitle');if(top){top.textContent=state.shop.name||APP.name;$('#topSub').textContent=m.label}
  document.title=`${m.label} · ${state.shop.name||APP.name}`;
@@ -934,7 +949,7 @@ function custList(){
  if(f==='nocar')rows=rows.filter(c=>!custVehicles(c.id).length);
  rows.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
  const pg=paginate('customers',rows,40);
- if(!rows.length)return state.customers.length?empty('users','Nenhum cliente encontrado','Tente outro nome, telefone ou placa.'):empty('users','Nenhum cliente cadastrado','Cadastre o primeiro cliente para começar a gerar orçamentos e ordens de serviço.',btn('Cadastrar cliente','new-customer',{cls:'accent',icon:'plus'})+' '+btn('Importar contatos','import-contacts',{icon:'upload'}));
+ if(!rows.length)return state.customers.length?empty('users','Nenhum cliente encontrado','Tente outro nome, telefone ou placa.'):empty('users','Nenhum cliente cadastrado','Cadastre o primeiro cliente para começar a gerar orçamentos e ordens de serviço.',btn('Cadastrar cliente','new-customer',{cls:'accent',icon:'plus'})+' '+reportBtn('customers','Relatório')+btn('Importar contatos','import-contacts',{icon:'upload'}));
  return `<div class="table-wrap"><table class="table"><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Veículos</th><th class="num">OS</th><th class="num">Total pago</th><th class="num">Em aberto</th><th>Última visita</th></tr></thead><tbody>${pg.rows.map(custCard).join('')}</tbody></table></div>${pg.html}`;
 }
 function renderCustomers(r){
@@ -1215,8 +1230,8 @@ A['del-kit']=el=>{const k=getKitById(el.dataset.id);confirmBox('Excluir pacote?'
 function renderServices(){
  const f=tabOf('services','active');
  const tabs=[{k:'active',l:'Serviços ativos'},{k:'all',l:'Todos'},{k:'kits',l:'Pacotes',n:state.kits.length}];
- if(f==='kits')return head('Serviços e pacotes','Pacotes agrupam serviços e peças que saem juntos.',btn('Novo pacote','new-kit',{cls:'accent',icon:'plus'}))+tabsHTML('services',tabs,f)+`<div class="card">${kitList()}</div>`;
- return head('Catálogo de serviços','Os serviços que sua oficina executa, com preço, tempo, garantia e intervalo de revisão. Os valores iniciais são apenas exemplos: ajuste aos seus preços.',btn('Reajustar valores','svc-adjust',{icon:'percent'})+btn('Novo serviço','new-service',{cls:'accent',icon:'plus'}))
+ if(f==='kits')return head('Serviços e pacotes','Pacotes agrupam serviços e peças que saem juntos.',reportBtn('prices','Tabela de preços')+btn('Novo pacote','new-kit',{cls:'accent',icon:'plus'}))+tabsHTML('services',tabs,f)+`<div class="card">${kitList()}</div>`;
+ return head('Catálogo de serviços','Os serviços que sua oficina executa, com preço, tempo, garantia e intervalo de revisão. Os valores iniciais são apenas exemplos: ajuste aos seus preços.',reportBtn('prices','Tabela de preços')+btn('Reajustar valores','svc-adjust',{icon:'percent'})+btn('Novo serviço','new-service',{cls:'accent',icon:'plus'}))
   +tabsHTML('services',tabs,f)+searchBar('services','Buscar serviço',`<select data-ch="svc-cat" style="width:auto;min-width:190px"><option value="">Todas as categorias</option>${optHTML(state.lists.serviceCats,UI.f.svcCat)}</select>`)+liveList('services',svcList);
 }
 reg({key:'services',label:'Serviços',icon:'tool',group:'Cadastros',render:renderServices});
@@ -1454,7 +1469,7 @@ function quoteList(){
  let rows=state.quotes.filter(x=>matchQ(q,x.code,custName(x.customerId),getVehicle(x.vehicleId)?.plate));
  if(f==='open')rows=rows.filter(x=>['Rascunho','Enviado'].includes(x.status));else if(f==='ok')rows=rows.filter(x=>['Aprovado','Convertido'].includes(x.status));else if(f==='lost')rows=rows.filter(x=>x.status==='Recusado'||quoteStatus(x)==='Expirado');
  rows.sort((a,b)=>String(b.date).localeCompare(String(a.date))||b.code.localeCompare(a.code));const pg=paginate('quotes',rows,40);
- if(!rows.length)return empty('file','Nenhum orçamento aqui','Crie um orçamento, envie pelo WhatsApp e acompanhe a resposta do cliente.',btn('Novo orçamento','new-quote',{cls:'accent',icon:'plus'}));
+ if(!rows.length)return empty('file','Nenhum orçamento aqui','Crie um orçamento, envie pelo WhatsApp e acompanhe a resposta do cliente.',reportBtn('quotes','Relatório')+btn('Novo orçamento','new-quote',{cls:'accent',icon:'plus'}));
  return table([{h:'Código',f:x=>`<b>${esc(x.code)}</b>`},{h:'Data',f:x=>brDate(x.date)},{h:'Cliente',f:x=>esc(custName(x.customerId))},{h:'Veículo',f:x=>x.vehicleId?plateHTML(x.vehicleId)+' '+esc(vehLabel(x.vehicleId)):'—'},{h:'Situação',f:x=>quoteChip(x)},{h:'Total',cls:'num',f:x=>`<b>${money(docTotals(x).total)}</b>`},{h:'',cls:'num',f:x=>`<button class="btn wa xs" data-action="send-quote-wa" data-id="${x.id}" title="Enviar por WhatsApp">${ICON.wa}</button>`}],pg.rows,{click:x=>`data-route="quotes" data-sub="view" data-id="${x.id}"`})+pg.html;
 }
 function renderQuotes(r){
@@ -1766,7 +1781,7 @@ function renderOrders(r){
  const f=tabOf('orders','board');
  const act=state.orders.filter(orderActive).length,ready=state.orders.filter(o=>o.status==='Pronta').length,toPay=sum(state.orders.filter(o=>o.status!=='Cancelada'),o=>orderPay(o).balance);
  const tabs=[{k:'board',l:'Quadro'},{k:'active',l:'Em andamento',n:act},{k:'ready',l:'Prontas',n:ready},{k:'pay',l:'A receber'},{k:'done',l:'Entregues'},{k:'all',l:'Todas'}];
- return head('Ordens de serviço','Acompanhe cada veículo da entrada até a entrega. Arraste os cartões entre as colunas para mudar a situação.',btn('Exportar','export-orders',{icon:'download'})+btn('Nova OS','new-order',{cls:'accent',icon:'plus'}))
+ return head('Ordens de serviço','Acompanhe cada veículo da entrada até a entrega. Arraste os cartões entre as colunas para mudar a situação.',reportBtn('orders','Relatório')+btn('Exportar','export-orders',{icon:'download'})+btn('Nova OS','new-order',{cls:'accent',icon:'plus'}))
  +`<div class="grid g3" style="margin-bottom:14px">${kpi('Na oficina agora',act,'veículos em atendimento',{k:'k-blue',icon:'car'})}${kpi('Prontas para retirar',ready,'avise o cliente',{k:'k-green',icon:'check'})}${kpi('A receber',money(toPay),'saldo das OS',{k:'k-warn',icon:'wallet'})}</div>`
  +tabsHTML('orders',tabs,f)+searchBar('orders','Buscar por OS, cliente ou placa')+(f==='board'?`<div id="list-orders">${kanbanHTML()}</div>`:liveList('orders',orderListHTML));
 }
@@ -1845,7 +1860,7 @@ function renderParts(){
  const f=tabOf('parts','all'),low=state.parts.filter(partLow).length;
  const val=sum(state.parts.filter(p=>p.active!==false),p=>Math.round(p.qty*p.cost));
  const tabs=[{k:'all',l:'Peças ativas'},{k:'low',l:'Abaixo do mínimo',n:low},{k:'moves',l:'Movimentações'},{k:'inactive',l:'Inativas'}];
- return head('Peças e estoque','Controle de quantidade, custo e margem. As peças usadas nas OS saem do estoque automaticamente.',btn('Lista de compras','restock-list',{icon:'box'})+btn('Exportar','export-parts',{icon:'download'})+btn('Nova peça','new-part',{cls:'accent',icon:'plus'}))
+ return head('Peças e estoque','Controle de quantidade, custo e margem. As peças usadas nas OS saem do estoque automaticamente.',reportBtn('stock','Relatório de estoque')+btn('Lista de compras','restock-list',{icon:'box'})+btn('Exportar','export-parts',{icon:'download'})+btn('Nova peça','new-part',{cls:'accent',icon:'plus'}))
  +`<div class="grid g3" style="margin-bottom:14px">${kpi('Itens cadastrados',state.parts.filter(p=>p.active!==false).length,'peças ativas',{icon:'box'})}${kpi('Valor em estoque',money(val),'a preço de custo',{k:'k-green',icon:'wallet'})}${kpi('Abaixo do mínimo',low,'repor',{k:low?'k-red':'',icon:'alert',action:'restock-list'})}</div>`
  +tabsHTML('parts',tabs,f)+(f==='moves'?`<div class="card">${movesList()}</div>`:searchBar('parts','Buscar peça, código, marca ou aplicação',`<select data-ch="part-cat" style="width:auto;min-width:180px"><option value="">Todas as categorias</option>${optHTML(state.lists.partCats,UI.f.partCat)}</select>`)+liveList('parts',partsList));
 }
@@ -1989,7 +2004,7 @@ function renderAgenda(){
  const yrs=[];for(let k=y-3;k<=y+3;k++)yrs.push(k);
  const nav=f==='month'?`<button class="btn sm" data-action="appt-month" data-d="-1" title="Mês anterior">${ICON.chevl}</button><select data-ch="appt-m" style="width:auto" aria-label="Mês">${MONTHS_PT.map((n,i)=>`<option value="${i}" ${i===m-1?'selected':''}>${n}</option>`).join('')}</select><select data-ch="appt-y" style="width:auto" aria-label="Ano">${yrs.map(k=>`<option ${k===y?'selected':''}>${k}</option>`).join('')}</select><button class="btn sm" data-action="appt-month" data-d="1" title="Próximo mês" style="transform:scaleX(-1)">${ICON.chevl}</button>`
   :`<button class="btn sm" data-action="appt-day" data-d="${f==='week'?-7:-1}">${ICON.chevl}</button><input type="date" value="${d}" data-ch="appt-date" style="width:auto"><button class="btn sm" data-action="appt-day" data-d="${f==='week'?7:1}" style="transform:scaleX(-1)">${ICON.chevl}</button>`;
- return head('Agenda','Calendário da oficina: clique em um dia para ver os horários, agendar e confirmar pelo WhatsApp.',btn('Novo agendamento','new-appt',{cls:'accent',icon:'plus'}))
+ return head('Agenda','Calendário da oficina: clique em um dia para ver os horários, agendar e confirmar pelo WhatsApp.',reportBtn('agenda','Relatório')+btn('Novo agendamento','new-appt',{cls:'accent',icon:'plus'}))
  +`<div class="toolbar">${nav}<button class="btn sm" data-action="appt-day" data-d="today">Hoje</button><span class="muted small" style="margin-left:auto">${upcoming} agendamento(s) futuros</span></div>`
  +tabsHTML('agenda',[{k:'month',l:'Mês'},{k:'week',l:'Semana'},{k:'day',l:'Dia'}],f)+body;
 }
@@ -2067,7 +2082,7 @@ function txRows(filter){
 function txTable(rows,opt={}){
  rows.sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date)*(opt.desc?-1:1));const pg=paginate('fin-'+(opt.key||'x'),rows,40);
  if(!rows.length)return empty('wallet','Nada por aqui','');
- return table([{h:'Vencimento',f:t=>brDate(t.dueDate||t.date)},{h:'Descrição',f:t=>`<b>${esc(t.desc)}</b><div class="tiny muted">${esc(t.category||'')}${t.customerId?' · '+esc(custName(t.customerId)):''}${t.supplierId?' · '+esc(getSupplier(t.supplierId)?.name||''):''}</div>`},{h:'Conta',f:t=>esc(getAccount(t.accountId)?.name||'')},{h:'Valor',cls:'num',f:t=>`<b style="color:${t.type==='Receita'?'var(--green)':'var(--red)'}">${t.type==='Receita'?'':'− '}${money(t.value)}</b>`},{h:'Situação',f:t=>txChip(t)},{h:'',cls:'num',f:t=>`${t.status==='Pendente'?`<button class="btn xs accent" data-action="tx-receive" data-id="${t.id}">${t.type==='Receita'?'Receber':'Pagar'}</button> ${t.type==='Receita'&&t.customerId?`<button class="btn xs wa" data-action="tx-wa" data-id="${t.id}">${ICON.wa}</button> `:''}`:''}<button class="btn xs" data-action="edit-tx" data-id="${t.id}">${ICON.edit}</button>`}],pg.rows)+pg.html;
+ return table([{h:'Vencimento',f:t=>brDate(t.dueDate||t.date)},{h:'Descrição',f:t=>`<b>${esc(t.desc)}</b><div class="tiny muted">${esc(t.category||'')}${t.customerId?' · '+esc(custName(t.customerId)):''}${t.supplierId?' · '+esc(getSupplier(t.supplierId)?.name||''):''}</div>`},{h:'Conta',f:t=>esc(getAccount(t.accountId)?.name||'')},{h:'Valor',cls:'num',f:t=>`<b style="color:${t.type==='Receita'?'var(--green)':'var(--red)'}">${t.type==='Receita'?'':'− '}${money(t.value)}</b>`},{h:'Situação',f:t=>txChip(t)},{h:'',cls:'num',f:t=>`${t.status==='Pendente'?`<button class="btn xs accent" data-action="tx-receive" data-id="${t.id}">${t.type==='Receita'?'Receber':'Pagar'}</button> ${t.type==='Receita'&&t.customerId?`<button class="btn xs wa" data-action="tx-wa" data-id="${t.id}">${ICON.wa}</button> `:''}`:''}${t.type==='Receita'&&isDone(t)?`<button class="btn xs" data-action="tx-receipt" data-id="${t.id}" title="Recibo">${ICON.print}</button> `:''}<button class="btn xs" data-action="edit-tx" data-id="${t.id}">${ICON.edit}</button>`}],pg.rows)+pg.html;
 }
 function monthSeries(n=6){
  const out=[];let m=monthKey(todayISO());
@@ -2098,12 +2113,12 @@ function renderFinance(){
   body=`<div class="grid g4" style="margin-bottom:14px">${kpi('Saldo em caixa',money(cash),'todas as contas',{k:'k-green',icon:'wallet'})}${kpi('A receber',money(sum(rec,t=>t.value)),late?money(late)+' em atraso':'em dia',{k:late?'k-red':'k-blue',icon:'clock'})}${kpi('A pagar',money(sum(pay,t=>t.value)),pay.filter(t=>(t.dueDate||t.date)<today).length+' vencida(s)',{k:'k-warn',icon:'alert'})}${kpi('Este mês',money(ms[ms.length-1].rec-ms[ms.length-1].des),'entradas − saídas',{icon:'chart'})}</div>
   <div class="card"><h2>Últimos 6 meses</h2>${barChart(ms.map(m=>m.label),[{name:'Entradas',color:'#2e9d5b',values:ms.map(m=>m.rec)},{name:'Saídas',color:'#e0645f',values:ms.map(m=>m.des)}],{label:'Entradas e saídas por mês'})}</div>
   <div class="card"><h2>Próximos vencimentos</h2>${txTable([...pend].sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date)).slice(0,8),{key:'next'})}</div>`;
- }else if(f==='rec')body=searchBar('finance','Buscar cobrança ou cliente')+`<div class="card">${txTable(txRows(t=>t.type==='Receita'&&t.status==='Pendente'),{key:'rec'})}</div>`;
- else if(f==='pay')body=searchBar('finance','Buscar despesa')+`<div class="card">${txTable(txRows(t=>t.type==='Despesa'&&t.status==='Pendente'),{key:'pay'})}</div>`;
+ }else if(f==='rec')body=`<p>${reportBtn('receivable','Relatório: contas a receber')}</p>`+searchBar('finance','Buscar cobrança ou cliente')+`<div class="card">${txTable(txRows(t=>t.type==='Receita'&&t.status==='Pendente'),{key:'rec'})}</div>`;
+ else if(f==='pay')body=`<p>${reportBtn('payable','Relatório: contas a pagar')}</p>`+searchBar('finance','Buscar despesa')+`<div class="card">${txTable(txRows(t=>t.type==='Despesa'&&t.status==='Pendente'),{key:'pay'})}</div>`;
  else if(f==='all')body=searchBar('finance','Buscar lançamento')+`<div class="card">${txTable(txRows(()=>true),{key:'all',desc:true})}</div>`;
  else if(f==='acc')body=`<div class="grid g3">${state.accounts.map(a=>`<div class="card"><div class="card-head"><h3>${esc(a.name)}</h3><button class="btn xs" data-action="edit-acc" data-id="${a.id}">${ICON.edit}</button></div><div class="muted small">${esc(a.type)}${a.active===false?' · inativa':''}</div><div style="font-size:24px;font-weight:800;margin-top:6px">${money(accBalance(a))}</div></div>`).join('')}</div><div class="mt12">${btn('Nova conta','new-acc',{icon:'plus'})}${btn('Transferir entre contas','transfer',{icon:'refresh'})}</div>`;
  else{const k=UI.f.dre||monthKey(today);const opts=[...Array(12)].map((_,i)=>{const mk=monthKey(addMonths(monthKey(today)+'-01',-i));return {v:mk,l:monthLabel(mk)}});body=`<div class="toolbar"><label style="max-width:240px">Mês<select data-ch="dre-month">${optHTML(opts,k)}</select></label></div>`+dreHTML(k)}
- return head('Financeiro','Contas a receber e a pagar, caixa e resultado da oficina.',btn('Exportar','export-tx',{icon:'download'})+btn('Novo lançamento','new-tx',{cls:'accent',icon:'plus'}))+tabsHTML('finance',tabs,f)+body;
+ return head('Financeiro','Contas a receber e a pagar, caixa e resultado da oficina.',reportBtn('result','Relatórios')+btn('Exportar','export-tx',{icon:'download'})+btn('Novo lançamento','new-tx',{cls:'accent',icon:'plus'}))+tabsHTML('finance',tabs,f)+body;
 }
 A['export-tx']=()=>exportCSV('lancamentos',['Data','Vencimento','Tipo','Descrição','Categoria','Valor','Situação','Conta'],state.transactions.filter(t=>t.type!=='Transf').map(t=>[t.date,t.dueDate||'',t.type,t.desc,t.category||'',(t.value/100).toFixed(2).replace('.',','),txLabel(t),getAccount(t.accountId)?.name||'']));
 reg({key:'finance',label:'Financeiro',icon:'wallet',group:'Gestão',render:renderFinance,badge:()=>state.transactions.filter(t=>t.type==='Receita'&&t.status==='Pendente'&&(t.dueDate||t.date)<todayISO()).length});
@@ -2217,6 +2232,161 @@ function renderComm(){
 reg({key:'comm',label:'Comunicação',icon:'msg',group:'Atendimento',render:renderComm,badge:()=>{const q=commQueues();return q.rem.length+q.quotes.length+q.charge.length}});
 
 /* ============================================================
+   RELATÓRIOS: cada um abre em tela, com PDF/imprimir, WhatsApp e planilha
+   ============================================================ */
+const REP={key:'',preset:'month',from:'',to:''};
+function repRange(preset){
+ const t=todayISO(),k=monthKey(t);
+ if(preset==='month')return [k+'-01',addDays(addMonths(k+'-01',1),-1)];
+ if(preset==='last')return [addMonths(k+'-01',-1),addDays(k+'-01',-1)];
+ if(preset==='30')return [addDays(t,-29),t];
+ if(preset==='90')return [addDays(t,-89),t];
+ if(preset==='year')return [t.slice(0,4)+'-01-01',t.slice(0,4)+'-12-31'];
+ return ['2000-01-01','2099-12-31'];
+}
+const inR=(d,r)=>{d=String(d||'').slice(0,10);return d&&d>=r[0]&&d<=r[1]};
+const repTbl=(heads,rows,nums=[])=>rows.length?`<table><thead><tr>${heads.map((h,i)=>`<th class="${nums.includes(i)?'n':''}">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${nums.includes(i)?'n':''}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`:'<p style="color:#6a7584">Nenhum registro neste período.</p>';
+const repKv=(pairs)=>`<div class="grid2">${pairs.map(([l,v])=>`<div class="f"><span>${esc(l)}</span><b>${v}</b></div>`).join('')}</div>`;
+const byKey=(arr,kf,vf)=>Object.entries(arr.reduce((m,x)=>{const k=kf(x)||'Sem categoria';m[k]=(m[k]||0)+vf(x);return m},{})).sort((a,b)=>b[1]-a[1]);
+const orderDate=o=>String(o.deliveredAt||o.openedAt||'').slice(0,10);
+const csvMoney=v=>(v/100).toFixed(2).replace('.',',');
+
+const REPORTS=[
+ {key:'quotes',group:'Vendas',title:'Orçamentos',desc:'Todos os orçamentos do período, situação e taxa de aprovação.',period:true,build(r){
+  const L=state.quotes.filter(q=>inR(q.date,r)).sort((a,b)=>b.date.localeCompare(a.date));
+  const tot=q=>docTotals(q).total,ap=L.filter(q=>['Aprovado','Convertido'].includes(q.status)),dec=L.filter(q=>['Aprovado','Convertido','Recusado'].includes(q.status));
+  const rows=L.map(q=>[brDate(q.date),esc(q.code),esc(custName(q.customerId)),esc(fmtPlate(getVehicle(q.vehicleId)?.plate||'')),esc(quoteStatus(q)),money(tot(q))]);
+  return {sum:[['Orçamentos',L.length],['Valor total',money(sum(L,tot))],['Aprovados',ap.length+' ('+money(sum(ap,tot))+')'],['Taxa de aprovação',dec.length?Math.round(ap.length/dec.length*100)+'%':'—']],
+   html:repTbl(['Data','Número','Cliente','Placa','Situação','Total'],rows,[5]),
+   csv:['Data','Número','Cliente','Placa','Situação','Total'],csvRows:L.map(q=>[q.date,q.code,custName(q.customerId),getVehicle(q.vehicleId)?.plate||'',quoteStatus(q),csvMoney(tot(q))]),
+   wa:`Orçamentos: ${L.length} no período, ${money(sum(L,tot))} no total. Aprovados: ${ap.length} (${money(sum(ap,tot))}).`}}},
+ {key:'orders',group:'Vendas',title:'Ordens de serviço',desc:'OS abertas e entregues no período, com valor e mecânico.',period:true,build(r){
+  const L=state.orders.filter(o=>inR(o.openedAt,r)||inR(o.deliveredAt,r)).sort((a,b)=>String(b.openedAt).localeCompare(String(a.openedAt)));
+  const tot=o=>docTotals(o).total,ent=L.filter(o=>o.status==='Entregue');
+  const rows=L.map(o=>[brDate(o.openedAt),esc(o.code),esc(custName(o.customerId)),esc(fmtPlate(getVehicle(o.vehicleId)?.plate||'')),esc(mechName(o.mechId)),esc(o.status),money(tot(o))]);
+  return {sum:[['OS no período',L.length],['Entregues',ent.length],['Faturado (entregues)',money(sum(ent,tot))],['Ticket médio',ent.length?money(sum(ent,tot)/ent.length):'—']],
+   html:repTbl(['Abertura','OS','Cliente','Placa','Mecânico','Situação','Total'],rows,[6]),
+   csv:['Abertura','OS','Cliente','Placa','Mecânico','Situação','Total'],csvRows:L.map(o=>[String(o.openedAt).slice(0,10),o.code,custName(o.customerId),getVehicle(o.vehicleId)?.plate||'',mechName(o.mechId),o.status,csvMoney(tot(o))]),
+   wa:`OS no período: ${L.length}. Entregues: ${ent.length}, faturado ${money(sum(ent,tot))}.`}}},
+ {key:'topservices',group:'Vendas',title:'Serviços e peças mais vendidos',desc:'Ranking do que mais gera receita nas OS entregues.',period:true,build(r){
+  const os=state.orders.filter(o=>o.status==='Entregue'&&inR(orderDate(o),r)),its=os.flatMap(o=>o.items.filter(i=>i.approved!==false));
+  const lt=i=>lineTotal(i),mk=t=>byKey(its.filter(i=>i.type===t),i=>i.name,lt).slice(0,15);
+  const sv=mk('service'),pt=mk('part');
+  return {sum:[['OS entregues',os.length],['Mão de obra',money(sum(its.filter(i=>i.type==='service'),lt))],['Peças',money(sum(its.filter(i=>i.type==='part'),lt))]],
+   html:'<h2>Serviços</h2>'+repTbl(['Serviço','Valor'],sv.map(([n,v])=>[esc(n),money(v)]),[1])+'<h2>Peças</h2>'+repTbl(['Peça','Valor'],pt.map(([n,v])=>[esc(n),money(v)]),[1]),
+   csv:['Tipo','Item','Valor'],csvRows:[...sv.map(([n,v])=>['Serviço',n,csvMoney(v)]),...pt.map(([n,v])=>['Peça',n,csvMoney(v)])],
+   wa:`Mais vendidos: ${sv.slice(0,3).map(x=>x[0]+' ('+money(x[1])+')').join(', ')||'—'}.`}}},
+ {key:'prices',group:'Cadastros',title:'Tabela de preços de serviços',desc:'Lista de serviços e valores para entregar ou enviar ao cliente.',period:false,build(){
+  const L=state.services.filter(s=>s.active!==false).sort((a,b)=>(a.category||'').localeCompare(b.category||'')||a.name.localeCompare(b.name));
+  const cats=[...new Set(L.map(s=>s.category||'Outros'))];
+  return {sum:[['Serviços ativos',L.length]],
+   html:cats.map(c=>`<h2>${esc(c)}</h2>`+repTbl(['Serviço','Tempo','Garantia','Preço'],L.filter(s=>(s.category||'Outros')===c).map(s=>[esc(s.name),s.hours?s.hours+' h':'—',s.warrantyDays?s.warrantyDays+' dias':'—',money(s.price)]),[3])).join(''),
+   csv:['Categoria','Serviço','Horas','Garantia (dias)','Preço'],csvRows:L.map(s=>[s.category||'',s.name,s.hours||'',s.warrantyDays||'',csvMoney(s.price)]),
+   wa:`*Tabela de preços · ${state.shop.name}*\n`+L.slice(0,25).map(s=>`• ${s.name}: ${money(s.price)}`).join('\n')+(L.length>25?`\n… e mais ${L.length-25} serviços.`:'')+'\nValores sujeitos a avaliação do veículo.'}}},
+ {key:'stock',group:'Estoque',title:'Posição de estoque',desc:'Quantidade, custo, preço e valor parado em estoque.',period:false,build(){
+  const L=state.parts.filter(p=>p.active!==false).sort((a,b)=>a.name.localeCompare(b.name)),val=sum(L,p=>p.qty*p.cost),low=L.filter(p=>p.qty<=p.minQty);
+  return {sum:[['Peças cadastradas',L.length],['Valor em estoque (custo)',money(val)],['Abaixo do mínimo',low.length]],
+   html:repTbl(['Peça','Código','Qtd','Mínimo','Custo','Preço','Valor em estoque'],L.map(p=>[esc(p.name),esc(p.sku||''),p.qty<=p.minQty?`<b style="color:#a8362b">${p.qty}</b>`:p.qty,p.minQty,money(p.cost),money(p.price),money(p.qty*p.cost)]),[2,3,4,5,6]),
+   csv:['Peça','Código','Qtd','Mínimo','Custo','Preço'],csvRows:L.map(p=>[p.name,p.sku||'',p.qty,p.minQty,csvMoney(p.cost),csvMoney(p.price)]),
+   wa:`Estoque: ${L.length} peças, ${money(val)} em custo. ${low.length} abaixo do mínimo.`}}},
+ {key:'restock',group:'Estoque',title:'Lista de compras (reposição)',desc:'Peças abaixo do estoque mínimo, com quantidade sugerida.',period:false,build(){
+  const L=state.parts.filter(p=>p.active!==false&&p.qty<=p.minQty).map(p=>({p,need:Math.max(1,p.minQty*2-p.qty)}));
+  return {sum:[['Itens a repor',L.length],['Investimento estimado',money(sum(L,x=>x.need*x.p.cost))]],
+   html:repTbl(['Peça','Fornecedor','Estoque','Mínimo','Comprar','Custo est.'],L.map(x=>[esc(x.p.name),esc(getSupplier(x.p.supplierId)?.name||'—'),x.p.qty,x.p.minQty,x.need,money(x.need*x.p.cost)]),[2,3,4,5]),
+   csv:['Peça','Fornecedor','Estoque','Mínimo','Comprar'],csvRows:L.map(x=>[x.p.name,getSupplier(x.p.supplierId)?.name||'',x.p.qty,x.p.minQty,x.need]),
+   wa:`*Lista de compras · ${state.shop.name}*\n`+L.map(x=>`• ${x.need}x ${x.p.name}`).join('\n')}}},
+ {key:'receivable',group:'Financeiro',title:'Contas a receber',desc:'Cobranças em aberto, destacando as atrasadas.',period:false,build(){
+  const L=state.transactions.filter(t=>t.type==='Receita'&&t.status==='Pendente').sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date)),today=todayISO(),late=L.filter(t=>(t.dueDate||t.date)<today);
+  return {sum:[['Total a receber',money(sum(L,t=>t.value))],['Em atraso',money(sum(late,t=>t.value))+' ('+late.length+')'],['Lançamentos',L.length]],
+   html:repTbl(['Vencimento','Descrição','Cliente','Valor','Situação'],L.map(t=>[brDate(t.dueDate||t.date),esc(t.desc),esc(t.customerId?custName(t.customerId):'—'),money(t.value),(t.dueDate||t.date)<today?'<b style="color:#a8362b">Atrasado</b>':'No prazo']),[3]),
+   csv:['Vencimento','Descrição','Cliente','Valor'],csvRows:L.map(t=>[t.dueDate||t.date,t.desc,t.customerId?custName(t.customerId):'',csvMoney(t.value)]),
+   wa:`A receber: ${money(sum(L,t=>t.value))} em ${L.length} cobranças. Em atraso: ${money(sum(late,t=>t.value))}.`}}},
+ {key:'payable',group:'Financeiro',title:'Contas a pagar',desc:'Despesas e boletos em aberto.',period:false,build(){
+  const L=state.transactions.filter(t=>t.type==='Despesa'&&t.status==='Pendente').sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date)),today=todayISO(),late=L.filter(t=>(t.dueDate||t.date)<today);
+  return {sum:[['Total a pagar',money(sum(L,t=>t.value))],['Vencidas',money(sum(late,t=>t.value))+' ('+late.length+')']],
+   html:repTbl(['Vencimento','Descrição','Categoria','Valor','Situação'],L.map(t=>[brDate(t.dueDate||t.date),esc(t.desc),esc(t.category||''),money(t.value),(t.dueDate||t.date)<today?'<b style="color:#a8362b">Vencida</b>':'A vencer']),[3]),
+   csv:['Vencimento','Descrição','Categoria','Valor'],csvRows:L.map(t=>[t.dueDate||t.date,t.desc,t.category||'',csvMoney(t.value)]),
+   wa:`A pagar: ${money(sum(L,t=>t.value))} em ${L.length} contas. Vencidas: ${money(sum(late,t=>t.value))}.`}}},
+ {key:'result',group:'Financeiro',title:'Resultado do período (DRE)',desc:'Entradas, saídas e lucro por categoria.',period:true,build(r){
+  const tx=state.transactions.filter(t=>t.type!=='Transf'&&isDone(t)&&inR(t.date,r)),rec=tx.filter(t=>t.type==='Receita'),des=tx.filter(t=>t.type==='Despesa'),R=sum(rec,t=>t.value),D=sum(des,t=>t.value);
+  const cr=byKey(rec,t=>t.category,t=>t.value),cd=byKey(des,t=>t.category,t=>t.value);
+  return {sum:[['Entradas',money(R)],['Saídas',money(D)],['Resultado',money(R-D)],['Margem',R?Math.round((R-D)/R*100)+'%':'—']],
+   html:'<h2>Entradas</h2>'+repTbl(['Categoria','Valor'],cr.map(([n,v])=>[esc(n),money(v)]),[1])+'<h2>Saídas</h2>'+repTbl(['Categoria','Valor'],cd.map(([n,v])=>[esc(n),money(v)]),[1]),
+   csv:['Tipo','Categoria','Valor'],csvRows:[...cr.map(([n,v])=>['Entrada',n,csvMoney(v)]),...cd.map(([n,v])=>['Saída',n,csvMoney(v)])],
+   wa:`Resultado: entradas ${money(R)}, saídas ${money(D)}, resultado ${money(R-D)}.`}}},
+ {key:'cashbook',group:'Financeiro',title:'Extrato de lançamentos',desc:'Todos os lançamentos pagos e recebidos do período.',period:true,build(r){
+  const L=state.transactions.filter(t=>t.type!=='Transf'&&isDone(t)&&inR(t.date,r)).sort((a,b)=>a.date.localeCompare(b.date)),R=sum(L.filter(t=>t.type==='Receita'),t=>t.value),D=sum(L.filter(t=>t.type==='Despesa'),t=>t.value);
+  return {sum:[['Entradas',money(R)],['Saídas',money(D)],['Saldo',money(R-D)]],
+   html:repTbl(['Data','Descrição','Categoria','Conta','Entrada','Saída'],L.map(t=>[brDate(t.date),esc(t.desc),esc(t.category||''),esc(getAccount(t.accountId)?.name||''),t.type==='Receita'?money(t.value):'',t.type==='Despesa'?money(t.value):'']),[4,5]),
+   csv:['Data','Descrição','Categoria','Conta','Tipo','Valor'],csvRows:L.map(t=>[t.date,t.desc,t.category||'',getAccount(t.accountId)?.name||'',t.type,csvMoney(t.value)]),
+   wa:`Extrato: entradas ${money(R)}, saídas ${money(D)}, saldo ${money(R-D)}.`}}},
+ {key:'commissions',group:'Equipe',title:'Comissões por mecânico',desc:'Quanto cada mecânico produziu e tem a receber.',period:true,build(r){
+  const L=state.commissions.filter(c=>inR(c.date,r)),by=state.team.map(m=>{const cs=L.filter(c=>c.mechId===m.id),os=state.orders.filter(o=>o.mechId===m.id&&o.status==='Entregue'&&inR(orderDate(o),r));return {m,n:os.length,prod:sum(os,o=>docTotals(o).total),tot:sum(cs,c=>c.value),open:sum(cs.filter(c=>c.status!=='Paga'),c=>c.value)}}).filter(x=>x.n||x.tot);
+  return {sum:[['Comissões',money(sum(L,c=>c.value))],['Ainda a pagar',money(sum(by,x=>x.open))]],
+   html:repTbl(['Mecânico','OS entregues','Produção','Comissão','A pagar'],by.map(x=>[esc(x.m.name),x.n,money(x.prod),money(x.tot),money(x.open)]),[1,2,3,4]),
+   csv:['Mecânico','OS','Produção','Comissão','A pagar'],csvRows:by.map(x=>[x.m.name,x.n,csvMoney(x.prod),csvMoney(x.tot),csvMoney(x.open)]),
+   wa:`Comissões no período: ${money(sum(L,c=>c.value))}; a pagar ${money(sum(by,x=>x.open))}.`}}},
+ {key:'customers',group:'Clientes',title:'Clientes: valor e frequência',desc:'Quem mais gastou, última visita e valores em aberto.',period:false,build(){
+  const L=state.customers.map(c=>{const os=state.orders.filter(o=>o.customerId===c.id&&o.status==='Entregue');return {c,n:os.length,tot:sum(os,o=>docTotals(o).total),last:os.map(orderDate).sort().pop()||'',open:sum(state.transactions.filter(t=>t.customerId===c.id&&t.type==='Receita'&&t.status==='Pendente'),t=>t.value)}}).sort((a,b)=>b.tot-a.tot);
+  return {sum:[['Clientes',L.length],['Faturamento acumulado',money(sum(L,x=>x.tot))],['Em aberto',money(sum(L,x=>x.open))]],
+   html:repTbl(['Cliente','Telefone','OS','Total gasto','Última visita','Em aberto'],L.map(x=>[esc(x.c.name),esc(fmtPhone(x.c.phone||'')),x.n,money(x.tot),x.last?brDate(x.last):'—',x.open?money(x.open):'—']),[2,3,5]),
+   csv:['Cliente','Telefone','OS','Total gasto','Última visita','Em aberto'],csvRows:L.map(x=>[x.c.name,x.c.phone||'',x.n,csvMoney(x.tot),x.last,csvMoney(x.open)]),
+   wa:`Clientes: ${L.length}. Top 3: ${L.slice(0,3).map(x=>x.c.name+' ('+money(x.tot)+')').join(', ')}.`}}},
+ {key:'agenda',group:'Clientes',title:'Agenda do período',desc:'Agendamentos com cliente, veículo, horário e situação.',period:true,build(r){
+  const L=state.appointments.filter(a=>inR(a.date,r)).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  return {sum:[['Agendamentos',L.length]],
+   html:repTbl(['Data','Hora','Cliente','Veículo','Serviço','Mecânico','Situação'],L.map(a=>[brDate(a.date),esc(a.time),esc(custName(a.customerId)),esc(fmtPlate(getVehicle(a.vehicleId)?.plate||'')),esc(a.service||''),esc(mechName(a.mechId)),esc(a.status)])),
+   csv:['Data','Hora','Cliente','Placa','Serviço','Mecânico','Situação'],csvRows:L.map(a=>[a.date,a.time,custName(a.customerId),getVehicle(a.vehicleId)?.plate||'',a.service||'',mechName(a.mechId),a.status]),
+   wa:`*Agenda · ${state.shop.name}*\n`+L.slice(0,20).map(a=>`${brDate(a.date).slice(0,5)} ${a.time} · ${custName(a.customerId)} · ${a.service||''}`).join('\n')}}},
+];
+const getRep=k=>REPORTS.find(r=>r.key===k);
+function repData(){const R=getRep(REP.key),r=R.period?[REP.from,REP.to]:repRange('all');const d=R.build(r);d.R=R;d.r=r;return d}
+function repDocHTML(d){
+ const R=d.R,ex=R.period?`<div style="font-size:11px;color:#586270">Período: ${brDate(d.r[0])} a ${brDate(d.r[1])}</div>`:`<div style="font-size:11px;color:#586270">Posição em ${brDate(todayISO())}</div>`;
+ return shopHeader(R.title,'',ex)+(d.sum&&d.sum.length?'<h2>Resumo</h2>'+repKv(d.sum.map(([l,v])=>[l,esc(String(v))])):'')+d.html+docFoot();
+}
+function repRefresh(){
+ const f=$('#docFrame');if(!f)return;
+ try{const d=repData();f.srcdoc=docShell(d.R.title,repDocHTML(d))}catch(e){console.error(e);f.srcdoc='<p style="font-family:Arial;padding:20px">Não foi possível montar este relatório: '+esc(e.message)+'</p>'}
+}
+function openReport(key){
+ const R=getRep(key);if(!R)return;REP.key=key;
+ if(R.period&&!REP.from){[REP.from,REP.to]=repRange(REP.preset)}
+ const bar=R.period?`<div class="rep-bar"><label>Período<select id="rp_preset" data-ch="rep-preset">${[['month','Este mês'],['last','Mês passado'],['30','Últimos 30 dias'],['90','Últimos 90 dias'],['year','Este ano'],['all','Tudo'],['custom','Personalizado']].map(([v,l])=>`<option value="${v}" ${REP.preset===v?'selected':''}>${l}</option>`).join('')}</select></label><label>De<input type="date" id="rp_from" value="${REP.from}" data-ch="rep-dates"></label><label>Até<input type="date" id="rp_to" value="${REP.to}" data-ch="rep-dates"></label></div>`:'';
+ showModal(R.title,bar+`<iframe id="docFrame" title="${esc(R.title)}" style="width:100%;height:62vh;border:1px solid #d5dbe3;border-radius:9px;background:#fff"></iframe>`,
+  `<button class="btn" data-action="close-modal">Fechar</button><button class="btn" data-action="rep-csv">${ICON.download}Planilha (CSV)</button><button class="btn wa" data-action="rep-wa">${ICON.wa}WhatsApp</button><button class="btn primary" data-action="print-frame">${ICON.print}Imprimir / Salvar como PDF</button>`,'xl');
+ repRefresh();
+}
+H['rep-preset']=el=>{REP.preset=el.value;if(el.value!=='custom'){[REP.from,REP.to]=repRange(el.value);const a=$('#rp_from'),b=$('#rp_to');if(a)a.value=REP.from;if(b)b.value=REP.to}repRefresh()};
+H['rep-dates']=()=>{REP.from=V('rp_from')||REP.from;REP.to=V('rp_to')||REP.to;REP.preset='custom';const s=$('#rp_preset');if(s)s.value='custom';repRefresh()};
+A['rep-open']=el=>openReport(el.dataset.id);
+A['rep-csv']=()=>{const d=repData();exportCSV('relatorio_'+REP.key,d.csv,d.csvRows)};
+A['rep-wa']=()=>{
+ const d=repData(),R=d.R,per=R.period?` (${brDate(d.r[0])} a ${brDate(d.r[1])})`:'';
+ const text=`*${R.title}*${per}\n${state.shop.name}\n\n${d.sum.map(([l,v])=>`${l}: ${v}`).join('\n')}\n\n${d.wa}`;
+ showModal('Enviar por WhatsApp',`<p class="muted small">Escolha um cliente ou digite um número. A mensagem é um resumo; para enviar o documento completo, use "Imprimir / Salvar como PDF" e anexe o arquivo na conversa.</p><div class="form-grid"><label class="full">Cliente (opcional)<select id="rw_c" data-ch="rep-wa-cust"><option value="">— digitar número —</option>${state.customers.filter(c=>c.phone).map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></label><label class="full">WhatsApp<input id="rw_p" inputmode="tel" placeholder="(11) 99999-9999" value="${esc(fmtPhone(state.shop.whatsapp||''))}"></label><label class="full">Mensagem<textarea id="rw_t" rows="9">${esc(text)}</textarea></label></div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn wa" data-action="rep-wa-go">${ICON.wa}Abrir WhatsApp</button>`,'wide');
+};
+H['rep-wa-cust']=el=>{const c=getCustomer(el.value);if(c)$('#rw_p').value=fmtPhone(c.phone)};
+A['rep-wa-go']=()=>{const p=digits(V('rw_p')),t=V('rw_t');if(p.length<10)return bad('rw_p','Informe o número com DDD.');if(!t)return bad('rw_t','A mensagem está vazia.');closeModal();openWA(p,t)};
+const reportBtn=(key,label='Relatório / PDF')=>btn(label,'rep-open',{id:key,icon:'file'});
+
+function renderReports(){
+ const groups=[...new Set(REPORTS.map(r=>r.group))];
+ return head('Relatórios','Cada relatório abre na tela e pode ser salvo em PDF, impresso, enviado por WhatsApp ou aberto no Excel.')
+  +groups.map(g=>`<h3 class="grp-title">${esc(g)}</h3><div class="grid g3">${REPORTS.filter(r=>r.group===g).map(r=>`<div class="card rep-card"><b>${esc(r.title)}</b><p class="muted small">${esc(r.desc)}</p><div><button class="btn sm accent" data-action="rep-open" data-id="${r.key}">${ICON.file}Abrir</button></div></div>`).join('')}</div>`).join('');
+}
+reg({key:'reports',label:'Relatórios',icon:'chart',group:'Gestão',render:renderReports});
+
+/* recibo de pagamento recebido */
+function receiptHTML(t){
+ const c=getCustomer(t.customerId),o=t.orderId&&getOrder(t.orderId);
+ return shopHeader('Recibo de pagamento',t.id.slice(-6).toUpperCase())+`<h2>Pagamento</h2>${repKv([['Recebemos de',esc(c?c.name:'Cliente')],['Valor',money(t.value)],['Referente a',esc(t.desc)],['Forma de pagamento',esc(t.method||'—')],['Data do pagamento',brDate(t.paidAt||t.date)],o?['Ordem de serviço',esc(o.code)]:['','']].filter(x=>x[0]))}<p style="margin-top:20px">Declaramos que recebemos o valor acima, dando plena quitação deste pagamento.</p><div class="sign"><div>${esc(state.shop.name)}</div><div>${esc(c?c.name:'Cliente')}</div></div>`+docFoot();
+}
+A['tx-receipt']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id);if(!t)return;const c=getCustomer(t.customerId);
+ previewDoc('Recibo',receiptHTML(t),{extra:c&&c.phone?`<button class="btn wa" data-action="tx-receipt-wa" data-id="${t.id}">${ICON.wa}WhatsApp</button>`:''})};
+A['tx-receipt-wa']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id),c=getCustomer(t.customerId);openWA(c.phone,`Olá, ${c.name.split(' ')[0]}! Recebemos seu pagamento de ${money(t.value)} (${t.desc}) em ${brDate(t.paidAt||t.date)}. Obrigado pela confiança! — ${state.shop.name}`)};
+
+/* ============================================================
    CONFIGURAÇÕES · SEGURANÇA (PIN) · BACKUP · DADOS DE EXEMPLO
    ============================================================ */
 const LIST_NAMES={serviceCats:'Categorias de serviço',partCats:'Categorias de peças',expenseCats:'Categorias de despesas',incomeCats:'Categorias de receitas',payMethods:'Formas de pagamento',sources:'Como o cliente conheceu a oficina',fuels:'Combustíveis',colors:'Cores',roles:'Funções da equipe',fuelLevels:'Níveis de combustível',checklist:'Itens da vistoria de entrada',assetCats:'Categorias de equipamentos'};
@@ -2230,10 +2400,10 @@ function renderSettings(){
  else if(f==='texts')body=`<div class="card"><div class="form-grid">${F('s_qt','Condições do orçamento',{type:'textarea',value:s.quoteTerms,full:true,rows:4})}${F('s_au','Autorização de serviço (assinada na vistoria)',{type:'textarea',value:s.authText,full:true,rows:4})}${F('s_wt','Termo de garantia (use {dias} para o prazo)',{type:'textarea',value:s.warrantyText,full:true,rows:4})}${F('s_dl','Termo de entrega',{type:'textarea',value:s.deliveryText,full:true,rows:3})}</div><div class="mt12"><button class="btn primary" data-action="save-texts">Salvar textos</button> <button class="btn" data-action="reset-texts">Restaurar padrão</button></div></div>`;
  else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
  else if(f==='lists')body=`<div class="card"><p class="muted small">Uma opção por linha. Estas listas aparecem nos cadastros e formulários.</p><div class="form-grid">${Object.entries(LIST_NAMES).map(([k,l])=>F('ls_'+k,l,{type:'textarea',value:(state.lists[k]||[]).join('\n'),rows:5})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-lists">Salvar listas</button></div></div>`;
- else if(f==='sec')body=`<div class="card"><h2>Bloqueio por PIN</h2><p class="muted small">Peça um PIN para abrir o sistema neste computador.</p>${st.pinEnabled?`<div class="alert ok">${ICON.shield}<div>PIN ativo. O sistema bloqueia após ${st.lockMinutes} min sem uso.</div></div>${btn('Trocar PIN','pin-set',{icon:'lock'})} ${btn('Desativar PIN','pin-off',{cls:'danger'})}`:btn('Ativar PIN','pin-set',{cls:'accent',icon:'lock'})}</div>
+ else if(f==='sec')body=`<div class="card"><h2>Acesso com senha</h2><div class="alert ok">${ICON.shield}<div>A senha é pedida sempre que o sistema abre${state.settings.lockMinutes?' e após '+state.settings.lockMinutes+' min sem uso':''}.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">${btn('Trocar senha','pw-change',{icon:'lock'})}${btn('Bloquear agora','lock-now',{icon:'lock'})}${btn('Gerar novo código de recuperação','pw-newcode',{icon:'key'})}</div><div class="form-grid mt12"><label>Bloquear automaticamente após<select data-ch="lock-min">${optHTML([{v:0,l:'Nunca'},{v:5,l:'5 minutos sem uso'},{v:15,l:'15 minutos sem uso'},{v:30,l:'30 minutos sem uso'},{v:60,l:'1 hora sem uso'}],state.settings.lockMinutes||0)}</select></label></div><p class="muted tiny mt12">A senha impede o acesso à tela do sistema. Para proteger também o arquivo de backup, use “Baixar backup com senha”.</p></div>
   <div class="card"><h2>Registro de atividades</h2>${state.audit.length?table([{h:'Quando',f:a=>brDT(a.at)},{h:'Área',f:a=>esc(a.module)},{h:'Ação',f:a=>esc(a.action)},{h:'Registro',f:a=>esc(a.record)}],state.audit.slice(0,40)):empty('shield','Sem registros','')}</div>`;
  else if(f==='backup')body=backupHTML();
- else body=`<div class="card"><h2>Dados de exemplo</h2><p class="muted small">Carrega clientes, veículos, peças, orçamentos e OS de demonstração para você testar o sistema. Não apaga o que você já cadastrou.</p>${btn('Carregar dados de exemplo','load-demo',{icon:'plus'})}</div>
+ else body=`<div class="card"><h2>Modo Demonstração</h2><p class="muted small">Preenche o sistema com uma oficina fictícia (clientes, orçamentos, OS, agenda, estoque e financeiro) para você ver tudo funcionando. Seus dados reais não são alterados e nada é salvo.</p>${btn(window.__DEMO?'Sair da demonstração':'Ativar modo demonstração','demo-toggle',{cls:'accent',icon:'eye'})}</div>
  <div class="card"><h2>Apagar tudo</h2><p class="muted small">Remove todos os cadastros e começa do zero. Um ponto de restauração é criado antes.</p>${btn('Apagar todos os dados','wipe-all',{cls:'danger',icon:'trash'})}</div>`;
  return head('Configurações','Dados da oficina, textos, taxas, segurança e backup.')+tabsHTML('settings',tabs,f)+body;
 }
@@ -2250,19 +2420,72 @@ A['save-lists']=async()=>{for(const k of Object.keys(LIST_NAMES)){const arr=V('l
 A['logo-up']=()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=async()=>{try{state.shop.logo=await compressImage(i.files[0],420,.85);await persist();render()}catch(e){toast('Imagem inválida.','err')}};i.click()};
 A['logo-del']=async()=>{state.shop.logo='';await persist();render()};
 
-/* ---------- PIN ---------- */
-A['pin-set']=()=>showModal('Definir PIN',`<div class="form-grid">${F('pin1','Novo PIN (4 a 8 números)',{type:'password',mask:'digits',attrs:'inputmode="numeric" maxlength="8" autocomplete="off"'})}${F('pin2','Repita o PIN',{type:'password',mask:'digits',attrs:'inputmode="numeric" maxlength="8" autocomplete="off"'})}</div><p class="muted small mt12">Guarde o PIN. Se esquecer, será necessário restaurar um backup.</p>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="pin-save">Salvar PIN</button>`,'sm');
-A['pin-save']=async()=>{const a=V('pin1');if(a.length<4)return bad('pin1','Use de 4 a 8 números.');if(a!==V('pin2'))return bad('pin2','Os dois PIN não são iguais.');const salt=uuid();state.settings.pinSalt=salt;state.settings.pinHash=await sha256(salt+a);state.settings.pinEnabled=true;await persist();closeModal();toast('PIN ativado.','ok');render()};
-A['pin-off']=()=>confirmBox('Desativar o PIN?','O sistema abrirá sem pedir senha.',async()=>{state.settings.pinEnabled=false;await persist();render()},{danger:true,yes:'Desativar'});
-let lockTimer=null,lastAct=Date.now();
-function showLock(){
- const L=$('#lock');L.classList.add('on');L.innerHTML=`<div class="lockbox"><div class="brandmark">${ICON.tool}</div><h1>${esc(state.shop.name)}</h1><p>Digite o PIN para entrar</p><input id="lock_pin" type="password" inputmode="numeric" maxlength="8" autocomplete="off" autofocus><div id="lock_err" class="modal-err" style="display:none">PIN incorreto.</div><button class="btn primary" data-action="unlock">Entrar</button></div>`;
- setTimeout(()=>$('#lock_pin')?.focus(),50);
+/* ---------- ACESSO COM SENHA ---------- */
+async function hashPw(pw,salt){
+ try{const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:150000,hash:'SHA-256'},k,256);return [...new Uint8Array(bits)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+ catch{return sha256(salt+pw)}
 }
-A['unlock']=async()=>{const v=($('#lock_pin')||{}).value||'';if((await sha256(state.settings.pinSalt+v))===state.settings.pinHash){$('#lock').classList.remove('on');$('#lock').innerHTML='';lastAct=Date.now()}else{$('#lock_err').style.display='';$('#lock_pin').value='';$('#lock_pin').focus()}};
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#lock_pin')&&document.activeElement.id==='lock_pin')A.unlock()});
+const newRecoveryCode=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=crypto.getRandomValues(new Uint8Array(12));return [...r].map(x=>a[x%a.length]).join('').replace(/(.{4})(?=.)/g,'$1-')};
+let lockTimer=null,lastAct=Date.now(),failCount=0,blockedUntil=0;
+function showLock(mode){
+ mode=mode||(state.settings.pinHash?'login':'setup');
+ const L=$('#lock');L.classList.add('on');document.body.classList.add('locked');
+ const logo=state.shop.logo?`<img src="${state.shop.logo}" style="max-height:64px;margin:auto;border-radius:10px;background:#fff;padding:4px">`:`<div class="brandmark">${ICON.tool}</div>`;
+ const eye=id=>`<button type="button" class="eye" data-action="lock-eye" data-t="${id}" title="Mostrar/ocultar senha" tabindex="-1">👁</button>`;
+ let h;
+ if(mode==='setup')h=`${logo}<h1>Bem-vindo ao MEU MECÂNICO</h1><p>Crie a senha de acesso do sistema. Ela será pedida toda vez que o aplicativo abrir.</p>
+  <label class="lk">Seu nome<input id="lk_user" autocomplete="off" placeholder="Ex.: Bruno" value="${esc(state.settings.ownerName||'')}"></label>
+  <label class="lk">Crie uma senha (mínimo 6 caracteres)<span class="pw"><input id="lk_p1" type="password" autocomplete="new-password">${eye('lk_p1')}</span></label>
+  <label class="lk">Repita a senha<span class="pw"><input id="lk_p2" type="password" autocomplete="new-password">${eye('lk_p2')}</span></label>
+  <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-setup">Criar senha e entrar</button>`;
+ else if(mode==='recover')h=`${logo}<h1>Recuperar acesso</h1><p>Digite o <b>código de recuperação</b> que apareceu quando você criou a senha.</p>
+  <label class="lk">Código de recuperação<input id="lk_code" autocomplete="off" placeholder="XXXX-XXXX-XXXX" style="text-transform:uppercase"></label>
+  <label class="lk">Nova senha (mínimo 6)<span class="pw"><input id="lk_p1" type="password" autocomplete="new-password">${eye('lk_p1')}</span></label>
+  <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-recover">Redefinir senha</button><button class="btn" data-action="lock-back">Voltar</button>`;
+ else h=`${logo}<h1>${esc(state.shop.name)}</h1><p>${state.settings.ownerName?'Olá, '+esc(state.settings.ownerName)+'! ':''}Digite sua senha para entrar</p>
+  <label class="lk"><span class="pw"><input id="lk_p1" type="password" autocomplete="current-password" placeholder="Senha">${eye('lk_p1')}</span></label>
+  <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-login">Entrar</button><button class="btn link" data-action="lock-forgot">Esqueci minha senha</button>`;
+ L.innerHTML=`<div class="lockbox" data-mode="${mode}">${h}</div>`;
+ setTimeout(()=>{const f=$('#lk_user')||$('#lk_code')||$('#lk_p1');f&&f.focus()},60);
+}
+const lockErr=m=>{const e=$('#lock_err');if(e){e.textContent=m;e.style.display=''}};
+function unlockNow(){$('#lock').classList.remove('on');$('#lock').innerHTML='';document.body.classList.remove('locked');lastAct=Date.now();failCount=0;render()}
+A['lock-eye']=el=>{const i=document.getElementById(el.dataset.t);i.type=i.type==='password'?'text':'password'};
+A['lock-forgot']=()=>showLock('recover');A['lock-back']=()=>showLock('login');
+A['lock-setup']=async()=>{
+ const p=($('#lk_p1')||{}).value||'';if(p.length<6)return lockErr('A senha precisa ter pelo menos 6 caracteres.');if(p!==$('#lk_p2').value)return lockErr('As duas senhas não são iguais.');
+ if(/^(123456|111111|000000|senha|password|123123)$/i.test(p))return lockErr('Essa senha é muito fácil de adivinhar. Escolha outra.');
+ const st=state.settings;st.ownerName=($('#lk_user').value||'').trim();st.pinSalt=uuid();st.pinHash=await hashPw(p,st.pinSalt);st.pinEnabled=true;
+ const code=newRecoveryCode();st.recSalt=uuid();st.recHash=await hashPw(code.replace(/-/g,''),st.recSalt);st.lockMinutes=st.lockMinutes||15;
+ audit('Segurança','Criou a senha de acesso');await persist({snapshot:false});
+ $('#lock').querySelector('.lockbox').innerHTML=`<div class="brandmark">${ICON.shield}</div><h1>Guarde este código</h1><p>Se você esquecer a senha, só este <b>código de recuperação</b> permite criar outra. Ele aparece <b>uma única vez</b>.</p><div class="reccode">${code}</div><div style="display:flex;gap:8px;justify-content:center"><button class="btn" data-action="lock-print-code" data-c="${code}">Imprimir</button><button class="btn" data-action="lock-copy-code" data-c="${code}">Copiar</button></div><label class="chk" style="justify-content:center"><input type="checkbox" id="lk_ok"> Já guardei o código em local seguro</label><div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-done">Entrar no sistema</button>`;
+};
+A['lock-copy-code']=el=>{navigator.clipboard&&navigator.clipboard.writeText(el.dataset.c).then(()=>toast('Código copiado.','ok'))};
+A['lock-print-code']=el=>previewDoc('Código de recuperação',`<h2>Código de recuperação — ${esc(state.shop.name)}</h2><p>Guarde em local seguro. Ele permite criar uma nova senha de acesso.</p><div style="font-size:28px;font-weight:800;letter-spacing:3px;margin:20px 0">${el.dataset.c}</div>`);
+A['lock-done']=()=>{if(!$('#lk_ok').checked)return lockErr('Marque a opção confirmando que guardou o código.');unlockNow()};
+A['lock-login']=async()=>{
+ if(Date.now()<blockedUntil)return lockErr('Muitas tentativas. Aguarde '+Math.ceil((blockedUntil-Date.now())/1000)+' segundos.');
+ const p=($('#lk_p1')||{}).value||'';if(!p)return lockErr('Digite a senha.');
+ if((await hashPw(p,state.settings.pinSalt))===state.settings.pinHash)return unlockNow();
+ failCount++;if(failCount>=5){blockedUntil=Date.now()+30000;failCount=0;lockErr('Senha incorreta várias vezes. Aguarde 30 segundos.')}else lockErr('Senha incorreta. Tente de novo.');
+ $('#lk_p1').value='';$('#lk_p1').focus();
+};
+A['lock-recover']=async()=>{
+ const c=(($('#lk_code')||{}).value||'').toUpperCase().replace(/[^A-Z0-9]/g,''),p=($('#lk_p1')||{}).value||'';
+ if(c.length<12)return lockErr('Digite o código de recuperação completo.');if(p.length<6)return lockErr('A nova senha precisa ter pelo menos 6 caracteres.');
+ if((await hashPw(c,state.settings.recSalt))!==state.settings.recHash)return lockErr('Código de recuperação incorreto.');
+ const st=state.settings;st.pinSalt=uuid();st.pinHash=await hashPw(p,st.pinSalt);audit('Segurança','Redefiniu a senha com o código de recuperação');await persist({snapshot:false});toast('Senha redefinida.','ok');unlockNow();
+};
+A['lock-now']=()=>showLock('login');
+document.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const m=document.querySelector('#lock.on .lockbox');if(!m)return;const md=m.dataset.mode;if(md==='setup')A['lock-setup']();else if(md==='recover')A['lock-recover']();else if(md==='login')A['lock-login']()});
 ['click','keydown','mousemove','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{lastAct=Date.now()},{passive:true}));
-setInterval(()=>{if(state&&state.settings.pinEnabled&&!$('#lock.on')&&Date.now()-lastAct>(state.settings.lockMinutes||15)*60000)showLock()},20000);
+setInterval(()=>{if(state&&state.settings.pinHash&&!document.querySelector('#lock.on')&&(state.settings.lockMinutes||0)>0&&Date.now()-lastAct>state.settings.lockMinutes*60000)showLock('login')},15000);
+/* trocar senha / configurar */
+A['pw-change']=()=>showModal('Trocar senha',`<div class="form-grid">${F('pw0','Senha atual',{type:'password',full:true})}${F('pw1','Nova senha (mínimo 6)',{type:'password',full:true})}${F('pw2','Repita a nova senha',{type:'password',full:true})}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="pw-save">Salvar nova senha</button>`,'sm');
+A['pw-save']=async()=>{const st=state.settings;if((await hashPw(V('pw0'),st.pinSalt))!==st.pinHash)return bad('pw0','Senha atual incorreta.');if(V('pw1').length<6)return bad('pw1','Use pelo menos 6 caracteres.');if(V('pw1')!==V('pw2'))return bad('pw2','As senhas não são iguais.');st.pinSalt=uuid();st.pinHash=await hashPw(V('pw1'),st.pinSalt);audit('Segurança','Trocou a senha');await persist();closeModal();toast('Senha alterada.','ok')};
+A['pw-newcode']=()=>showModal('Gerar novo código de recuperação',`<p class="muted small">O código anterior deixará de funcionar. Confirme com sua senha.</p><div class="form-grid">${F('pw0','Senha',{type:'password',full:true})}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="pw-newcode-go">Gerar código</button>`,'sm');
+A['pw-newcode-go']=async()=>{const st=state.settings;if((await hashPw(V('pw0'),st.pinSalt))!==st.pinHash)return bad('pw0','Senha incorreta.');const code=newRecoveryCode();st.recSalt=uuid();st.recHash=await hashPw(code.replace(/-/g,''),st.recSalt);await persist();closeModal();showModal('Novo código de recuperação',`<p>Guarde este código. Ele aparece uma única vez.</p><div class="reccode">${code}</div>`,`<button class="btn" data-action="lock-print-code" data-c="${code}">Imprimir</button><button class="btn primary" data-action="close-modal">Já guardei</button>`,'sm')};
+H['lock-min']=async el=>{state.settings.lockMinutes=Number(el.value);await persist();toast('Salvo.','ok')};
 
 /* ---------- backup ---------- */
 function backupHTML(){
@@ -2367,7 +2590,7 @@ function renderHome(){
  const first=!state.customers.length&&!state.orders.length&&!state.quotes.length;
  const hr=new Date().getHours(),greet=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
  return head(`${greet}!`,`${state.shop.name} · ${brDate(today)}`,btn('Novo orçamento','new-quote',{icon:'file'})+btn('Nova OS','new-order',{cls:'accent',icon:'plus'}))
- +(first?`<div class="card welcome"><h2>Bem-vindo ao ${APP.name}! 👋</h2><p>Comece em 3 passos rápidos:</p><div class="steps3"><button class="quick" data-route="settings">${ICON.gear}<span>1. Preencha os dados da oficina</span></button><button class="quick" data-action="new-customer">${ICON.users}<span>2. Cadastre um cliente e o veículo</span></button><button class="quick" data-action="new-quote">${ICON.file}<span>3. Faça o primeiro orçamento</span></button></div><p class="mt12">${btn('Fazer a aula prática','open-lessons',{cls:'accent',icon:'book'})} ${btn('Ver com dados de exemplo','load-demo',{icon:'plus'})}</p></div>`:'')
+ +(first?`<div class="card welcome"><h2>Bem-vindo ao ${APP.name}! 👋</h2><p>Comece em 3 passos rápidos:</p><div class="steps3"><button class="quick" data-route="settings">${ICON.gear}<span>1. Preencha os dados da oficina</span></button><button class="quick" data-action="new-customer">${ICON.users}<span>2. Cadastre um cliente e o veículo</span></button><button class="quick" data-action="new-quote">${ICON.file}<span>3. Faça o primeiro orçamento</span></button></div><p class="mt12">${btn('Fazer a aula prática','open-lessons',{cls:'accent',icon:'book'})} ${btn('Ver em modo demonstração','demo-toggle',{icon:'eye'})}</p></div>`:'')
  +`<div class="grid g4" style="margin-bottom:14px">${kpi('Na oficina',active.length,ready.length+' pronta(s) p/ retirar',{k:'k-blue',icon:'car',route:'orders'})}${kpi('Faturado no mês',money(fat),delM.length+' OS entregues',{k:'k-green',icon:'chart',route:'finance'})}${kpi('A receber',money(toRec),'cobranças pendentes',{k:'k-warn',icon:'wallet',route:'finance'})}${kpi('Orçamentos abertos',openQ.length,money(sum(openQ,q=>docTotals(q).total)),{icon:'file',route:'quotes'})}</div>
  <div class="grid g2-1"><div>
   <div class="card"><div class="card-head"><h2>Pendências</h2></div>${att.length?att.slice(0,6).map(i=>`<div class="row"><div class="grow"><b>${esc(i.t)}</b><div class="small muted">${esc(i.s)}</div></div><button class="btn sm" data-action="att-go" data-k="${i.k}">${esc(i.label)}</button></div>`).join(''):empty('check','Tudo em dia','Nenhuma pendência.')}</div>
@@ -2423,6 +2646,119 @@ A['tour-prev']=()=>{TOUR.i--;tourShow()};
 A['tour-end']=()=>{TOUR=null;$$('.tour-hl').forEach(x=>x.classList.remove('tour-hl'));$$('.tour-card').forEach(x=>x.remove())};
 
 /* ============================================================
+   MODO DEMONSTRAÇÃO: dados fictícios só na memória.
+   Seus dados reais ficam guardados e nada é salvo enquanto o
+   modo está ativo. Ao sair, tudo volta como estava.
+   ============================================================ */
+window.__DEMO=false;
+const dd=n=>addDays(todayISO(),n);
+function buildDemoState(real){
+ let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647},pick=a=>a[Math.floor(rnd()*a.length)];
+ const d=clone(real);
+ d.shop={...d.shop,name:'Auto Center Modelo',legalName:'Auto Center Modelo Ltda.',document:'12345678000199',owner:'Roberto Lima',phone:'1133334444',whatsapp:'11999990000',email:'contato@autocentermodelo.demo',pixKey:'contato@autocentermodelo.demo',address:'Av. das Oficinas, 500 · Centro',city:'São Paulo',uf:'SP',slogan:'Cuidando do seu carro como se fosse nosso'};
+ d.settings={...d.settings,counters:{}};
+ ['customers','vehicles','kits','parts','stockMoves','suppliers','quotes','orders','transactions','commissions','appointments','contactLog','assets','documents','purchaseOrders','purchaseQuotes','budgets','reconciliations'].forEach(k=>d[k]=[]);
+ d.audit=[{id:uid('au'),at:iso(),module:'Demonstração',action:'Modo demonstração iniciado',record:'Dados fictícios'}];
+ d.accounts=[{id:'acc_caixa',name:'Caixa',type:'Caixa',opening:150000,active:true},{id:'acc_banco',name:'Conta bancária',type:'Banco',opening:850000,active:true},{id:'acc_pix',name:'Pix',type:'Pix',opening:120000,active:true},{id:'acc_maq',name:'Maquininha',type:'Cartão',opening:0,active:true}];
+ const prev=state;state=d; // helpers usam o state global
+ try{
+  const SV=k=>state.services.find(s=>norm(s.name).includes(norm(k)))||state.services[0];
+  /* equipe */
+  state.team=[{id:'demo_m1',name:'João Batista',role:'Mecânico',phone:'11988880001',commissionPct:10,salary:260000,active:true},{id:'demo_m2',name:'Marcos Vieira',role:'Mecânico',phone:'11988880002',commissionPct:12,salary:280000,active:true},{id:'demo_m3',name:'Paulo Eletricista',role:'Eletricista',phone:'11988880003',commissionPct:10,salary:240000,active:true},{id:'demo_m4',name:'Renata Souza',role:'Atendimento',phone:'11988880004',commissionPct:0,salary:200000,active:true}];
+  /* fornecedores */
+  state.suppliers=[{id:'demo_s1',name:'Auto Peças Brasil',contact:'Sérgio',phone:'1133001001',category:'Peças em geral',city:'São Paulo'},{id:'demo_s2',name:'Distribuidora Lubrimax',contact:'Camila',phone:'1133001002',category:'Óleos e lubrificantes',city:'Guarulhos'},{id:'demo_s3',name:'Freios & Cia',contact:'Anderson',phone:'1133001003',category:'Freios e suspensão',city:'Osasco'},{id:'demo_s4',name:'Pneus Rápido',contact:'Júlio',phone:'1133001004',category:'Pneus',city:'São Paulo'}];
+  /* peças */
+  const PT=(id,n,sku,cat,cost,pr,q,mn,sup,brand)=>({id,name:n,sku,brand:brand||'',category:cat,unit:'un',cost,price:pr,markup:Math.round((pr-cost)/cost*100),qty:q,minQty:mn,location:'Prateleira '+pick(['A1','A2','B1','B3','C2']),supplierId:sup,application:'',active:true});
+  state.parts=[PT('demo_p1','Óleo 5W30 sintético (litro)','OL-5W30','Óleos e lubrificantes',3200,4800,36,12,'demo_s2','Mobil'),PT('demo_p2','Óleo 15W40 mineral (litro)','OL-15W40','Óleos e lubrificantes',2100,3200,20,8,'demo_s2','Lubrax'),PT('demo_p3','Filtro de óleo','FO-100','Filtros',1800,3200,14,6,'demo_s1','Mann'),PT('demo_p4','Filtro de ar','FA-330','Filtros',2200,3900,3,5,'demo_s1','Tecfil'),PT('demo_p5','Filtro de combustível','FC-210','Filtros',2600,4500,7,4,'demo_s1','Wega'),PT('demo_p6','Filtro de cabine','FCB-77','Filtros',2000,3800,2,4,'demo_s1','Tecfil'),PT('demo_p7','Pastilha de freio dianteira','PF-210','Freios',9000,16000,5,4,'demo_s3','Cobreq'),PT('demo_p8','Disco de freio (par)','DF-300','Freios',22000,39000,3,2,'demo_s3','Fremax'),PT('demo_p9','Fluido de freio DOT4','FL-DOT4','Freios',1800,3500,9,4,'demo_s3','Bosch'),PT('demo_p10','Amortecedor dianteiro (un)','AM-D1','Suspensão',16000,29000,4,2,'demo_s3','Cofap'),PT('demo_p11','Vela de ignição (un)','VE-01','Motor',1800,3200,24,8,'demo_s1','NGK'),PT('demo_p12','Correia dentada + tensor (kit)','CD-KIT','Motor',21000,38000,2,2,'demo_s1','Gates'),PT('demo_p13','Bateria 60Ah','BAT-60','Elétrica',32000,52000,3,2,'demo_s1','Moura'),PT('demo_p14','Aditivo radiador (litro)','AD-RAD','Arrefecimento',1400,2800,10,5,'demo_s2','Paraflu'),PT('demo_p15','Pneu aro 15 (un)','PN-15','Pneus e rodas',28000,41000,8,4,'demo_s4','Pirelli')];
+  state.parts[3].qty=3;state.parts[5].qty=2;
+  state.stockMoves=state.parts.map(p=>({id:uid('mv'),partId:p.id,type:'Entrada',qty:p.qty+8,date:dd(-60),note:'Saldo inicial',cost:p.cost}));
+  /* clientes e veículos */
+  const C=(n,ph,birth,city,src,type)=>({id:uid('cus'),type:type||'PF',name:n,document:'',birth:birth||'',phone:ph,phone2:'',email:n.split(' ')[0].toLowerCase().replace(/[^a-z]/g,'')+'@email.demo',source:src||'Indicação',zip:'',address:'',district:'',city:city||'São Paulo',notes:'',allowMarketing:true,status:'Ativo',createdAt:iso(),updatedAt:iso()});
+  const names=[['Carlos Almeida','11987650001'],['Fernanda Souza','11987650002'],['Ricardo Menezes','11987650003'],['Patrícia Lopes','11987650004'],['Transportes Beta Ltda','1133330005','PJ'],['Marcelo Tavares','11987650006'],['Juliana Prado','11987650007'],['Anderson Costa','11987650008'],['Luciana Ferraz','11987650009'],['Padaria Pão Quente ME','1133330010','PJ'],['Eduardo Matos','11987650011'],['Camila Rocha','11987650012'],['Gustavo Pires','11987650013'],['Sandra Oliveira','11987650014']];
+  state.customers=names.map((n,i)=>C(n[0],n[1],i===0?dd(0).replace(/^\d{4}/,'1985'):i===3?dd(3).replace(/^\d{4}/,'1990'):'',pick(['São Paulo','Guarulhos','Osasco']),pick(['Indicação','Google','Instagram','Passou na frente','Cliente antigo']),n[2]));
+  const V=(ci,pl,br,mo,yr,km,col,fu)=>({id:uid('veh'),customerId:state.customers[ci].id,plate:pl,kind:'Carro',brand:br,model:mo,year:yr,color:col||'Prata',fuel:fu||'Flex',km,kmDate:dd(-10),active:true});
+  state.vehicles=[V(0,'ABC1D23','Volkswagen','Gol 1.0',2018,64200),V(1,'QWE4R56','Fiat','Argo 1.3',2020,38900,'Branco'),V(2,'RTY7U89','Chevrolet','Onix 1.0',2019,71500,'Preto'),V(3,'ASD2F34','Honda','Civic 2.0',2017,98300,'Cinza'),V(4,'JKL7M89','Ford','Cargo 816',2015,215000,'Branco','Diesel'),V(4,'MNB3V45','Mercedes-Benz','Accelo 815',2018,142000,'Branco','Diesel'),V(5,'ZXC8B12','Toyota','Corolla 2.0',2021,45800,'Prata'),V(6,'POI4U67','Hyundai','HB20 1.6',2019,66100,'Vermelho'),V(7,'LKJ9H03','Renault','Duster 1.6',2020,59400,'Cinza'),V(8,'MAS5D90','Jeep','Renegade 1.8',2018,88800,'Azul'),V(9,'FDS6G21','Fiat','Fiorino 1.4',2016,131000,'Branco'),V(10,'HJK1L58','Volkswagen','Polo 1.0 TSI',2022,28900,'Branco'),V(11,'UIO0P74','Nissan','Kicks 1.6',2021,41200,'Laranja'),V(12,'TGB2N36','Chevrolet','S10 2.8',2017,156000,'Preto','Diesel'),V(13,'QRS5T67','Peugeot','208 1.6',2019,57300,'Azul')];
+  /* pacotes */
+  state.kits=[{id:uid('kit'),name:'Revisão 10.000 km',description:'Óleo + filtros + mão de obra',active:true,items:[itemFromService(SV('Troca de óleo e filtro de óleo')),itemFromPart(state.parts[0],4),itemFromPart(state.parts[2]),itemFromPart(state.parts[3])]},{id:uid('kit'),name:'Freios dianteiros completo',description:'Pastilhas + discos + fluido',active:true,items:[itemFromService(SV('pastilhas')),itemFromService(SV('discos')),itemFromPart(state.parts[6]),itemFromPart(state.parts[7]),itemFromPart(state.parts[8])]}];
+  /* ordens entregues (histórico de 6 meses) */
+  const methods=['Pix','Pix','Débito','Crédito','Dinheiro'];const accOf={'Pix':'acc_pix','Débito':'acc_maq','Crédito':'acc_maq','Dinheiro':'acc_caixa','Boleto':'acc_banco'};
+  const combos=[[['Troca de óleo e filtro de óleo'],[[0,4],[2,1]]],[['Revisão preventiva'],[[0,4],[2,1],[3,1]]],[['pastilhas'],[[6,1]]],[['Alinhamento','Balanceamento'],[]],[['discos','pastilhas'],[[6,1],[7,1]]],[['amortecedores'],[[9,2]]],[['velas'],[[10,4]]],[['Diagnóstico'],[]],[['Troca de bateria'],[[12,1]]],[['correia dentada'],[[11,1]]],[['Higienização'],[[5,1]]],[['filtro de combustível'],[[4,1]]]];
+  const mkItems=(c)=>{const it=c[0].map(k=>itemFromService(SV(k)));c[1].forEach(([pi,q])=>it.push(itemFromPart(state.parts[pi],q)));return it};
+  const addPay=(o,when,mode)=>{const t=docTotals(o).total;if(!t)return;
+   const mk=(v,due,desc,m,paid)=>({id:uid('tx'),type:'Receita',status:paid?'Recebido':'Pendente',date:due,dueDate:due,paidAt:paid?due:'',value:v,desc,category:pick(['Serviço (mão de obra)','Serviço (mão de obra)','Venda de peças']),accountId:accOf[m]||'acc_pix',method:m,orderId:o.id,customerId:o.customerId,vehicleId:o.vehicleId,createdAt:iso()});
+   if(mode==='plan'){const e=Math.round(t*0.3/100)*100,r=t-e,n=3,each=Math.floor(r/n);state.transactions.push(mk(e,when,'Entrada · '+o.code,'Pix',true));for(let i=0;i<n;i++){const due=addMonths(when,i+1);state.transactions.push(mk(i===n-1?r-each*2:each,due,`Parcela ${i+1}/${n} · ${o.code}`,'Boleto',due<=todayISO()))}}
+   else if(mode==='none'){}
+   else if(mode==='late'){state.transactions.push(mk(t,addDays(when,5),'Pagamento · '+o.code,'Boleto',false))}
+   else{const m=pick(methods);state.transactions.push(mk(t,when,'Pagamento · '+o.code,m,true))}};
+  const mkOrder=(ci,vi,status,ago,dur,items,mech,payMode,extra={})=>{
+   const o=newOrderDraft({customerId:state.customers[ci].id,vehicleId:state.vehicles[vi].id,mechId:mech});o.code=nextCode('order');
+   o.openedAt=dd(-ago)+'T09:00:00';o.status=status;o.items=items;o.kmIn=state.vehicles[vi].km-Math.floor(rnd()*3000);o.complaint=extra.complaint||'';o.history=[{at:o.openedAt,t:'OS aberta'}];o.checklist={'Estepe':true,'Macaco e chave de roda':true,'Tapetes':true};Object.assign(o,extra.set||{});
+   if(status==='Entregue'||status==='Pronta'){o.finishedAt=dd(-(ago-dur))+'T16:00:00'}
+   if(status==='Entregue'){o.deliveredAt=dd(-(ago-dur))+'T17:30:00';const wd=Math.max(0,...items.filter(i=>i.type==='service').map(i=>Number(i.warrantyDays)||0));if(wd)o.warrantyUntil=addDays(dd(-(ago-dur)),wd);o.history.push({at:o.deliveredAt,t:'Situação: Pronta → Entregue'});
+    const cm=commissionFor(o);if(cm>0)state.commissions.push({id:uid('cm'),orderId:o.id,mechId:o.mechId,value:cm,date:dd(-(ago-dur)),status:ago>35?'Paga':'Pendente',paidAt:ago>35?dd(-(ago-dur)+5):''})}
+   if(['Em execução','Pronta','Entregue'].includes(status)){o.items.filter(i=>i.type==='part').forEach(i=>{o.stockOut[i.id]=i.qty})}
+   state.orders.push(o);if(payMode)addPay(o,dd(-(ago-dur)),payMode);return o};
+  for(let i=0;i<110;i++){const ago=1+Math.floor(i*1.6+rnd()*1.5),ci=Math.floor(rnd()*state.customers.length),veh=state.vehicles.filter(v=>v.customerId===state.customers[ci].id),v=pick(veh),vi=state.vehicles.indexOf(v);
+   mkOrder(ci,vi,'Entregue',Math.min(ago,176),rnd()<.5?0:1,mkItems(pick(combos)),pick(['demo_m1','demo_m2','demo_m3']),ago<20&&i%6===0?'plan':'full')}
+  /* ordens ativas em cada coluna */
+  mkOrder(0,0,'Aguardando',0,0,[],'demo_m1','',{complaint:'Barulho na suspensão dianteira ao passar em buracos'});
+  mkOrder(2,2,'Diagnóstico',1,0,[itemFromService(SV('Diagnóstico'))],'demo_m3','',{complaint:'Luz da injeção acesa e motor falhando'});
+  const oa=mkOrder(3,3,'Aguardando aprovação',2,0,[...mkItems(combos[4]),itemFromService(SV('Troca de fluido de freio'))],'demo_m2','',{complaint:'Freio com vibração ao frear'});oa.items[oa.items.length-1].approved=false;oa.history.push({at:iso(),t:'Itens adicionais aguardando autorização'});
+  mkOrder(8,8,'Aguardando peça',3,0,mkItems(combos[5]),'demo_m2','',{complaint:'Amortecedores vazando óleo'});
+  const e1=mkOrder(4,4,'Em execução',1,0,mkItems(combos[9]),'demo_m1','plan',{complaint:'Revisão geral do caminhão'});
+  mkOrder(1,1,'Em execução',0,0,mkItems(combos[0]),'demo_m1','',{complaint:'Revisão de 40.000 km'});
+  const pr=mkOrder(6,6,'Pronta',2,0,mkItems(combos[1]),'demo_m2','late',{complaint:'Revisão preventiva'});
+  mkOrder(10,10,'Pronta',1,0,mkItems(combos[2]),'demo_m1','none',{complaint:'Pastilhas gastas'});
+  state.orders.filter(o=>['Aguardando','Diagnóstico','Aguardando aprovação','Aguardando peça','Em execução'].includes(o.status)).forEach((o,i)=>{o.promisedAt=dd(i%4)+'T17:00:00'});
+  state.orders.forEach(o=>{if(state.orders.indexOf(o)%7===0)o.bayId=pick(['bay1','bay2'])});
+  /* orçamentos */
+  const mkQuote=(ci,status,ago,items,complaint)=>{const v=state.vehicles.find(x=>x.customerId===state.customers[ci].id),q=newQuoteDraft({customerId:state.customers[ci].id,vehicleId:v.id});q.code=nextCode('quote');q.date=dd(-ago);q.validUntil=dd(-ago+7);q.items=items;q.status=status;q.complaint=complaint||'';q.km=v.km;q.history=[{at:dd(-ago)+'T10:00:00',t:'Orçamento criado'}];if(status!=='Rascunho'){q.sentAt=dd(-ago)+'T10:30:00';q.history.push({at:q.sentAt,t:'Enviado por WhatsApp'})}state.quotes.push(q);return q};
+  mkQuote(5,'Enviado',6,mkItems(combos[4]),'Barulho ao frear');mkQuote(7,'Enviado',4,mkItems(combos[5]),'Suspensão batendo');mkQuote(9,'Enviado',1,mkItems(combos[1]),'Revisão da Fiorino');mkQuote(11,'Rascunho',0,mkItems(combos[9]),'Troca da correia dentada');mkQuote(12,'Rascunho',0,mkItems(combos[8]));
+  mkQuote(13,'Aprovado',2,mkItems(combos[0]));mkQuote(2,'Recusado',9,mkItems(combos[10]),'Ar-condicionado fraco');mkQuote(1,'Recusado',15,mkItems(combos[5]));
+  const qc=mkQuote(0,'Convertido',20,mkItems(combos[6]));qc.orderId=state.orders[0].id;mkQuote(3,'Enviado',12,mkItems(combos[3]));
+  /* despesas fixas dos últimos 6 meses */
+  for(let m=0;m<6;m++){const base=addMonths(dd(0).slice(0,8)+'01',-m);const ex=(day,desc,cat,v,acc)=>{const dt=base.slice(0,8)+String(day).padStart(2,'0');if(dt>todayISO())return;state.transactions.push({id:uid('tx'),type:'Despesa',status:'Pago',date:dt,dueDate:dt,paidAt:dt,value:v,desc,category:cat,accountId:acc||'acc_banco',method:'Boleto',createdAt:iso()})};
+   ex(5,'Aluguel da oficina','Aluguel',180000);ex(8,'Energia elétrica','Energia elétrica',42000+Math.floor(rnd()*8000));ex(10,'Internet e telefone','Internet e telefone',14900);ex(5,'Salários da equipe','Salários',260000);ex(15,'Compra de peças e óleo','Peças e materiais',90000+Math.floor(rnd()*40000));ex(20,'Contabilidade','Contabilidade',25000);ex(12,'Anúncios Google/Instagram','Marketing',30000)}
+  state.transactions.push({id:uid('tx'),type:'Despesa',status:'Pendente',date:dd(4),dueDate:dd(4),value:180000,desc:'Aluguel da oficina',category:'Aluguel',accountId:'acc_banco',method:'Boleto',createdAt:iso()},{id:uid('tx'),type:'Despesa',status:'Pendente',date:dd(-2),dueDate:dd(-2),value:44800,desc:'Energia elétrica',category:'Energia elétrica',accountId:'acc_banco',method:'Boleto',createdAt:iso()},{id:uid('tx'),type:'Despesa',status:'Pendente',date:dd(9),dueDate:dd(9),value:95000,desc:'Compra de peças · Auto Peças Brasil',category:'Peças e materiais',accountId:'acc_banco',supplierId:'demo_s1',method:'Boleto',createdAt:iso()});
+  /* agenda */
+  const ap=(off,time,ci,svc,st,dur,bay,mech)=>{const v=state.vehicles.find(x=>x.customerId===state.customers[ci].id);state.appointments.push({id:uid('ap'),customerId:state.customers[ci].id,vehicleId:v.id,date:dd(off),time,duration:dur||60,bayId:bay||'bay1',mechId:mech||'demo_m1',status:st||'Agendado',service:svc,notes:''})};
+  ap(0,'08:00',1,'Revisão de 40.000 km','Chegou',120);ap(0,'10:30',11,'Troca de pastilhas','Confirmado',60,'bay2','demo_m2');ap(0,'14:00',12,'Diagnóstico de injeção','Agendado',90);ap(1,'09:00',5,'Alinhamento e balanceamento','Confirmado',60,'bay2','demo_m2');ap(1,'13:30',7,'Revisão preventiva','Agendado',120);ap(2,'08:30',9,'Troca de óleo','Agendado',60);ap(3,'10:00',4,'Revisão de freios do caminhão','Confirmado',180,'bay2','demo_m2');ap(5,'09:00',10,'Troca de correia dentada','Agendado',240);ap(6,'15:00',13,'Ar-condicionado','Agendado',90);ap(8,'08:00',2,'Troca de amortecedores','Agendado',150);ap(11,'11:00',3,'Revisão completa','Agendado',180);ap(14,'09:30',6,'Troca de óleo','Agendado',60);ap(19,'14:00',8,'Alinhamento','Agendado',60);ap(-3,'10:00',0,'Troca de óleo','Concluído');ap(-6,'16:00',7,'Orçamento de suspensão','Faltou');
+  /* patrimônio e documentos */
+  state.assets=[{id:uid('as'),name:'Elevador 2 colunas 4t',category:'Elevadores',serial:'ELV-2201',buyDate:'2022-03-10',value:1850000,nextService:dd(20),notes:''},{id:uid('as'),name:'Scanner automotivo',category:'Diagnóstico',serial:'SCN-9981',buyDate:'2023-06-02',value:620000,nextService:dd(-4),notes:'Atualização de software pendente'},{id:uid('as'),name:'Alinhador 3D',category:'Alinhamento',serial:'AL3D-55',buyDate:'2021-09-15',value:2900000,nextService:dd(60),notes:''},{id:uid('as'),name:'Compressor 200L',category:'Ferramentas',serial:'CMP-200',buyDate:'2020-01-20',value:310000,nextService:dd(90),notes:''}];
+  state.documents=[{id:uid('dc'),name:'Alvará de funcionamento',expires:dd(120),notes:''},{id:uid('dc'),name:'Licença ambiental (descarte de óleo)',expires:dd(18),notes:'Renovar com antecedência'},{id:uid('dc'),name:'AVCB — Corpo de Bombeiros',expires:dd(-10),notes:'Vencido'}];
+  /* histórico de contato */
+  state.contactLog=[{id:uid('ct'),at:dd(-1)+'T11:00:00',customerId:state.customers[5].id,kind:'whatsapp',text:'Orçamento enviado',refKey:''},{id:uid('ct'),at:dd(-3)+'T15:00:00',customerId:state.customers[7].id,kind:'whatsapp',text:'Lembrete de revisão',refKey:''}];
+  state.stockMoves.push(...state.orders.filter(o=>o.status==='Entregue').slice(0,12).flatMap(o=>o.items.filter(i=>i.type==='part').map(i=>({id:uid('mv'),partId:i.refId,type:'Saída',qty:i.qty,date:String(o.deliveredAt).slice(0,10),orderId:o.id,note:'Uso na '+o.code,cost:i.cost||0}))));
+  state.purchaseOrders=[{id:uid('po'),code:'PC-2026-0001',supplierId:'demo_s1',date:dd(-8),status:'Recebido',items:[{partId:'demo_p4',name:'Filtro de ar',qty:10,cost:2200}],notes:''},{id:uid('po'),code:'PC-2026-0002',supplierId:'demo_s3',date:dd(-1),status:'Pedido enviado',items:[{partId:'demo_p7',name:'Pastilha de freio dianteira',qty:6,cost:9000}],notes:''}];
+  const out=state;return out;
+ }finally{state=prev}
+}
+function activateDemo(){
+ if(window.__DEMO)return;
+ window.__REAL=state;window.__DEMO=true;
+ try{state=buildDemoState(window.__REAL)}catch(e){console.error(e);state=window.__REAL;window.__REAL=null;window.__DEMO=false;toast('Não foi possível abrir a demonstração. Avise o suporte.','err');return}
+ closeAllModals&&closeAllModals();buildNav();go('home');toast('Modo Demonstração ativado — seus dados reais estão preservados.','ok');
+}
+function deactivateDemo(){
+ if(!window.__DEMO)return;
+ state=window.__REAL;window.__REAL=null;window.__DEMO=false;closeAllModals&&closeAllModals();buildNav();go('home');toast('Você saiu da demonstração. Seus dados reais voltaram.','ok');
+}
+A['demo-toggle']=()=>{
+ if(window.__DEMO)return deactivateDemo();
+ showModal('Modo Demonstração',`<p>O sistema será preenchido <b>temporariamente</b> com uma oficina fictícia: clientes, veículos, orçamentos, ordens de serviço em todas as etapas, agenda, estoque e financeiro de 6 meses.</p><ul style="line-height:1.8"><li>Seus dados reais ficam guardados e <b>não são alterados</b>.</li><li>Nada do que você fizer na demonstração é salvo.</li><li>Mensagens de WhatsApp <b>não são enviadas</b> a ninguém; aparecem só como visualização.</li></ul>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn accent" data-action="demo-go">Ativar demonstração</button>`,'sm');
+};
+A['demo-go']=()=>activateDemo();
+const demoBanner=()=>window.__DEMO?`<div class="demo-banner"><div><b>Modo Demonstração ativo</b><small>Dados fictícios para você conhecer o sistema. Nada é salvo e nenhuma mensagem é enviada.</small></div><button class="btn sm" data-action="demo-toggle">Sair da demonstração</button></div>`:'';
+
+/* ações que alterariam dados reais ficam bloqueadas durante a demonstração */
+['wipe-all','bk-restore','snap-restore','bk-dec-go','load-demo','import-contacts','pw-change','pw-save','pw-newcode','pw-newcode-go','lock-now'].forEach(k=>{
+ const orig=A[k];if(!orig)return;
+ A[k]=function(...a){if(window.__DEMO){return showModal('Indisponível na demonstração',`<p>Esta ação mexe nos dados e na segurança do sistema. Saia da demonstração para usá-la.</p>`,`<button class="btn" data-action="close-modal">Entendi</button><button class="btn accent" data-action="demo-toggle">Sair da demonstração</button>`,'sm')}return orig.apply(this,a)};
+});
+const _bn=buildNav;
+buildNav=function(){_bn();const n=$('#sideNav');if(n)n.insertAdjacentHTML('beforeend',`<div class="nav-title">Conhecer</div><button class="nav-btn demo-nav" data-action="demo-toggle">${ico('eye')}<span>${window.__DEMO?'Sair da demonstração':'Modo demonstração'}</span></button>`)};
+
+/* ============================================================
    INICIALIZAÇÃO
    ============================================================ */
 (async function boot(){
@@ -2431,7 +2767,7 @@ A['tour-end']=()=>{TOUR=null;$$('.tour-hl').forEach(x=>x.classList.remove('tour-
   window.addEventListener('error',e=>console.error('ERR',e.message));
   buildNav();R=parseHash();
   render();updateBadges();
-  if(state.settings.pinEnabled)showLock();
+  showLock(state.settings.pinHash?'login':'setup');
   if('serviceWorker' in navigator&&location.protocol.startsWith('http')){navigator.serviceWorker.register('sw.js').catch(()=>{})}
   try{await maybeSnapshot()}catch(e){console.error(e)}
   window.__READY=true;
