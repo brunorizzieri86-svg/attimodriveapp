@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.7.0.0</title>
+<title>MEU MECÂNICO · V1.7.1.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -297,6 +297,9 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
 .next-step .ns-t{flex:1;min-width:220px}.next-step .ns-t b{display:block;font-size:15px}.next-step .ns-t span{color:var(--muted);font-size:13px}
 .next-step .ns-n{background:#2563eb;color:#fff;border-radius:999px;font-size:11px;font-weight:800;padding:2px 9px;letter-spacing:.06em;text-transform:uppercase}
 .next-step .btn{font-size:14px;padding:10px 18px}
+.perm-grp{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.perm-grp h3{margin:0 0 2px;font-size:15px}
+.perm-presets{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.perm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin-top:8px}
 
 </style>
 </head>
@@ -307,7 +310,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.7.0.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.7.1.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -334,7 +337,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.7.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.7.1.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -3217,14 +3220,35 @@ buildNav=function(){_bn2();const n=$('#sideNav');if(n)n.insertAdjacentHTML('befo
    Os dois usam os mesmos dados: o que um faz aparece para o outro.
    ============================================================ */
 window.__ROLE='owner';
-const PERM_DEF={finance:false,reports:false,costs:false,team:false,receive:true};
-const PERM_LABELS=[
- ['finance','Ver o Financeiro','Contas a receber e a pagar, caixa, resultado e valores em aberto dos clientes.'],
- ['reports','Ver relatórios','Faturamento, resultado e demais relatórios da oficina (a tabela de preços e a agenda sempre ficam liberadas).'],
- ['costs','Ver custo e margem das peças','Se desmarcado, o funcionário vê só o preço de venda.'],
- ['team','Ver equipe, salários e comissões','Cadastro da equipe e pagamento de comissões.'],
- ['receive','Registrar pagamentos na OS','Receber o cliente na entrega do veículo (entrada, parcelas, “Receber agora”).']
+const PERM_GROUPS=[
+ ['Telas que o funcionário pode abrir','Marque só o que ele precisa no dia a dia. As telas desmarcadas somem do menu dele.',[
+  ['mod_quotes','Orçamentos','Criar, enviar e acompanhar orçamentos.',true],
+  ['mod_orders','Ordens de serviço','Abrir OS, andar com o quadro e registrar o serviço.',true],
+  ['mod_agenda','Agenda','Marcar e consultar horários.',true],
+  ['mod_comm','Comunicação','Mensagens prontas e lembretes por WhatsApp.',true],
+  ['mod_customers','Clientes','Cadastro e histórico dos clientes.',true],
+  ['mod_vehicles','Veículos','Cadastro e histórico dos veículos.',true],
+  ['mod_services','Serviços','Catálogo de serviços e preços.',true],
+  ['mod_parts','Peças e estoque','Consultar e movimentar o estoque.',true],
+  ['mod_suppliers','Fornecedores','Cadastro de fornecedores e pedidos de compra.',true],
+  ['mod_assets','Equipamentos','Ferramentas e equipamentos da oficina.',true],
+  ['mod_documents','Documentos','Documentos e arquivos da oficina.',true],
+  ['finance','Financeiro','Contas a receber e a pagar, caixa e resultado.',false],
+  ['reports','Relatórios','Faturamento, resultado e demais relatórios (tabela de preços, agenda e reposição sempre liberadas).',false],
+  ['team','Equipe, salários e comissões','Cadastro da equipe e pagamento de comissões.',false]]],
+ ['O que o funcionário pode fazer','Ações dentro das telas liberadas.',[
+  ['receive','Registrar pagamentos na OS','Receber o cliente (entrada, parcelas, “Receber agora”).',true],
+  ['deliver','Entregar o veículo','Marcar a OS como Entregue (dá a baixa final e inicia a garantia).',true],
+  ['cancel','Cancelar OS','Cancelar uma ordem de serviço aberta.',false],
+  ['discount','Dar desconto','Aplicar desconto na OS.',false],
+  ['costs','Ver custo e margem das peças','Se desmarcado, ele vê só o preço de venda.',false],
+  ['editcatalog','Cadastrar e editar serviços, peças e fornecedores','Criar e alterar itens do catálogo e do estoque.',true],
+  ['stockmove','Dar entrada e saída manual no estoque','Ajustes de quantidade fora da OS.',true],
+  ['delete','Excluir cadastros e lançamentos','Apagar clientes, veículos, orçamentos, peças, equipe e outros registros.',false],
+  ['export','Exportar planilhas (Excel/CSV)','Baixar listas e relatórios em planilha.',false]]]
 ];
+const PERM_LABELS=PERM_GROUPS.flatMap(g=>g[2]);
+const PERM_DEF=Object.fromEntries(PERM_LABELS.map(([k,,,d])=>[k,d]));
 const staffCfg=()=>{const s=(state&&state.settings&&state.settings.staff)||{};return {enabled:!!s.enabled&&!!s.hash,name:s.name||'Funcionário',perms:{...PERM_DEF,...(s.perms||{})},hash:s.hash,salt:s.salt}};
 const staffOn=()=>!!(state&&state.settings&&state.settings.staff&&state.settings.staff.enabled&&state.settings.staff.hash);
 const isStaff=()=>window.__ROLE==='staff';
@@ -3232,10 +3256,9 @@ const can=p=>!isStaff()||!!staffCfg().perms[p];
 function modAllowed(key){
  if(!isStaff())return true;
  if(key==='settings')return false;
- if(key==='finance')return can('finance');
- if(key==='reports')return can('reports');
- if(key==='team')return can('team');
- return true;
+ if(key==='home')return true;
+ if(['finance','reports','team'].includes(key))return can(key);
+ return can('mod_'+key);
 }
 /* avisos do sino e da home: sem itens de áreas bloqueadas */
 const _att0=attentionItems;
@@ -3265,6 +3288,12 @@ function applyRole(){
    hideCols(r,/^(Total pago|Em aberto)$/);
   }
   if(!can('receive')){r.querySelectorAll('[data-action="os-pay"],[data-action="os-receive-all"],[data-action="tx-receive"],[data-action="os-receive-go"]').forEach(e=>e.remove())}
+  if(!can('discount')){r.querySelectorAll('#od_t,#od_v').forEach(e=>{const l=e.closest('label');if(l)l.remove()})}
+  if(!can('export')){r.querySelectorAll('[data-action^="export-"],[data-action="rep-csv"]').forEach(e=>e.remove())}
+  if(!can('editcatalog')){r.querySelectorAll('[data-action="new-part"],[data-action="edit-part"],[data-action="new-service"],[data-action="edit-service"],[data-action="new-supplier"],[data-action="edit-supplier"]').forEach(e=>e.remove())}
+  if(!can('stockmove')){r.querySelectorAll('[data-action="stock-move"]').forEach(e=>e.remove())}
+  if(!can('delete')){r.querySelectorAll('[data-action^="del-"],[data-action="quote-del"]').forEach(e=>e.remove())}
+  if(!can('cancel')){r.querySelectorAll('[data-action="os-status"][data-st="Cancelada"]').forEach(e=>e.remove())}
   if(!can('costs')){
    hideCols(r,/^(Custo|Margem|Custo un\.?|Valor em estoque)$/i);
    ['p_cost','p_mk'].forEach(id=>{const e=r.querySelector('#'+id);const l=e&&e.closest('label');if(l)l.remove()});
@@ -3281,18 +3310,36 @@ buildNav=function(){_bn3();const n=$('#sideNav');if(!n)return;
  if(isStaff())n.querySelectorAll('.demo-nav[data-action="demo-toggle"]').forEach(e=>e.remove());
 };
 
+/* ---- bloqueio real das ações (além de esconder os botões) ---- */
+function denyActions(perm,names,msg){names.forEach(n=>{const f=A[n];if(!f)return;A[n]=function(el){if(isStaff()&&!can(perm))return toast(msg||'O proprietário não liberou esta ação para o seu acesso.','err');return f.apply(this,arguments)}})}
+denyActions('delete',['del-appt','del-asset','del-customer','del-customer-force','del-doc','del-kit','del-mech','del-part','del-service','del-supplier','del-tx','del-vehicle','quote-del','po-del']);
+denyActions('export',['export-customers','export-orders','export-parts','export-tx','export-vehicles','rep-csv']);
+denyActions('editcatalog',['new-part','save-part','new-service','save-service','new-supplier','save-supplier']);
+denyActions('stockmove',['stock-move','stock-move-go']);
+{const f=A['os-status'];A['os-status']=function(el){
+ if(isStaff()){const st=el&&el.dataset&&el.dataset.st;
+  if(st==='Cancelada'&&!can('cancel'))return toast('O proprietário não liberou o cancelamento de OS.','err');
+  if(st==='Entregue'&&!can('deliver'))return toast('O proprietário não liberou a entrega do veículo.','err')}
+ return f.apply(this,arguments)}}
+
 /* ---- configuração (Configurações → Segurança) ---- */
 function staffCardHTML(){
  const c=staffCfg(),p=c.perms;
+ const grp=([t,d,items],gi)=>`<div class="perm-grp"><h3>${esc(t)}</h3><p class="muted small">${esc(d)}</p>${gi===0?`<div class="perm-presets"><button type="button" class="btn xs" data-action="staff-preset" data-p="basic">Só atendimento</button><button type="button" class="btn xs" data-action="staff-preset" data-p="nofin">Tudo, menos dinheiro e equipe</button><button type="button" class="btn xs" data-action="staff-preset" data-p="all">Marcar todas</button><button type="button" class="btn xs" data-action="staff-preset" data-p="none">Desmarcar todas</button></div>`:''}<div class="perm-list">${items.map(([k,l,h])=>`<label class="chk perm"><input type="checkbox" id="sp_${k}" ${p[k]?'checked':''}><span><b>${esc(l)}</b><small class="muted">${esc(h)}</small></span></label>`).join('')}</div></div>`;
  return `<div class="card"><h2>Acesso do funcionário</h2>
- <p class="muted small">Crie uma senha separada para quem trabalha na oficina. O funcionário abre OS, orçamentos, agenda, clientes, veículos e estoque, mas <b>não vê o financeiro</b>. Tudo o que ele fizer aparece para você automaticamente, porque os dois usam os mesmos dados.</p>
+ <p class="muted small">Crie uma senha separada para quem trabalha na oficina e <b>escolha exatamente o que ele pode abrir e fazer</b>. Tudo o que ele fizer aparece para você automaticamente, porque os dois usam os mesmos dados.</p>
  ${c.enabled?`<div class="alert ok">${ICON.shield}<div>Acesso do funcionário <b>ativo</b>. Na tela de entrada aparece a escolha “Proprietário” ou “Funcionário”.</div></div>`:`<div class="alert warn">${ICON.alert}<div>Acesso do funcionário <b>desligado</b>. Hoje só o proprietário entra.</div></div>`}
- <div class="form-grid mt12">${Chk('sf_on','Ativar acesso do funcionário',c.enabled)}${F('sf_name','Nome que aparece no sistema',{value:c.name,ph:'Ex.: Equipe, Atendimento'})}${F('sf_pw',c.hash?'Nova senha do funcionário (deixe vazio para manter)':'Senha do funcionário (mínimo 6)',{type:'password',full:true})}</div>
- <h3 style="margin:14px 0 6px">O que o funcionário pode ver</h3>
- <div style="display:grid;gap:8px">${PERM_LABELS.map(([k,l,h])=>`<label class="chk perm"><input type="checkbox" id="sp_${k}" ${p[k]?'checked':''}><span><b>${l}</b><small class="muted">${h}</small></span></label>`).join('')}</div>
+ <div class="form-grid mt12">${Chk('sf_on','Ativar acesso do funcionário',c.enabled)}${F('sf_name','Nome que aparece no sistema',{value:c.name,ph:'Ex.: Equipe, Atendimento'})}${F('sf_pw',c.hash?'Nova senha do funcionário (deixe vazio para manter)':'Senha do funcionário (mínimo 6)',{type:'password',help:'É com esta senha que ele entra, escolhendo “Funcionário” na tela de entrada.'})}</div>
+ ${PERM_GROUPS.map(grp).join('')}
  <p class="muted tiny mt12">Sempre bloqueado para o funcionário: Configurações, backup, troca de senha do proprietário e restauração de dados.</p>
  <div class="mt12">${btn('Salvar acesso do funcionário','staff-save',{cls:'accent',icon:'check'})}</div></div>`;
 }
+A['staff-preset']=el=>{
+ const basic=['mod_quotes','mod_orders','mod_agenda','mod_customers','mod_vehicles','receive','deliver'];
+ const nofin=PERM_LABELS.map(x=>x[0]).filter(k=>!['finance','reports','team','delete','export','cancel','discount','costs'].includes(k));
+ const set=k=>{const on=el.dataset.p==='all'||(el.dataset.p==='basic'&&basic.includes(k))||(el.dataset.p==='nofin'&&nofin.includes(k));const c=document.getElementById('sp_'+k);if(c)c.checked=on};
+ PERM_LABELS.forEach(([k])=>set(k));
+};
 A['staff-save']=async()=>{
  if(isStaff())return toast('Somente o proprietário altera isto.','err');
  const on=VB('sf_on'),pw=V('sf_pw'),st=state.settings,cur=st.staff||{};
