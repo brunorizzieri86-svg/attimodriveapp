@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.6.3.0</title>
+<title>MEU MECÂNICO · V1.7.0.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -249,6 +249,54 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
 .pro-it small{display:block;color:var(--muted,#667085);font-size:12.5px;line-height:1.4}
 .pro-ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-bg,#e5f4e4);color:#0a7a3d;display:flex;align-items:center;justify-content:center}
 .pro-ck svg{width:14px;height:14px}
+/* ---- configurações: cartões com explicação ---- */
+.set-card{margin-bottom:14px}
+.set-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.set-h h2{margin:0 0 2px;font-size:17px}.set-h p{margin:0}
+.set-ico{flex:none;width:38px;height:38px;border-radius:10px;background:var(--accent-soft,#fff1e6);color:var(--accent2,#e8590c);display:flex;align-items:center;justify-content:center}
+.set-ico svg{width:20px;height:20px}
+.set-card .field-help{font-size:12.5px;display:block}
+.logo-box{display:grid;gap:8px;padding:12px;border:1px dashed var(--line);border-radius:10px}
+.logo-prev{max-height:64px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:2px}
+.logo-empty{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1px dashed var(--line);border-radius:8px;font-size:11px;color:var(--muted);text-align:center}
+.save-bar{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--card,#fff);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:0 -6px 18px rgba(0,0,0,.08)}
+.combo-add{display:inline-flex;align-items:center;gap:4px;margin:6px 0 0;padding:6px 12px;border:1px solid var(--accent2,#e8590c);border-radius:8px;background:#fff7f0;color:var(--accent2,#c2410c);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.combo-add:hover{background:#ffe9d6}
+.combo-add+.combo{margin-top:8px}
+.plate-box{background:#f3f6fb;border:1px solid var(--line);border-radius:12px;padding:14px}
+.plate-box .form-grid{margin:0}
+.plate-big input{font-family:ui-monospace,Consolas,monospace;font-size:26px;letter-spacing:4px;text-align:center;text-transform:uppercase;font-weight:800;padding:12px;border:2px solid #1b2430;border-radius:10px;background:#fff}
+.ready-wa{white-space:nowrap}.ok-txt{color:#0a7a3d;margin-top:3px}
+.kcard .ready-wa{margin-top:6px;width:100%;justify-content:center}
+/* ---- quadro de OS mais claro ---- */
+.os-guide{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.os-guide summary{cursor:pointer;font-size:14px}.os-path{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;list-style:none;margin:12px 0;padding:0}
+.os-path li{background:#f6f8fb;border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:grid;gap:2px;position:relative}
+.os-path .n{width:22px;height:22px;border-radius:50%;background:var(--accent,#f97316);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.os-path small{color:var(--muted);font-size:11.5px;line-height:1.35}
+.os-guide-act{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.kanban{grid-auto-columns:minmax(178px,1fr);gap:8px}
+.kcol{background:#eef1f5;padding:8px;border-top:4px solid #94a3b8}
+.kcol.st-1{border-top-color:#94a3b8}.kcol.st-2{border-top-color:#3b82f6}.kcol.st-3{border-top-color:#f59e0b}.kcol.st-4{border-top-color:#f97316}.kcol.st-5{border-top-color:#8b5cf6}.kcol.st-6{border-top-color:#16a34a}
+.khead{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin:2px 3px 10px}
+.khead b{font-size:13px;display:block}.khead small{display:block;font-size:11px;color:var(--muted);line-height:1.3;margin-top:2px}
+.khead .n{background:#fff;border:1px solid var(--line);border-radius:999px;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.kc-top{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:4px}
+.kc-cli{font-weight:600;font-size:13px}.kc-bot{display:flex;align-items:center;gap:8px;margin:6px 0 2px}
+.kcard{border-left-width:1px}.kcard .kact{width:100%;justify-content:center;margin-top:8px}
+.kact2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}.kact2 .kact{margin-top:0}
+.kempty{padding:14px 6px;text-align:center}
+/* ---- abas coloridas: cada aba com a sua cor ---- */
+.tab{--tc:#3b82f6;border-color:color-mix(in srgb,var(--tc) 45%,#fff);background:color-mix(in srgb,var(--tc) 11%,#fff);color:color-mix(in srgb,var(--tc) 70%,#111)}
+.tab:nth-child(6n+1){--tc:#2563eb}.tab:nth-child(6n+2){--tc:#7c3aed}.tab:nth-child(6n+3){--tc:#16a34a}.tab:nth-child(6n+4){--tc:#ea580c}.tab:nth-child(6n+5){--tc:#0d9488}.tab:nth-child(6n+6){--tc:#475569}
+.tab:hover{background:color-mix(in srgb,var(--tc) 20%,#fff)}
+.tab.on{background:var(--tc);border-color:var(--tc);color:#fff;box-shadow:0 3px 10px color-mix(in srgb,var(--tc) 40%,transparent)}
+.tab .n{background:rgba(255,255,255,.7);color:#111;border-radius:999px;padding:0 6px;opacity:1}.tab.on .n{background:rgba(255,255,255,.25);color:#fff}
+/* próximo passo na OS */
+.next-step{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:linear-gradient(90deg,#eff6ff,#fff);border:1px solid #bfdbfe;border-left:6px solid #2563eb;border-radius:12px;padding:12px 16px;margin:12px 0}
+.next-step .ns-t{flex:1;min-width:220px}.next-step .ns-t b{display:block;font-size:15px}.next-step .ns-t span{color:var(--muted);font-size:13px}
+.next-step .ns-n{background:#2563eb;color:#fff;border-radius:999px;font-size:11px;font-weight:800;padding:2px 9px;letter-spacing:.06em;text-transform:uppercase}
+.next-step .btn{font-size:14px;padding:10px 18px}
 
 </style>
 </head>
@@ -259,7 +307,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.6.3.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.7.0.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -286,7 +334,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.6.3.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.7.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -713,7 +761,7 @@ function updateBadges(){MODS.forEach(m=>{if(!m.badge)return;const el=$(`[data-ba
 /* ---------- eventos globais ---------- */
 document.addEventListener('click',async e=>{
  const r=e.target.closest('[data-route]');
- if(r&&!r.closest('[data-action]:not([data-route])')){e.preventDefault();go(r.dataset.route,r.dataset.sub||'',r.dataset.id||'');return}
+ if(r&&!(e.target.closest('[data-action]:not([data-route])')&&r.contains(e.target.closest('[data-action]:not([data-route])')))&&!r.closest('[data-action]:not([data-route])')){e.preventDefault();go(r.dataset.route,r.dataset.sub||'',r.dataset.id||'');return}
  const a=e.target.closest('[data-action]');if(!a)return;
  const fn=A[a.dataset.action];if(!fn)return;
  if(a.tagName==='A'&&!a.getAttribute('href'))e.preventDefault();
@@ -834,12 +882,12 @@ function migrate(s){
 const COMBO={};
 function combo(id,label,src,value,o={}){
  const item=value&&COMBO[src]?.get?.(value);
- return `<label class="${o.full?'full':''}">${esc(label)}${o.req?' <span style="color:var(--red)">*</span>':''}<div class="combo"><input type="hidden" id="${id}" value="${esc(value||'')}"><input class="combo-in" id="${id}_t" data-in="combo" data-src="${src}" data-for="${id}" ${o.dep?`data-dep="${o.dep}"`:''} ${o.after?`data-after="${o.after}"`:''} value="${esc(item?item.label:'')}" placeholder="${esc(o.ph||'Digite para buscar…')}" autocomplete="off" ${o.attrs||''}><div class="combo-list hidden" id="${id}_l"></div></div></label>`;
+ return `<label class="${o.full?'full':''}">${esc(label)}${o.req?' <span style="color:var(--red)">*</span>':''}${COMBO[src]?.create?`<button type="button" class="combo-add" data-action="combo-new" data-for="${id}" data-src="${src}">+ ${esc(COMBO[src].create)}</button>`:''}<div class="combo"><input type="hidden" id="${id}" value="${esc(value||'')}"><input class="combo-in" id="${id}_t" data-in="combo" data-src="${src}" data-for="${id}" ${o.dep?`data-dep="${o.dep}"`:''} ${o.after?`data-after="${o.after}"`:''} value="${esc(item?item.label:'')}" placeholder="${esc(o.ph||'Digite para buscar…')}" autocomplete="off" ${o.attrs||''}><div class="combo-list hidden" id="${id}_l"></div></div></label>`;
 }
 function comboList(inp){
- const src=COMBO[inp.dataset.src];if(!src)return;const q=inp.value,dep=inp.dataset.dep?V(inp.dataset.dep):'';
+ const src=COMBO[inp.dataset.src];if(!src)return;const hv=document.getElementById(inp.dataset.for);const q=(hv&&hv.value)?'':inp.value,dep=inp.dataset.dep?V(inp.dataset.dep):'';
  const res=src.search(q,dep).slice(0,9);const l=document.getElementById(inp.dataset.for+'_l');
- l.innerHTML=res.map(r=>`<button type="button" class="combo-opt" data-action="combo-pick" data-for="${inp.dataset.for}" data-id="${esc(r.id)}">${esc(r.label)}${r.sub?`<small>${esc(r.sub)}</small>`:''}</button>`).join('')+(src.create?`<button type="button" class="combo-opt new" data-action="combo-new" data-for="${inp.dataset.for}" data-src="${inp.dataset.src}" data-q="${esc(q)}">+ ${esc(src.create)}</button>`:'')||'<div class="combo-opt muted">Nada encontrado</div>';
+ l.innerHTML=res.map(r=>`<button type="button" class="combo-opt" data-action="combo-pick" data-for="${inp.dataset.for}" data-id="${esc(r.id)}">${esc(r.label)}${r.sub?`<small>${esc(r.sub)}</small>`:''}</button>`).join('')||'<div class="combo-opt muted">Nada encontrado — use o botão “+ '+esc(src.create||'Cadastrar')+'” acima</div>';
  l.classList.remove('hidden');
 }
 H.combo=(el)=>{const h=document.getElementById(el.dataset.for);if(h&&h.value){h.value='';h.dispatchEvent(new Event('change',{bubbles:true}));}comboList(el)};
@@ -852,7 +900,7 @@ function comboSet(id,val){
  const af=t.dataset.after;if(af&&H[af])H[af](h,val);
 }
 A['combo-pick']=el=>comboSet(el.dataset.for,el.dataset.id);
-A['combo-new']=el=>{const s=COMBO[el.dataset.src];if(s&&s.onNew)s.onNew(el.dataset.for,el.dataset.q)};
+A['combo-new']=el=>{const s=COMBO[el.dataset.src];const t=document.getElementById(el.dataset.for+'_t');document.getElementById(el.dataset.for+'_l')?.classList.add('hidden');if(s&&s.onNew)s.onNew(el.dataset.for,el.dataset.q||(t&&!document.getElementById(el.dataset.for).value?t.value:'')||'')};
 COMBO.customers={
  get:id=>{const c=getCustomer(id);return c?{id,label:c.name+' · '+fmtPhone(c.phone)}:null},
  search:q=>{const r=state.customers.filter(c=>c.status!=='Inativo'&&matchQ(q,c.name,c.phone,c.document,custVehicles(c.id).map(v=>v.plate).join(' '))).sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));return r.map(c=>({id:c.id,label:c.name,sub:fmtPhone(c.phone)+(custVehicles(c.id).length?' · '+custVehicles(c.id).map(v=>fmtPlate(v.plate)).join(', '):'')}))},
@@ -1131,16 +1179,17 @@ function vehForm(v={}){
  const L=state.lists;const ptype=v.plate&&/^[A-Z]{3}\d{4}$/.test(normPlate(v.plate))?'old':'auto';
  return `<div class="form-grid">
  ${combo('v_cust','Proprietário (cliente)','customers',v.customerId,{full:true,req:true,ph:'Busque o cliente por nome, telefone ou placa'})}
- ${SEC('Identificação')}
- ${F('v_ptype','Tipo de placa',{opts:[{v:'auto',l:'Automático (reconhece sozinho)'},{v:'old',l:'Antiga: 3 letras e 4 números (ABC-1234)'},{v:'mercosul',l:'Mercosul: ABC1D23'}],value:ptype,attrs:'data-ch="plate-type"'})}
- ${F('v_plate','Placa',{value:fmtPlate(v.plate),mask:'plate',req:true,ph:ptype==='old'?'ABC-1234':ptype==='mercosul'?'ABC1D23':'ABC-1234 ou ABC1D23',attrs:`data-ptype="${ptype}" maxlength="8" autocapitalize="characters"`,help:'Digite só letras e números; o hífen entra sozinho na placa antiga.'})}
+ ${SEC('1 · Placa do veículo')}
+ <div class="full plate-box"><div class="form-grid">${F('v_ptype','Tipo de placa',{opts:[{v:'auto',l:'Automático (reconhece sozinho)'},{v:'old',l:'Antiga: 3 letras e 4 números (ABC-1234)'},{v:'mercosul',l:'Mercosul: ABC1D23'}],value:ptype,attrs:'data-ch="plate-type"'})}
+ ${F('v_plate','Placa',{value:fmtPlate(v.plate),mask:'plate',req:true,ph:ptype==='old'?'ABC-1234':ptype==='mercosul'?'ABC1D23':'ABC-1234 ou ABC1D23',attrs:`data-ptype="${ptype}" maxlength="8" autocapitalize="characters"`,help:'Digite só letras e números; o hífen entra sozinho na placa antiga.',cls:'plate-big'})}</div></div>
+ ${SEC('2 · Dados do veículo')}
  ${F('v_kind','Tipo',{opts:['Carro','Moto','Caminhonete','Van / utilitário','Caminhão','Outro'],value:v.kind||'Carro'})}
  ${F('v_brand','Marca',{value:v.brand||'',attrs:'list="brandlist"',ph:'Ex.: Fiat'})}<datalist id="brandlist">${BRANDS.map(b=>`<option value="${esc(b)}">`).join('')}</datalist>
  ${F('v_model','Modelo',{value:v.model||'',ph:'Ex.: Uno Way 1.0',req:true})}
  ${F('v_version','Versão / motor',{value:v.version||'',ph:'Ex.: 1.0 Fire Flex 8V'})}
  ${F('v_year','Ano fabricação',{value:v.year||'',mask:'digits',attrs:'maxlength="4"'})}
  ${F('v_myear','Ano modelo',{value:v.modelYear||'',mask:'digits',attrs:'maxlength="4"'})}
- ${F('v_color','Cor',{opts:['',...L.colors],value:v.color||''})}
+ ${F('v_color','Cor',{value:v.color||'',attrs:'list="colorlist" autocomplete="off"',ph:'Escolha ou escreva a cor',help:'Toque para ver as cores comuns ou escreva outra (ex.: Azul metálico).'})}<datalist id="colorlist">${L.colors.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
  ${F('v_fuel','Combustível',{opts:['',...L.fuels],value:v.fuel||''})}
  ${F('v_trans','Câmbio',{opts:['','Manual','Automático','Automatizado','CVT'],value:v.transmission||''})}
  ${F('v_km','Quilometragem atual',{value:v.km?num(v.km):'',mask:'km',ph:'Ex.: 85.000'})}
@@ -1578,7 +1627,7 @@ reg({key:'quotes',label:'Orçamentos',icon:'file',group:'Atendimento',render:ren
    ============================================================ */
 function newOrderDraft(pre={}){
  return {id:uid('os'),code:'',customerId:pre.customerId||'',vehicleId:pre.vehicleId||'',openedAt:iso(),status:'Aguardando',quoteId:'',items:[],discount:{type:'value',v:0},mechId:pre.mechId||'',bayId:'',
-  kmIn:0,kmOut:0,fuel:'1/2',complaint:'',diagnosis:'',checklist:{},damages:[],photos:[],signature:'',notes:'',promisedAt:'',finishedAt:'',deliveredAt:'',warrantyUntil:'',history:[],stockOut:{},authorized:false,createdAt:iso()};
+  kmIn:0,kmOut:0,fuel:'',complaint:'',diagnosis:'',checklist:{},damages:[],photos:[],signature:'',notes:'',promisedAt:'',finishedAt:'',deliveredAt:'',warrantyUntil:'',history:[],stockOut:{},authorized:false,createdAt:iso()};
 }
 const orderActive=o=>!['Entregue','Cancelada'].includes(o.status);
 
@@ -1635,7 +1684,7 @@ function openNewOrder(pre){
  showModal('Nova ordem de serviço',`<p class="muted small">Registre a entrada do veículo. Os serviços podem ser incluídos depois do diagnóstico.</p><div class="form-grid">
  ${combo('n_cust','Cliente','customers',pre.customerId||'',{req:true,after:'q-cust',full:true})}
  ${combo('n_veh','Veículo','vehicles',pre.vehicleId||'',{dep:'n_cust',req:true,full:true,ph:'Escolha o cliente e depois o veículo'})}
- ${F('n_km','Km na entrada',{mask:'km'})}${F('n_fuel','Combustível',{opts:state.lists.fuelLevels,value:'1/2'})}
+ ${F('n_km','Km na entrada',{mask:'km'})}${F('n_fuel','Combustível (opcional)',{opts:[{v:'',l:'Não informar'},...state.lists.fuelLevels],value:'',help:'Nível do tanque na entrada. Preencha só se quiser registrar.'})}
  ${combo('n_mech','Mecânico responsável','mechs',pre.mechId||'')}${F('n_prom','Previsão de entrega',{type:'datetime-local',value:''})}
  ${F('n_comp','Relato do cliente / problema',{type:'textarea',full:true,rows:3})}
  </div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="save-new-order">Abrir OS</button>`,'wide');
@@ -1692,7 +1741,7 @@ function osBindItems(o){ITEMCTX={draft:o,onChange:()=>{const b=$('#os_items');if
 A['os-add']=el=>{const o=getOrder(el.dataset.id);osBindItems(o);openItemPicker(items=>{o.items.push(...items);if(o.status==='Aguardando'||o.status==='Diagnóstico')o.status===o.status;ITEMCTX.onChange();setDirty(true);toast('Itens incluídos. Lembre de salvar.','ok')})};
 A['os-save']=async el=>{
  const o=getOrder(el.dataset.id);
- if($('#os_diag')){o.diagnosis=V('os_diag');o.complaint=V('os_comp');o.notes=V('os_notes');o.mechId=V('os_mech');o.bayId=V('os_bay');o.promisedAt=V('os_prom');o.kmIn=kmNum(V('os_kmin'));o.kmOut=kmNum(V('os_kmout'));o.fuel=V('os_fuel')||o.fuel;
+ if($('#os_diag')){o.diagnosis=V('os_diag');o.complaint=V('os_comp');o.notes=V('os_notes');o.mechId=V('os_mech');o.bayId=V('os_bay');o.promisedAt=V('os_prom');o.kmIn=kmNum(V('os_kmin'));o.kmOut=kmNum(V('os_kmout'));o.fuel=V('os_fuel');
   const d=$('#od_v');if(d)o.discount={type:V('od_t')||'value',v:V('od_t')==='percent'?VN('od_v'):VC('od_v')}}
  if(o.items.some(i=>!String(i.name).trim()))return bad('os_items','Há um item sem descrição.');
  if(['Em execução','Pronta','Entregue'].includes(o.status))stockApply(o);
@@ -1825,7 +1874,7 @@ function osView(o,tab){
    <div class="form-grid mt12"><label>Desconto<select id="od_t" data-ch="os-disc">${optHTML([{v:'value',l:'R$'},{v:'percent',l:'%'}],o.discount.type)}</select></label><label>Valor<input id="od_v" data-in="os-disc" inputmode="decimal" value="${o.discount.v?(o.discount.type==='percent'?String(o.discount.v).replace('.',','):moneyIn(o.discount.v)):''}" placeholder="0,00"></label>
    ${combo('os_mech','Mecânico','mechs',o.mechId,{full:true})}
    <label>Box<select id="os_bay"><option value="">—</option>${optHTML(state.bays.filter(b=>b.active!==false).map(b=>({v:b.id,l:b.name})),o.bayId)}</select></label>
-   ${F('os_fuel','Combustível',{opts:state.lists.fuelLevels,value:o.fuel})}
+   ${F('os_fuel','Combustível (opcional)',{opts:[{v:'',l:'Não informar'},...state.lists.fuelLevels],value:o.fuel||''})}
    ${F('os_kmin','Km entrada',{value:o.kmIn?num(o.kmIn):'',mask:'km'})}${F('os_kmout','Km saída',{value:o.kmOut?num(o.kmOut):'',mask:'km'})}
    ${F('os_prom','Previsão de entrega',{type:'datetime-local',value:o.promisedAt||'',full:true})}</div>
    <div class="mt12" style="display:grid;gap:8px"><button class="btn primary" data-action="os-save" data-id="${o.id}">${ICON.check}Salvar alterações</button></div></div></div></div>`;
@@ -1841,19 +1890,56 @@ function osView(o,tab){
  }else body=`<div class="card"><h2>Histórico</h2>${timelineHTML([...o.history].reverse().map(h=>({t:h.t,s:brDT(h.at)})))}</div>`;
  return `<div class="screen-head"><div class="detail-hero"><div class="screen-title"><h1>${esc(o.code)} ${osChip(o)} ${payChip(o)}</h1><p><a href="#/customers/view/${o.customerId}">${esc(c.name)}</a> · ${plateHTML(v)} ${esc(vehLabel(v))} · entrada ${brDT(o.openedAt)}</p></div></div>
  <div class="head-actions"><button class="btn" data-route="orders">${ICON.chevl}Voltar</button>${btn('Mensagem ao cliente','os-wa-menu',{id:o.id,cls:'wa',icon:'wa'})}<button class="btn" data-action="os-pdf" data-id="${o.id}">${ICON.print}PDF da OS</button>${['Pronta','Entregue'].includes(o.status)?`<button class="btn" data-action="os-pdf" data-id="${o.id}" data-kind="delivery">${ICON.print}Termo de entrega</button>`:''}${o.status!=='Cancelada'&&o.status!=='Entregue'?`<button class="btn danger" data-action="os-status" data-id="${o.id}" data-st="Cancelada">Cancelar OS</button>`:''}</div></div>
- ${o.status!=='Cancelada'?stepper:'<div class="alert warn">'+ICON.alert+'<div>Esta OS foi cancelada.</div></div>'}
+ ${o.status!=='Cancelada'?stepper+nextStepHTML(o):'<div class="alert warn">'+ICON.alert+'<div>Esta OS foi cancelada.</div></div>'}
  ${o.items.some(i=>i.approved===false)&&orderActive(o)?`<div class="alert warn">${ICON.alert}<div><b>Há itens aguardando autorização do cliente.</b> Eles não entram no total até serem aprovados.</div>${btn('Pedir autorização','os-wa',{id:o.id,cls:'sm wa'}).replace('data-id','data-key="os_extra" data-id')}</div>`:''}
  ${tabsHTML('os-'+o.id,tabs,tab)}${body}`;
 }
 H['x']=()=>{};
 
 /* ---------- lista / kanban ---------- */
+function readyWA(o,small){
+ if(o.status!=='Pronta')return '';
+ const sent=(o.history||[]).some(h=>String(h.t).includes('os_pronto'));
+ return `<button type="button" class="btn wa sm ready-wa" data-action="os-wa" data-id="${o.id}" data-key="os_pronto" title="Avisar o cliente que o veículo está pronto">${ICON.wa}${sent?'Avisar de novo':'Avisar cliente'}</button>${sent?'<div class="tiny ok-txt">✓ cliente avisado</div>':''}`;
+}
+function nextStepHTML(o){
+ const pay=orderPay(o);let n,t,d,acts='';
+ const st=(s,l,c='primary')=>`<button class="btn ${c}" data-action="os-status" data-id="${o.id}" data-st="${s}">${l}</button>`;
+ switch(o.status){
+  case 'Aguardando':n='Passo 1';t='Comece o diagnóstico';d='Registre a vistoria (aba “Vistoria e fotos”), anote o relato do cliente e avance.';acts=st('Diagnóstico','Iniciar diagnóstico');break;
+  case 'Diagnóstico':n='Passo 2';t='Monte os serviços e peças e peça a aprovação';d='Clique em “Adicionar”, coloque o que será feito e envie o valor ao cliente pelo botão verde “Mensagem ao cliente”.';acts=st('Aguardando aprovação','Pedir aprovação do cliente');break;
+  case 'Aguardando aprovação':n='Passo 3';t='Espere o cliente aprovar';d='Quando ele responder que aprova, avance para executar. Se faltar peça, marque “Aguardando peça”.';acts=st('Em execução','Cliente aprovou: executar')+st('Aguardando peça','Falta peça','');break;
+  case 'Aguardando peça':n='Passo 3';t='Esperando a peça chegar';d='Quando a peça chegar, volte para execução.';acts=st('Em execução','Peça chegou: executar');break;
+  case 'Em execução':n='Passo 4';t='Faça o serviço e conclua';d='Ao terminar, marque como pronta. As peças usadas saem do estoque automaticamente.';acts=st('Pronta','Serviço pronto');break;
+  case 'Pronta':n='Passo 5 e 6';t=pay.balance>0?'Avise o cliente e receba o pagamento':'Avise o cliente e entregue';d=pay.balance>0?'Falta receber '+money(pay.balance)+'. Use a aba “Pagamento” para lançar entrada/parcelas e receber.':'Tudo pago. Entregue o veículo para encerrar a OS.';acts=`<button class="btn wa" data-action="os-wa" data-id="${o.id}" data-key="os_pronto">${ICON.wa}Avisar cliente</button>`+(pay.balance>0?`<button class="btn primary" data-action="os-open-pay" data-id="${o.id}">Receber</button>`:'')+st('Entregue','Entregar o veículo','');break;
+  case 'Entregue':n='Concluída';t=pay.balance>0?'Entregue, mas ainda há saldo a receber':'OS encerrada';d=pay.balance>0?'Falta receber '+money(pay.balance)+'.':'Garantia, histórico do veículo e comissão já foram registrados.';acts=pay.balance>0?`<button class="btn primary" data-action="os-open-pay" data-id="${o.id}">Receber agora</button>`:'';break;
+  default:return '';
+ }
+ return `<div class="next-step"><span class="ns-n">${n}</span><div class="ns-t"><b>${t}</b><span>${d}</span></div><div style="display:flex;gap:8px;flex-wrap:wrap">${acts}</div></div>`;
+}
 const KCOLS=['Aguardando','Diagnóstico','Aguardando aprovação','Aguardando peça','Em execução','Pronta'];
+const KINFO={
+ 'Aguardando':{n:1,sub:'Carro chegou e espera atendimento',next:['Diagnóstico','Iniciar diagnóstico']},
+ 'Diagnóstico':{n:2,sub:'Mecânico avaliando o problema',next:['Aguardando aprovação','Pedir aprovação do cliente']},
+ 'Aguardando aprovação':{n:3,sub:'Cliente precisa aprovar o valor',next:['Em execução','Cliente aprovou: executar']},
+ 'Aguardando peça':{n:4,sub:'Esperando a peça chegar',next:['Em execução','Peça chegou: executar']},
+ 'Em execução':{n:5,sub:'Serviço sendo feito',next:['Pronta','Serviço pronto']},
+ 'Pronta':{n:6,sub:'Avise o cliente, receba e entregue',next:null}
+};
+function osGuideHTML(){
+ const st=[['Receber o carro','Abra a OS com cliente, veículo e relato'],['Orçamento','Diagnóstico e valor dos serviços e peças'],['Aprovação','Cliente aprova (WhatsApp ou balcão)'],['Executar','O mecânico faz o serviço'],['Avisar','WhatsApp: veículo pronto'],['Receber','Pagamento: à vista ou parcelado'],['Entregar','Baixa da OS, garantia e histórico']];
+ return `<details class="os-guide" ${localStorage.getItem('mm_osguide')==='0'?'':'open'} ontoggle="try{localStorage.setItem('mm_osguide',this.open?'1':'0')}catch(e){}"><summary><b>Como funciona o caminho de uma OS</b><span class="muted small"> · 7 passos, da entrada ao dinheiro no caixa</span></summary>
+ <ol class="os-path">${st.map(([t,d],i)=>`<li><span class="n">${i+1}</span><b>${t}</b><small>${d}</small></li>`).join('')}</ol>
+ <div class="os-guide-act"><button class="btn sm accent" data-action="lesson-start" data-k="journey">${ICON.book||''}Aprender passo a passo (guiado)</button><span class="muted tiny">Dica: em cada cartão há um botão com o próximo passo. Você também pode arrastar o cartão.</span></div></details>`;
+}
 function kanbanHTML(){
  const q=UI.q.orders||'';
- return `<div class="kanban">${KCOLS.map(s=>{const rows=state.orders.filter(o=>o.status===s&&matchQ(q,o.code,custName(o.customerId),getVehicle(o.vehicleId)?.plate));
-  return `<div class="kcol" data-st="${s}" ondragover="event.preventDefault()" ondrop="osDrop(event,'${s}')"><div class="khead"><b>${ORDER_CHIP[s][1]}</b><span class="n">${rows.length}</span></div>${rows.map(o=>{const late=o.promisedAt&&o.promisedAt<iso().slice(0,16);return `<div class="kcard" draggable="true" ondragstart="event.dataTransfer.setData('text',this.dataset.id)" data-id="${o.id}" data-route="orders" data-sub="view" data-id="${o.id}"><b>${esc(o.code)}</b> ${plateHTML(o.vehicleId)}<div class="small">${esc(custName(o.customerId))}</div><div class="tiny muted">${esc(vehLabel(o.vehicleId))}</div><div class="row" style="padding:4px 0 0;border:0"><b>${money(docTotals(o).total)}</b>${late?'<span class="badge red">atrasada</span>':''}${o.mechId?`<span class="tiny muted">${esc(firstName(mechName(o.mechId)))}</span>`:''}</div></div>`}).join('')||'<div class="tiny muted" style="padding:8px">Vazio</div>'}</div>`}).join('')}</div>`;
+ return osGuideHTML()+`<div class="kanban">${KCOLS.map(s=>{const rows=state.orders.filter(o=>o.status===s&&matchQ(q,o.code,custName(o.customerId),getVehicle(o.vehicleId)?.plate));const K=KINFO[s];
+  return `<div class="kcol st-${K.n}" data-st="${s}" ondragover="event.preventDefault()" ondrop="osDrop(event,'${s}')"><div class="khead"><div><b>${K.n}. ${ORDER_CHIP[s][1]}</b><small>${K.sub}</small></div><span class="n">${rows.length}</span></div>${rows.map(o=>{const late=o.promisedAt&&o.promisedAt<iso().slice(0,16);const bal=orderPay(o).balance;const m=getMech(o.mechId);
+   const act=K.next?`<button type="button" class="btn sm primary kact" data-action="os-status" data-id="${o.id}" data-st="${K.next[0]}">${esc(K.next[1])}</button>`:`${readyWA(o)}<div class="kact2"><button type="button" class="btn sm kact" data-action="os-open-pay" data-id="${o.id}">${bal>0?'Receber '+money(bal):'Pago ✓'}</button><button type="button" class="btn sm kact" data-action="os-status" data-id="${o.id}" data-st="Entregue">Entregar</button></div>`;
+   return `<div class="kcard ${late?'late':''}" draggable="true" ondragstart="event.dataTransfer.setData('text',this.dataset.id)" data-id="${o.id}" data-route="orders" data-sub="view"><div class="kc-top"><b>${esc(o.code)}</b>${plateHTML(o.vehicleId)}</div><div class="kc-cli">${esc(custName(o.customerId))}</div><div class="tiny muted">${esc(vehLabel(o.vehicleId))}</div><div class="kc-bot"><b>${money(docTotals(o).total)}</b><span class="tiny muted">${m?esc(m.name.split(' ')[0]):''}</span>${late?'<span class="badge bad">atrasada</span>':''}</div>${act}</div>`}).join('')||'<div class="tiny muted kempty">Nenhum veículo aqui</div>'}</div>`}).join('')}</div>`;
 }
+A['os-open-pay']=el=>{UI.tab['os-'+el.dataset.id]='pay';go('orders','view',el.dataset.id)};
 window.osDrop=async(e,st)=>{e.preventDefault();const id=e.dataTransfer.getData('text');const o=getOrder(id);if(o&&o.status!==st){if(await setOrderStatus(o,st))render()}};
 function orderListHTML(){
  const f=tabOf('orders','board'),q=UI.q.orders||'';
@@ -1861,7 +1947,7 @@ function orderListHTML(){
  if(f==='ready')rows=rows.filter(o=>o.status==='Pronta');else if(f==='pay')rows=rows.filter(o=>o.status!=='Cancelada'&&orderPay(o).balance>0&&['Pronta','Entregue'].includes(o.status));else if(f==='done')rows=rows.filter(o=>o.status==='Entregue');else if(f==='active')rows=rows.filter(orderActive);
  rows.sort((a,b)=>String(b.openedAt).localeCompare(String(a.openedAt)));const pg=paginate('orders',rows,40);
  if(!rows.length)return empty('clip','Nenhuma ordem de serviço aqui','Abra uma OS quando o veículo chegar à oficina — ou aprove um orçamento para criar a OS automaticamente.',btn('Nova OS','new-order',{cls:'accent',icon:'plus'}));
- return table([{h:'OS',f:o=>`<b>${esc(o.code)}</b>`},{h:'Entrada',f:o=>brDate(String(o.openedAt).slice(0,10))},{h:'Cliente',f:o=>esc(custName(o.customerId))},{h:'Veículo',f:o=>plateHTML(o.vehicleId)+' '+esc(vehLabel(o.vehicleId))},{h:'Situação',f:o=>osChip(o)},{h:'Pagamento',f:o=>payChip(o)},{h:'Total',cls:'num',f:o=>`<b>${money(docTotals(o).total)}</b>`}],pg.rows,{click:o=>`data-route="orders" data-sub="view" data-id="${o.id}"`})+pg.html;
+ return table([{h:'OS',f:o=>`<b>${esc(o.code)}</b>`},{h:'Entrada',f:o=>brDate(String(o.openedAt).slice(0,10))},{h:'Cliente',f:o=>esc(custName(o.customerId))},{h:'Veículo',f:o=>plateHTML(o.vehicleId)+' '+esc(vehLabel(o.vehicleId))},{h:'Situação',f:o=>osChip(o)},{h:'Pagamento',f:o=>payChip(o)},{h:'Total',cls:'num',f:o=>`<b>${money(docTotals(o).total)}</b>`},{h:'Aviso',f:o=>readyWA(o)}],pg.rows,{click:o=>`data-route="orders" data-sub="view" data-id="${o.id}"`})+pg.html;
 }
 A['export-orders']=()=>exportCSV('ordens_servico',['OS','Entrada','Cliente','Placa','Veículo','Situação','Total','Recebido'],state.orders.map(o=>[o.code,String(o.openedAt).slice(0,10),custName(o.customerId),getVehicle(o.vehicleId)?.plate||'',vehLabel(o.vehicleId),o.status,(docTotals(o).total/100).toFixed(2).replace('.',','),(orderPay(o).paid/100).toFixed(2).replace('.',',')]));
 function renderOrders(r){
@@ -2482,9 +2568,40 @@ function renderSettings(){
  const f=tabOf('settings','shop'),s=state.shop,st=state.settings;
  const tabs=[{k:'shop',l:'Dados da oficina'},{k:'texts',l:'Textos dos documentos'},{k:'fees',l:'Taxas de cartão'},{k:'lists',l:'Listas'},{k:'sec',l:'Segurança'},{k:'plan',l:'Plano PRO'},{k:'backup',l:'Backup'},{k:'data',l:'Dados'}];
  let body='';
- if(f==='shop')body=`<div class="card"><div class="form-grid">${F('s_name','Nome da oficina (fantasia)',{value:s.name,req:true})}${F('s_legal','Razão social',{value:s.legalName})}${F('s_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc',ph:'00.000.000/0000-00'})}${F('s_owner','Responsável',{value:s.owner})}${F('s_phone','Telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone'})}${F('s_wa','WhatsApp da oficina',{value:s.whatsapp?fmtPhone(s.whatsapp):'',mask:'phone'})}${F('s_mail','E-mail',{value:s.email,type:'email'})}${F('s_pix','Chave Pix',{value:s.pixKey})}${F('s_zip','CEP',{value:s.zip||'',mask:'cep',ph:'00000-000',attrs:'data-in="cep-lookup" data-pre="s"'})}${F('s_addr','Endereço (rua, número)',{value:s.address,full:true})}${F('s_city','Cidade',{value:s.city})}${F('s_uf','UF',{value:s.uf,attrs:'maxlength="2"',mask:'uf',ph:'SP'})}${F('s_hours','Horário de funcionamento',{value:s.openingHours,full:true})}${F('s_slogan','Frase (aparece nos documentos)',{value:s.slogan,full:true})}
- ${SEC('Padrões')}${F('s_qp','Prefixo do orçamento',{value:s.quotePrefix})}${F('s_op','Prefixo da OS',{value:s.orderPrefix})}${F('s_qv','Validade do orçamento (dias)',{value:s.quoteValidityDays,mask:'digits'})}${F('s_wd','Garantia padrão (dias)',{value:s.warrantyDays,mask:'digits'})}${M('s_hr','Valor da hora técnica (R$)',s.hourRate)}${F('s_mk','Margem padrão sobre peças (%)',{value:String(s.partsMarkup??'').replace('.',','),mask:'pct'})}${F('s_stock','Baixar estoque quando…',{opts:[{v:'run',l:'a OS entra em execução'},{v:'ready',l:'a OS fica pronta'}],value:s.stockDeductOn})}${F('s_rd','Avisar revisões com (dias)',{value:st.reminderDays,mask:'digits'})}${F('s_qf','Cobrar resposta de orçamento após (dias)',{value:st.quoteFollowDays,mask:'digits'})}
- </div><div class="mt12 row" style="border:0">${s.logo?`<img src="${s.logo}" style="max-height:60px;border:1px solid var(--line);border-radius:8px;background:#fff">`:'<span class="muted small">Sem logotipo</span>'}${btn(s.logo?'Trocar logotipo':'Enviar logotipo','logo-up',{icon:'plus'})}${s.logo?btn('Remover','logo-del',{cls:'sm'}):''}</div><div class="mt12"><button class="btn primary" data-action="save-shop">${ICON.check}Salvar dados</button></div></div>`;
+ if(f==='shop'){
+  const C=(ico,t,sub,inner)=>`<div class="card set-card"><div class="set-h"><span class="set-ico">${ICON[ico]||''}</span><div><h2>${t}</h2><p class="muted small">${sub}</p></div></div><div class="form-grid">${inner}</div></div>`;
+  body=C('tool','Identificação da oficina','Estes dados saem no topo de orçamentos, ordens de serviço, recibos e relatórios.',
+   F('s_name','Nome da oficina (fantasia)',{value:s.name,req:true,help:'O nome que seus clientes conhecem. Aparece em destaque em todos os documentos.'})
+  +F('s_legal','Razão social',{value:s.legalName,help:'Nome registrado no CNPJ. Deixe vazio se você não é empresa.'})
+  +F('s_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc',ph:'00.000.000/0000-00',help:'Digite só os números, a pontuação entra sozinha. O sistema confere se é válido.'})
+  +F('s_owner','Responsável',{value:s.owner,help:'Nome do dono ou gerente, que assina os documentos.'})
+  +F('s_slogan','Frase dos documentos',{value:s.slogan,full:true,ph:'Ex.: Qualidade e confiança desde 2010',help:'Uma frase curta que aparece abaixo do nome nos documentos. Pode deixar vazio.'})
+  +`<div class="full logo-box"><b>Logotipo</b><div class="row" style="border:0">${s.logo?`<img src="${s.logo}" class="logo-prev">`:'<span class="logo-empty">Sem logotipo</span>'}${btn(s.logo?'Trocar logotipo':'Enviar logotipo','logo-up',{icon:'plus'})}${s.logo?btn('Remover','logo-del',{cls:'sm'}):''}</div><span class="field-help">Use uma imagem quadrada ou horizontal (PNG ou JPG). Ela aparece no canto dos orçamentos, OS e recibos.</span></div>`)
+  +C('phone','Contato','Como o cliente fala com você. Estes dados vão nos documentos e nas mensagens de WhatsApp.',
+   F('s_phone','Telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone',ph:'(00) 0000-0000',help:'Telefone fixo ou celular para ligações.'})
+  +F('s_wa','WhatsApp da oficina',{value:s.whatsapp?fmtPhone(s.whatsapp):'',mask:'phone',ph:'(00) 00000-0000',help:'Número que o cliente usa para responder as mensagens enviadas pelo sistema.'})
+  +F('s_mail','E-mail',{value:s.email,type:'email',ph:'contato@suaoficina.com.br',help:'Aparece nos documentos. Opcional.'})
+  +F('s_pix','Chave Pix',{value:s.pixKey,ph:'CPF, CNPJ, e-mail, celular ou chave aleatória',help:'Sai no orçamento e no recibo para o cliente pagar na hora.'}))
+  +C('pin','Endereço e funcionamento','Onde fica a oficina e quando atende.',
+   F('s_zip','CEP',{value:s.zip||'',mask:'cep',ph:'00000-000',attrs:'data-in="cep-lookup" data-pre="s"',help:'Digite o CEP e a rua e a cidade são preenchidas sozinhas (precisa de internet).'})
+  +F('s_addr','Endereço (rua, número)',{value:s.address,full:true,ph:'Rua das Flores, 120 - Centro',help:'Rua, número e bairro, como quer que apareça nos documentos.'})
+  +F('s_city','Cidade',{value:s.city,help:'Preenchida pelo CEP, se quiser pode corrigir.'})
+  +F('s_uf','UF',{value:s.uf,attrs:'maxlength="2"',mask:'uf',ph:'SP',help:'Sigla do estado, com 2 letras.'})
+  +F('s_hours','Horário de funcionamento',{value:s.openingHours,full:true,ph:'Seg a Sex 8h–18h · Sáb 8h–12h',help:'Aparece nos orçamentos e ajuda o cliente a saber quando te encontrar.'}))
+  +C('file','Numeração dos documentos','As letras que iniciam o número de cada documento. Ex.: ORC-0001, OS-0001.',
+   F('s_qp','Prefixo do orçamento',{value:s.quotePrefix,ph:'ORC',attrs:'maxlength="4"',mask:'upper',help:'Até 4 letras. Só vale para os próximos orçamentos, os antigos não mudam.'})
+  +F('s_op','Prefixo da OS',{value:s.orderPrefix,ph:'OS',attrs:'maxlength="4"',mask:'upper',help:'Até 4 letras. Só vale para as próximas ordens de serviço.'}))
+  +C('clock','Prazos','Valores que o sistema já preenche sozinho em cada orçamento e OS. Dá para mudar caso a caso.',
+   F('s_qv','Validade do orçamento (dias)',{value:s.quoteValidityDays,mask:'digits',help:'Quantos dias o preço do orçamento vale. Depois disso ele aparece como vencido.'})
+  +F('s_wd','Garantia padrão (dias)',{value:s.warrantyDays,mask:'digits',help:'Garantia dos serviços entregues. Ex.: 90 dias. Sai no termo de garantia.'})
+  +F('s_rd','Avisar revisões com (dias)',{value:st.reminderDays,mask:'digits',help:'Quantos dias antes da revisão do veículo o sistema avisa você para chamar o cliente.'})
+  +F('s_qf','Cobrar resposta de orçamento após (dias)',{value:st.quoteFollowDays,mask:'digits',help:'Se o cliente não responder o orçamento neste prazo, ele entra na lista de “lembrar cliente”.'}))
+  +C('tag','Preços e estoque','Base de cálculo para os valores que o sistema sugere.',
+   M('s_hr','Valor da hora técnica (R$)',s.hourRate,{help:'Quanto você cobra por hora de mão de obra. Usado para calcular o preço dos serviços.'})
+  +F('s_mk','Margem padrão sobre peças (%)',{value:String(s.partsMarkup??'').replace('.',','),mask:'pct',help:'Percentual somado ao custo da peça para chegar no preço de venda. Ex.: custo 100 e margem 40% vira 140.'})
+  +F('s_stock','Baixar estoque quando…',{opts:[{v:'run',l:'a OS entra em execução'},{v:'ready',l:'a OS fica pronta'}],value:s.stockDeductOn,full:true,help:'Define em que momento as peças usadas saem do estoque. “Em execução” é o mais comum.'}))
+  +`<div class="save-bar"><span class="muted small">Confira os dados e salve para valer nos documentos.</span><button class="btn primary" data-action="save-shop">${ICON.check}Salvar dados</button></div>`;
+ }
  else if(f==='texts')body=`<div class="card"><div class="form-grid">${F('s_qt','Condições do orçamento',{type:'textarea',value:s.quoteTerms,full:true,rows:4})}${F('s_au','Autorização de serviço (assinada na vistoria)',{type:'textarea',value:s.authText,full:true,rows:4})}${F('s_wt','Termo de garantia (use {dias} para o prazo)',{type:'textarea',value:s.warrantyText,full:true,rows:4})}${F('s_dl','Termo de entrega',{type:'textarea',value:s.deliveryText,full:true,rows:3})}</div><div class="mt12"><button class="btn primary" data-action="save-texts">Salvar textos</button> <button class="btn" data-action="reset-texts">Restaurar padrão</button></div></div>`;
  else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{mask:'pct',value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{mask:'pct',value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
  else if(f==='lists')body=`<div class="card"><p class="muted small">Uma opção por linha. Estas listas aparecem nos cadastros e formulários.</p><div class="form-grid">${Object.entries(LIST_NAMES).map(([k,l])=>F('ls_'+k,l,{type:'textarea',value:(state.lists[k]||[]).join('\n'),rows:5})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-lists">Salvar listas</button></div></div>`;
@@ -2846,7 +2963,46 @@ const TABK=(key,k,title,text)=>K(`.tab[data-key="${key}"][data-k="${k}"]`,title,
 const firstQuoteSent=()=>{const q=state.quotes.find(x=>x.status==='Enviado');return q?'#/quotes/view/'+q.id:'#/quotes'};
 const payOrder=()=>{const o=state.orders.find(x=>['Em execução','Aguardando'].includes(x.status)&&orderPay(x).unplanned>0&&docTotals(x).total>0);return o?'#/orders/view/'+o.id:'#/orders'};
 
+const ordIn=st=>()=>{const o=state.orders.find(x=>x.status===st&&docTotals(x).total>0)||state.orders.find(x=>x.status===st);return o?'#/orders/view/'+o.id:'#/orders'};
+const vehOfDelivered=()=>{const o=state.orders.find(x=>x.status==='Entregue');return o?'#/vehicles/view/'+o.vehicleId:'#/vehicles'};
+const OSTAB=(k,title,text)=>K('.tab[data-key^="os-"][data-k="'+k+'"]',title,text);
 const TOURS=[
+ {k:'journey',t:'Da entrada do carro ao dinheiro no caixa',d:'O caminho completo: veículo, orçamento, aprovação, serviço, aviso por WhatsApp, pagamento, baixa e relatórios.',steps:[
+  I('#view','O caminho de um serviço','Em 7 passos o carro entra na oficina e o dinheiro entra no caixa: 1 Receber o veículo · 2 Orçamento · 3 Aprovação do cliente · 4 Executar o serviço · 5 Avisar o cliente pelo WhatsApp · 6 Receber o pagamento · 7 Entregar (baixa). Vamos passar por cada um, com os dados de exemplo.',{go:'#/home'}),
+  NAVK('customers'),
+  I('[data-action="new-customer"]','Antes de tudo: cliente e veículo','Cadastre o cliente (nome e WhatsApp) e depois o veículo. A placa tem um quadro só dela, separado de marca e modelo. Também dá para cadastrar na hora, direto da OS, pelo botão “+ Cadastrar novo cliente” acima da busca.'),
+  NAVK('orders'),
+  K('[data-action="new-order"]','Passo 1 · Receber o veículo','Clique em “Nova OS”: é a ficha de entrada do carro.'),
+  I('#modalRoot .modal','Ficha de entrada','Escolha o cliente e o veículo, anote a quilometragem e o relato do cliente. Combustível e mecânico são opcionais. Depois clique em “Abrir OS”. Nesta aula vamos só olhar.'),
+  K('#modalRoot [data-action="close-modal"]','Fechar a ficha','Feche para continuarmos a visita.',{done:()=>!document.querySelector('#modalRoot .modal')}),
+  I('.os-guide','O mapa do caminho','Este quadro lembra os 7 passos. Você pode recolher quando já souber de cor.'),
+  I('.kanban','O quadro de OS','Cada coluna é uma etapa, da esquerda para a direita. A cor do topo e o número mostram a ordem. Cada cartão tem um botão azul com o próximo passo: é só clicar nele conforme o carro avança. Também dá para arrastar o cartão.'),
+  NAVK('quotes'),
+  I('[data-action="new-quote"]','Passo 2 · Orçamento','Para um serviço maior, faça o orçamento antes: escolha cliente e veículo, adicione serviços e peças e envie pelo WhatsApp ou em PDF. Os preços já vêm do seu cadastro.'),
+  I('.screen-title','Passo 3 · Aprovação do cliente','Aqui está um orçamento já enviado. Quando o cliente responde que aprova, você usa o botão “Aprovar e criar OS”: o orçamento vira uma OS automaticamente, sem digitar nada de novo.',{go:firstQuoteSent}),
+  I('[data-action="quote-convert"]','Aprovar e criar OS','Este é o botão que liga o orçamento à OS. Se o cliente aprovar só parte, desmarque os itens antes.'),
+  I('.stepper','Passo 4 · Executar o serviço','Abrimos uma OS em execução. Esta barra mostra em que etapa ela está. As etapas verdes já foram feitas.',{go:ordIn('Em execução')}),
+  I('.next-step','O botão do próximo passo','Em toda OS há um aviso azul dizendo o que fazer agora e o botão para avançar. Você não precisa decorar nada.'),
+  I('[data-action="os-add"]','Serviços e peças','Adicione aqui o que foi feito. Se aparecer um serviço extra durante o trabalho, use “Serviço extra”: o cliente precisa autorizar antes de entrar no total.'),
+  I('.tab[data-key^="os-"][data-k="checkin"]','Vistoria e fotos','Registre o que veio dentro do carro, as avarias e as fotos na entrada. Isso protege a oficina e o cliente.'),
+  I('.stepper .step[data-st="Pronta"]','Terminou o serviço?','Clique em “Pronta p/ retirada” (ou no botão azul do próximo passo). As peças usadas saem do estoque sozinhas.'),
+  I('.next-step','Passo 5 · Avisar o cliente pelo WhatsApp','Com a OS pronta, o botão verde “Avisar cliente” abre a mensagem de veículo pronto. Você ajusta o texto e envia. Depois dele o sistema anota “cliente avisado”.',{go:ordIn('Pronta')}),
+  I('[data-action="os-wa-menu"]','Outras mensagens','Neste botão estão todos os avisos: veículo recebido, serviço extra, aguardando peça, cobrança, recibo e pós-venda.'),
+  OSTAB('pay','Passo 6 · Pagamento','Abra a aba “Pagamento” para cobrar esta OS.'),
+  I('#view .card','Receber o pagamento','“Entrada + parcelas” monta o plano (à vista, cartão, Pix ou parcelado) e as taxas do cartão são calculadas sozinhas. “Receber agora” dá baixa na cobrança e o valor entra no caixa. Também dá para cobrar pelo WhatsApp.'),
+  I('.stepper .step[data-st="Entregue"]','Passo 7 · Entregar (a baixa)','Ao marcar como Entregue o sistema faz tudo sozinho: encerra a OS, dá baixa final nas peças do estoque, registra a garantia, calcula a comissão do mecânico e grava o serviço no histórico do veículo. Se ainda houver saldo, ele avisa antes.'),
+  {...NAVK('finance'),owner:true},
+  {...TABK('finance','rec','Onde aparece o dinheiro: A receber','Cada parcela de OS que o cliente ainda não pagou aparece aqui, com botão de cobrança por WhatsApp.'),owner:true},
+  {...TABK('finance','all','Lançamentos','Tudo que entrou e saiu, com a OS de origem. Quando você recebe, a parcela passa de “A receber” para “Recebido” e soma no caixa e no resultado do mês.'),owner:true},
+  {...TABK('finance','dre','Resultado do mês','Mostra quanto a oficina faturou, quanto gastou e o lucro.'),owner:true},
+  NAVK('parts'),
+  TABK('parts','moves','Baixa das peças','Toda peça usada numa OS aparece como saída aqui, ligada à OS. É a baixa automática do estoque.'),
+  NAVK('reports'),
+  I('[data-action="rep-open"][data-id="topservices"]','Serviços executados','O relatório “Serviços mais vendidos” mostra quantas vezes cada serviço foi executado e quanto rendeu. O de “Comissões” mostra o que cada mecânico tem a receber.'),
+  NAVK('vehicles'),
+  I('.tab[data-k="hist"]','Histórico do veículo','Cada serviço entregue fica registrado no veículo, com data, quilometragem e garantia. Na próxima visita você já vê tudo o que foi feito.',{go:vehOfDelivered}),
+  I('#sideNav .demo-nav','Pronto!','Você percorreu o caminho inteiro: Receber o carro → Orçamento → Aprovação → Executar → Avisar → Receber → Entregar. Repita esta aula quando quiser ou treine a equipe na demonstração.',{optional:true})
+ ]},
  {k:'intro',t:'Conhecendo o sistema',d:'Um passeio pelo menu e pelas telas principais.',steps:[
   I('.metric','Seu painel do dia','Na tela Início você vê quantos veículos estão na oficina, o faturamento do mês, o que há a receber e os orçamentos esperando resposta. Clique em qualquer quadro para ir direto ao assunto.',{go:'#/home'}),
   I('#sideNav','Menu lateral','Todas as áreas ficam aqui, agrupadas: Atendimento (dia a dia), Cadastros, Gestão (dinheiro e equipe) e Sistema. Os números laranja mostram o que precisa de atenção.'),
