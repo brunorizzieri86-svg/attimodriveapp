@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.4.0.0</title>
+<title>MEU MECÂNICO · V1.6.3.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -235,6 +235,21 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
 .chk.perm{align-items:flex-start;gap:10px}.chk.perm span{display:grid;gap:2px}.chk.perm small{font-size:12px}
 .lk-confirm span,.lk-confirm span *{text-transform:none!important;letter-spacing:normal!important}.lk-confirm b{font-size:14px;color:#fff}.lk-confirm small{display:block;font-weight:500}
 
+/* prefixos visuais das máscaras */
+input[data-mask="money"]{padding-left:34px!important;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='20'><text x='4' y='15' font-family='Arial' font-size='12' font-weight='700' fill='%238a94a2'>R$</text></svg>") no-repeat 4px center}
+input[data-mask="pct"],input[data-mask="pctneg"]{padding-right:30px!important;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='20'><text x='4' y='15' font-family='Arial' font-size='12' font-weight='700' fill='%238a94a2'>%</text></svg>") no-repeat right 6px center}
+input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+/* ---- plano PRO ---- */
+.pro-hero{background:linear-gradient(135deg,#0b3d91,#0b5fff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+.pro-hero h2{margin:6px 0 8px;font-size:22px;color:#fff}.pro-hero p{margin:6px 0 0;opacity:.95}
+.pro-badge{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;letter-spacing:.08em}
+.pro-price b{font-size:40px;line-height:1}.pro-price span{margin-left:8px;opacity:.9}
+.pro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.pro-grp h3{margin:0 0 8px;font-size:15px}.pro-it{display:flex;gap:10px;margin:0 0 10px}
+.pro-it small{display:block;color:var(--muted,#667085);font-size:12.5px;line-height:1.4}
+.pro-ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok-bg,#e5f4e4);color:#0a7a3d;display:flex;align-items:center;justify-content:center}
+.pro-ck svg{width:14px;height:14px}
+
 </style>
 </head>
 <body>
@@ -244,7 +259,7 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.4.0.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.6.3.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -271,7 +286,7 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.4.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.6.3.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -301,7 +316,7 @@ const endOfMonth=(s)=>{const d=parseISO(s||todayISO());return localISO(new Date(
 const clone=v=>JSON.parse(JSON.stringify(v));
 const sum=(a,f=x=>x)=>a.reduce((n,x)=>n+(Number(f(x))||0),0);
 const byId=(arr,id)=>(arr||[]).find(x=>x.id===id);
-const cents=v=>{if(v===null||v===undefined||v==='')return 0;let s=String(v).trim().replace(/[R$\s]/g,'');if(!s)return 0;if(s.includes(',')){s=s.replace(/\./g,'').replace(',','.')}else if((s.match(/\./g)||[]).length>1){s=s.replace(/\./g,'')}const n=Number(s);return isFinite(n)?Math.round(n*100):0};
+const cents=v=>{if(v===null||v===undefined||v==='')return 0;let s=String(v).trim().replace(/[R$\s]/g,'');if(!s)return 0;if(s.includes(',')){s=s.replace(/\./g,'').replace(',','.')}else if(/^\d{1,3}(\.\d{3})+$/.test(s)){s=s.replace(/\./g,'')}else if((s.match(/\./g)||[]).length>1){s=s.replace(/\./g,'')}const n=Number(s);return isFinite(n)?Math.round(n*100):0};
 const moneyIn=c=>(Number(c||0)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 const initials=n=>String(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
@@ -508,22 +523,65 @@ const SEC=t=>`<div class="form-sec">${esc(t)}</div>`;
 const V=id=>{const e=document.getElementById(id);return e&&e.value!=null?String(e.value).trim():''};
 const VC=id=>cents(V(id)), VN=id=>{const s=V(id).replace(/\./g,'').replace(',','.');const n=Number(s);return isFinite(n)?n:0}, VB=id=>!!document.getElementById(id)?.checked;
 const tip=t=>`<span class="help-tip" title="${esc(t)}">?</span>`;
-function applyMask(el){
+/* máscaras de digitação: o campo vai ganhando pontos, vírgulas, traços e parênteses enquanto você digita */
+function plateMaskStr(raw,type){
+ let out='';const t=String(raw||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+ for(const ch of t){const p=out.length;
+  if(p<3){if(/[A-Z]/.test(ch))out+=ch}
+  else if(p===3){if(/\d/.test(ch))out+=ch}
+  else if(p===4){if(type==='old'){if(/\d/.test(ch))out+=ch}else if(type==='mercosul'){if(/[A-Z]/.test(ch))out+=ch}else out+=ch}
+  else if(p<7){if(/\d/.test(ch))out+=ch}}
+ const old=type==='old'?out.length>=4:(type==='mercosul'?false:out.length>=5&&/\d/.test(out[4]));
+ return old?out.slice(0,3)+'-'+out.slice(3):out;
+}
+function maskDec(v,maxDec,maxInt){
+ v=String(v).replace(/\./g,',').replace(/[^\d,]/g,'');const i=v.indexOf(',');
+ let a=i<0?v:v.slice(0,i),b=i<0?null:v.slice(i+1).replace(/,/g,'').slice(0,maxDec);
+ a=a.slice(0,maxInt||9);return b===null?a:a+','+b;
+}
+function applyMask(el,e){
  const m=el.dataset.mask;if(!m)return;let v=el.value;
+ if(m==='pct'||m==='pctneg'||m==='dec')v=v.replace(/\./g,',');
+ else if(m==='money'&&e&&e.data==='.'&&!v.includes(',')){try{const i=el.selectionStart-1;v=v.slice(0,i)+','+v.slice(i+1)}catch{}}
+ const caretDigits=(()=>{try{return v.slice(0,el.selectionStart).replace(/[^\dA-Za-z,]/g,'').length}catch{return null}})();
  if(m==='phone'){const d=digits(v).slice(0,11);v=d.length>10?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:d.length>6?`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`:d.length>2?`(${d.slice(0,2)}) ${d.slice(2)}`:d}
- else if(m==='doc'){const d=digits(v).slice(0,14);v=d.length>11?d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/,'$1.$2.$3/$4-$5'):d.length>9?d.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/,'$1.$2.$3-$4'):d.length>6?d.replace(/(\d{3})(\d{3})(\d{0,3})/,'$1.$2.$3'):d.length>3?d.replace(/(\d{3})(\d{0,3})/,'$1.$2'):d}
- else if(m==='plate')v=normPlate(v);
+ else if(m==='doc'){const d=digits(v).slice(0,14);v=d.length>12?d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/,'$1.$2.$3/$4-$5'):d.length>11?d.replace(/(\d{2})(\d{3})(\d{3})(\d{0,4})/,'$1.$2.$3/$4'):d.length>9?d.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/,'$1.$2.$3-$4'):d.length>6?d.replace(/(\d{3})(\d{3})(\d{0,3})/,'$1.$2.$3'):d.length>3?d.replace(/(\d{3})(\d{0,3})/,'$1.$2'):d}
+ else if(m==='cpf'){const d=digits(v).slice(0,11);v=d.length>9?d.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/,'$1.$2.$3-$4'):d.length>6?d.replace(/(\d{3})(\d{3})(\d{0,3})/,'$1.$2.$3'):d.length>3?d.replace(/(\d{3})(\d{0,3})/,'$1.$2'):d}
+ else if(m==='cnpj'){const d=digits(v).slice(0,14);v=d.length>12?d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/,'$1.$2.$3/$4-$5'):d.length>8?d.replace(/(\d{2})(\d{3})(\d{3})(\d{0,4})/,'$1.$2.$3/$4'):d.length>5?d.replace(/(\d{2})(\d{3})(\d{0,3})/,'$1.$2.$3'):d.length>2?d.replace(/(\d{2})(\d{0,3})/,'$1.$2'):d}
+ else if(m==='rg'){const t=v.toUpperCase().replace(/[^0-9X]/g,'').slice(0,9);v=t.length>8?t.replace(/(\d{2})(\d{3})(\d{3})([\dX])/,'$1.$2.$3-$4'):t.length>5?t.replace(/(\d{2})(\d{3})(\d{0,3})/,'$1.$2.$3'):t.length>2?t.replace(/(\d{2})(\d{0,3})/,'$1.$2'):t}
+ else if(m==='plate')v=plateMaskStr(v,el.dataset.ptype||'auto');
  else if(m==='cep'){const d=digits(v).slice(0,8);v=d.length>5?d.slice(0,5)+'-'+d.slice(5):d}
  else if(m==='digits')v=digits(v);
  else if(m==='km'){const d=digits(v);v=d?Number(d).toLocaleString('pt-BR'):''}
  else if(m==='upper')v=v.toUpperCase();
+ else if(m==='plancode'){let d='',l='';for(const ch0 of v.toUpperCase().replace(/[^A-Z0-9]/g,'')){if(d.length<5){const ch=ch0==='O'?'0':(ch0==='I'||ch0==='L')?'1':ch0;if(/\d/.test(ch))d+=ch}else if(l.length<5){const ch=ch0==='0'?'O':ch0==='1'?'I':ch0;if(/[A-Z]/.test(ch))l+=ch}}v=l?d+'-'+l:d}
+ else if(m==='uf')v=v.toUpperCase().replace(/[^A-Z]/g,'').slice(0,2);
+ else if(m==='pct'||m==='pctneg'){const neg=m==='pctneg'&&/^\s*-/.test(v);v=(neg?'-':'')+maskDec(v,2,3)}
+ else if(m==='dec'){v=maskDec(v,3,6)}
+ else if(m==='money'){
+  let raw=v;
+  raw=raw.replace(/[^\d,]/g,'');const i=raw.indexOf(',');
+  let a=(i<0?raw:raw.slice(0,i)).replace(/^0+(?=\d)/,'').slice(0,11),b=i<0?null:raw.slice(i+1).replace(/,/g,'').slice(0,2);
+  a=a.replace(/\B(?=(\d{3})+(?!\d))/g,'.');v=b===null?a:(a||'0')+','+b;
+ }
  else return;
- if(v!==el.value)el.value=v;
+ if(v!==el.value){el.value=v;
+  if(caretDigits!=null&&document.activeElement===el){let n=0,pos=0;for(;pos<v.length&&n<caretDigits;pos++){if(/[\dA-Za-z,]/.test(v[pos]))n++}try{el.setSelectionRange(pos,pos)}catch{}}}
 }
-document.addEventListener('input',e=>{const t=e.target;if(t.dataset&&t.dataset.mask)applyMask(t);const el=t.closest&&t.closest('[data-in]');if(el&&H[el.dataset.in])H[el.dataset.in](el,e)});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset&&t.dataset.mask)applyMask(t,e);const el=t.closest&&t.closest('[data-in]');if(el&&H[el.dataset.in])H[el.dataset.in](el,e)});
 document.addEventListener('change',e=>{const el=e.target.closest&&e.target.closest('[data-ch]');if(el&&H[el.dataset.ch])H[el.dataset.ch](el,e)});
 document.addEventListener('focusout',e=>{const t=e.target;if(t.dataset&&t.dataset.mask==='money'&&t.value.trim())t.value=moneyIn(cents(t.value))});
 document.addEventListener('focusin',e=>{const t=e.target;if(t.dataset&&t.dataset.mask==='money')setTimeout(()=>{try{t.select()}catch{}},0)});
+/* CEP: preenche rua, bairro, cidade e UF (precisa de internet; sem internet o campo segue manual) */
+H['cep-lookup']=debounce(async el=>{
+ const d=digits(el.value);if(d.length!==8)return;const pre=el.dataset.pre||'c';
+ try{const r=await fetch('https://viacep.com.br/ws/'+d+'/json/');const j=await r.json();if(j.erro)return toast('CEP não encontrado. Preencha o endereço manualmente.','err');
+  const set=(id,v)=>{const e=document.getElementById(id);if(e&&v)e.value=v};
+  if(pre==='c'){set('c_addr',j.logradouro);set('c_dist',j.bairro);set('c_city',j.localidade+'/'+j.uf);const n=document.getElementById('c_addr');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}}
+  else{set('s_addr',j.logradouro);set('s_city',j.localidade);set('s_uf',j.uf)}
+  toast('Endereço preenchido. Complete o número.','ok');
+ }catch{toast('Sem internet para buscar o CEP. Preencha o endereço manualmente.','')}
+},250);
 const kmNum=s=>Number(digits(s))||0;
 
 /* ---------- blocos de tela ---------- */
@@ -912,7 +970,8 @@ function custForm(c={}){
  ${SEC('Identificação')}
  ${F('c_type','Tipo',{opts:[{v:'PF',l:'Pessoa física'},{v:'PJ',l:'Empresa (PJ)'}],value:c.type||'PF'})}
  ${F('c_name','Nome / Razão social',{value:c.name||'',req:true,ph:'Nome completo'})}
- ${F('c_doc','CPF / CNPJ',{value:fmtDoc(c.document),mask:'doc',ph:'Opcional',help:'Necessário para recibos e notas.'})}
+ ${F('c_doc','CPF / CNPJ',{value:fmtDoc(c.document),mask:'doc',ph:'000.000.000-00',help:'Necessário para recibos e notas.'})}
+ ${F('c_rg','RG',{value:c.rg||'',mask:'rg',ph:'00.000.000-0'})}
  ${F('c_birth','Aniversário',{type:'date',value:c.birth||''})}
  ${SEC('Contato')}
  ${F('c_phone','Celular / WhatsApp',{value:c.phone||'',mask:'phone',ph:'(11) 99999-9999',req:true,help:'Usado para enviar orçamentos e avisos por WhatsApp.'})}
@@ -920,7 +979,7 @@ function custForm(c={}){
  ${F('c_email','E-mail',{value:c.email||'',type:'email'})}
  ${F('c_source','Como conheceu a oficina?',{opts:['',...L.sources],value:c.source||''})}
  ${SEC('Endereço')}
- ${F('c_zip','CEP',{value:c.zip||'',mask:'cep'})}
+ ${F('c_zip','CEP',{value:c.zip||'',mask:'cep',ph:'00000-000',attrs:'data-in="cep-lookup" data-pre="c"',help:'Digite o CEP e o endereço é preenchido sozinho (precisa de internet).'})}
  ${F('c_addr','Endereço',{value:c.address||'',ph:'Rua, número'})}
  ${F('c_dist','Bairro',{value:c.district||''})}
  ${F('c_city','Cidade / UF',{value:c.city||''})}
@@ -939,7 +998,7 @@ function readCust(old){
  if(!validEmail(email))return bad('c_email','E-mail inválido.');
  const dup=state.customers.find(x=>x.id!==old?.id&&digits(x.phone)===digits(phone)&&digits(phone).length>=10);
  if(dup&&!old?.__ignoreDup&&!window.__ignoreDup){window.__ignoreDup=false;bad('c_phone',`Já existe um cliente com este telefone: ${dup.name}. Se for outra pessoa, altere o número.`);return false}
- return {type:V('c_type'),name,document:digits(doc),birth:V('c_birth'),phone,phone2:V('c_phone2'),email,source:V('c_source'),zip:V('c_zip'),address:V('c_addr'),district:V('c_dist'),city:V('c_city'),notes:V('c_notes'),allowMarketing:VB('c_mkt'),status:VB('c_active')?'Ativo':'Inativo'};
+ return {type:V('c_type'),name,document:digits(doc),rg:V('c_rg'),birth:V('c_birth'),phone,phone2:V('c_phone2'),email,source:V('c_source'),zip:V('c_zip'),address:V('c_addr'),district:V('c_dist'),city:V('c_city'),notes:V('c_notes'),allowMarketing:VB('c_mkt'),status:VB('c_active')?'Ativo':'Inativo'};
 }
 A['new-customer']=(el)=>openCustForm('',el&&el.dataset.arg);
 A['edit-customer']=el=>openCustForm(el.dataset.id);
@@ -1069,11 +1128,12 @@ const BRANDS=['Fiat','Volkswagen','Chevrolet','Ford','Toyota','Honda','Hyundai',
 const vehOrders=id=>state.orders.filter(o=>o.vehicleId===id);
 const vehQuotes=id=>state.quotes.filter(q=>q.vehicleId===id);
 function vehForm(v={}){
- const L=state.lists;
+ const L=state.lists;const ptype=v.plate&&/^[A-Z]{3}\d{4}$/.test(normPlate(v.plate))?'old':'auto';
  return `<div class="form-grid">
  ${combo('v_cust','Proprietário (cliente)','customers',v.customerId,{full:true,req:true,ph:'Busque o cliente por nome, telefone ou placa'})}
  ${SEC('Identificação')}
- ${F('v_plate','Placa',{value:fmtPlate(v.plate),mask:'plate',req:true,ph:'ABC1D23',help:'Aceita placa antiga (ABC-1234) ou Mercosul.'})}
+ ${F('v_ptype','Tipo de placa',{opts:[{v:'auto',l:'Automático (reconhece sozinho)'},{v:'old',l:'Antiga: 3 letras e 4 números (ABC-1234)'},{v:'mercosul',l:'Mercosul: ABC1D23'}],value:ptype,attrs:'data-ch="plate-type"'})}
+ ${F('v_plate','Placa',{value:fmtPlate(v.plate),mask:'plate',req:true,ph:ptype==='old'?'ABC-1234':ptype==='mercosul'?'ABC1D23':'ABC-1234 ou ABC1D23',attrs:`data-ptype="${ptype}" maxlength="8" autocapitalize="characters"`,help:'Digite só letras e números; o hífen entra sozinho na placa antiga.'})}
  ${F('v_kind','Tipo',{opts:['Carro','Moto','Caminhonete','Van / utilitário','Caminhão','Outro'],value:v.kind||'Carro'})}
  ${F('v_brand','Marca',{value:v.brand||'',attrs:'list="brandlist"',ph:'Ex.: Fiat'})}<datalist id="brandlist">${BRANDS.map(b=>`<option value="${esc(b)}">`).join('')}</datalist>
  ${F('v_model','Modelo',{value:v.model||'',ph:'Ex.: Uno Way 1.0',req:true})}
@@ -1098,7 +1158,10 @@ function readVeh(old){
  const plate=normPlate(V('v_plate'));
  if(!V('v_cust'))return bad('v_cust_t','Escolha o proprietário do veículo (ou cadastre um novo cliente).');
  if(!plate)return bad('v_plate','Informe a placa.');
- if(!validPlate(plate))return bad('v_plate','Placa inválida. Use o formato ABC-1234 ou ABC1D23.');
+ const pt=(document.getElementById('v_ptype')||{}).value||'auto';
+ if(pt==='old'&&!/^[A-Z]{3}\d{4}$/.test(plate))return bad('v_plate','Placa antiga: 3 letras e 4 números, como CMP-2250.');
+ if(pt==='mercosul'&&!/^[A-Z]{3}\d[A-Z]\d{2}$/.test(plate))return bad('v_plate','Placa Mercosul: 3 letras, 1 número, 1 letra e 2 números, como ABC1D23.');
+ if(!validPlate(plate))return bad('v_plate','Placa inválida. Use CMP-2250 (antiga) ou ABC1D23 (Mercosul).');
  if(state.vehicles.some(x=>x.id!==old?.id&&x.plate===plate))return bad('v_plate','Já existe um veículo cadastrado com esta placa.');
  if(!V('v_model'))return bad('v_model','Informe o modelo do veículo.');
  const y=V('v_year'),my=V('v_myear');if(y&&(+y<1950||+y>new Date().getFullYear()+1))return bad('v_year','Ano de fabricação inválido.');
@@ -1176,6 +1239,8 @@ A['del-vehicle']=el=>{const v=getVehicle(el.dataset.id),os=vehOrders(v.id),qs=ve
  confirmBox('Excluir veículo?',`<b>${esc(vehLabel(v))}</b> (${esc(fmtPlate(v.plate))}) ${qs.length?'e '+qs.length+' orçamento(s) ligados a ele serão excluídos':'será excluído'}.`,async()=>{state.quotes=state.quotes.filter(q=>q.vehicleId!==v.id);state.appointments=state.appointments.filter(a=>a.vehicleId!==v.id);state.vehicles=state.vehicles.filter(x=>x.id!==v.id);audit('Veículos','Excluiu',fmtPlate(v.plate));await persist();toast('Veículo excluído.','ok');go('vehicles')},{danger:true,yes:'Excluir'})};
 reg({key:'vehicles',label:'Veículos',icon:'car',group:'Cadastros',render:renderVehicles});
 
+H['plate-type']=el=>{const p=document.getElementById('v_plate');if(!p)return;p.dataset.ptype=el.value;p.placeholder=el.value==='old'?'ABC-1234':el.value==='mercosul'?'ABC1D23':'ABC-1234 ou ABC1D23';p.value=plateMaskStr(p.value,el.value);p.focus()};
+
 /* ============================================================
    CATÁLOGO DE SERVIÇOS, PACOTES (KITS) E MOTOR DE ITENS
    (itens e totais compartilhados por orçamento, OS e kits)
@@ -1202,7 +1267,7 @@ function svcForm(s={}){
  ${F('s_cat','Categoria',{opts:L.serviceCats,value:s.category||L.serviceCats[0]})}
  ${F('s_code','Código interno',{value:s.code||'',ph:'Opcional'})}
  ${M('s_price','Valor da mão de obra (R$)',s.price||0,{req:true})}
- ${F('s_hours','Tempo estimado (horas)',{value:s.hours?String(s.hours).replace('.',','):'',ph:'Ex.: 1,5',help:'Usado na agenda e para calcular o valor pela hora técnica.'})}
+ ${F('s_hours','Tempo estimado (horas)',{mask:'dec',value:s.hours?String(s.hours).replace('.',','):'',ph:'Ex.: 1,5',help:'Usado na agenda e para calcular o valor pela hora técnica.'})}
  ${SEC('Garantia e revisão automática')}
  ${F('s_war','Garantia (dias)',{value:s.warrantyDays??state.shop.warrantyDays,mask:'digits'})}
  ${F('s_km','Repetir a cada (km)',{value:s.kmInterval||'',mask:'digits',help:'Ex.: troca de óleo a cada 10000 km. Gera lembrete de revisão.'})}
@@ -1230,7 +1295,7 @@ function svcList(){
  return table([{h:'Serviço',f:s=>`<b>${esc(s.name)}</b>${s.example?' <span class="badge gray">exemplo</span>':''}<div class="tiny muted">${esc(s.category)}${s.code?' · '+esc(s.code):''}</div>`},{h:'Tempo',f:s=>s.hours?num(s.hours,1)+' h':'—'},{h:'Revisão',f:s=>[s.kmInterval?num(s.kmInterval)+' km':'',s.monthsInterval?s.monthsInterval+' meses':''].filter(Boolean).join(' / ')||'—'},{h:'Garantia',f:s=>s.warrantyDays?s.warrantyDays+' dias':'—'},{h:'Valor',cls:'num',f:s=>`<b>${money(s.price)}</b>`},{h:'',cls:'num',f:s=>`<button class="btn xs" data-action="edit-service" data-id="${s.id}">${ICON.edit}</button> <button class="btn xs danger" data-action="del-service" data-id="${s.id}">${ICON.trash}</button>`}],pg.rows,{click:s=>`data-action="edit-service" data-id="${s.id}"`})+pg.html;
 }
 A['del-service']=el=>{const s=getService(el.dataset.id);confirmBox('Excluir serviço?',`<b>${esc(s.name)}</b> será removido do catálogo. Orçamentos e OS já criados <b>não</b> são alterados.`,async()=>{state.services=state.services.filter(x=>x.id!==s.id);audit('Serviços','Excluiu',s.name);await persist();render()},{danger:true,yes:'Excluir'})};
-A['svc-adjust']=()=>showModal('Reajustar valores',`<p>Aplique um reajuste percentual em todos os serviços do filtro atual${UI.f.svcCat?' (categoria <b>'+esc(UI.f.svcCat)+'</b>)':' (todos os serviços ativos)'}.</p><div class="form-grid">${F('adj_pct','Reajuste (%)',{value:'',ph:'Ex.: 8 (use negativo para reduzir)'})}${Chk('adj_round','Arredondar para o real mais próximo',true)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="svc-adjust-go">Aplicar reajuste</button>`,'sm');
+A['svc-adjust']=()=>showModal('Reajustar valores',`<p>Aplique um reajuste percentual em todos os serviços do filtro atual${UI.f.svcCat?' (categoria <b>'+esc(UI.f.svcCat)+'</b>)':' (todos os serviços ativos)'}.</p><div class="form-grid">${F('adj_pct','Reajuste (%)',{mask:'pctneg',value:'',ph:'Ex.: 8 (use negativo para reduzir)'})}${Chk('adj_round','Arredondar para o real mais próximo',true)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="svc-adjust-go">Aplicar reajuste</button>`,'sm');
 A['svc-adjust-go']=async()=>{const p=VN('adj_pct');if(!p||Math.abs(p)>100)return bad('adj_pct','Informe um percentual entre -100 e 100.');await safetySnapshot('Antes de reajustar serviços');let n=0;for(const s of state.services.filter(s=>s.active!==false&&(!UI.f.svcCat||s.category===UI.f.svcCat))){let v=Math.round(s.price*(1+p/100));if(VB('adj_round'))v=Math.round(v/100)*100;s.price=v;n++}audit('Serviços','Reajuste de '+p+'% em '+n+' serviços');await persist();closeModal();toast(n+' serviço(s) reajustado(s).','ok');render()};
 H['svc-cat']=el=>{UI.f.svcCat=el.value;UI.page.services=0;refreshList('services')};
 
@@ -1299,7 +1364,7 @@ function pickerBody(){
 }
 function pickerList(){
  const q=PICK.q,t=PICK.tab;
- if(t==='other')return `<div class="form-grid">${F('po_name','Descrição',{full:true,ph:'Ex.: Taxa de descarte, Guincho, Estacionamento…'})}${F('po_type','Tipo',{opts:[{v:'other',l:'Outro / taxa'},{v:'service',l:'Mão de obra'},{v:'part',l:'Peça'}],value:'other'})}${M('po_price','Valor (R$)','')}${F('po_qty','Quantidade',{value:'1'})}</div><p class="muted small mt12">Use para cobranças que não estão no catálogo nem no estoque.</p>`;
+ if(t==='other')return `<div class="form-grid">${F('po_name','Descrição',{full:true,ph:'Ex.: Taxa de descarte, Guincho, Estacionamento…'})}${F('po_type','Tipo',{opts:[{v:'other',l:'Outro / taxa'},{v:'service',l:'Mão de obra'},{v:'part',l:'Peça'}],value:'other'})}${M('po_price','Valor (R$)','')}${F('po_qty','Quantidade',{mask:'dec',value:'1'})}</div><p class="muted small mt12">Use para cobranças que não estão no catálogo nem no estoque.</p>`;
  const search=`<div class="searchbar"><div class="input-wrap">${ICON.search}<input type="search" id="pk_q" placeholder="${t==='part'?'Buscar peça por nome, código ou aplicação':'Buscar'}" value="${esc(q)}" data-in="pick-q" autocomplete="off"></div></div>`;
  let rows=[];
  if(t==='service')rows=state.services.filter(s=>s.active!==false&&matchQ(q,s.name,s.category,s.code)).slice(0,80).map(s=>({k:'s:'+s.id,title:s.name,sub:s.category+(s.hours?' · '+num(s.hours,1)+' h':''),price:s.price}));
@@ -1822,10 +1887,10 @@ function partForm(p={}){
  ${F('p_sku','Código / referência',{value:p.sku||''})}${F('p_brand','Marca',{value:p.brand||''})}
  ${F('p_cat','Categoria',{opts:L.partCats,value:p.category||L.partCats[0]})}${F('p_unit','Unidade',{opts:['un','L','kg','m','par','jogo','kit'],value:p.unit||'un'})}
  ${SEC('Preço')}
- ${M('p_cost','Custo (R$)',p.cost||0,{attrs:'data-in="p-price"'})}${F('p_mk','Margem sobre o custo (%)',{value:p.markup??state.shop.partsMarkup,attrs:'data-in="p-price"',help:'O preço de venda é sugerido automaticamente; você pode ajustar.'})}
+ ${M('p_cost','Custo (R$)',p.cost||0,{attrs:'data-in="p-price"'})}${F('p_mk','Margem sobre o custo (%)',{mask:'pct',value:String(p.markup??state.shop.partsMarkup??'').replace('.',','),attrs:'data-in="p-price"',help:'O preço de venda é sugerido automaticamente; você pode ajustar.'})}
  ${M('p_price','Preço de venda (R$)',p.price||0)}
  ${SEC('Estoque')}
- ${F('p_qty','Quantidade em estoque',{value:p.qty!=null?String(p.qty).replace('.',','):'0',attrs:p.id?'readonly':'',help:p.id?'Para alterar a quantidade use “Movimentar estoque” (fica registrado).':''})}
+ ${F('p_qty','Quantidade em estoque',{mask:'dec',value:p.qty!=null?String(p.qty).replace('.',','):'0',attrs:p.id?'readonly':'',help:p.id?'Para alterar a quantidade use “Movimentar estoque” (fica registrado).':''})}
  ${F('p_min','Estoque mínimo (alerta)',{value:p.minQty||'',mask:'digits'})}${F('p_loc','Localização (prateleira)',{value:p.location||''})}
  ${combo('p_sup','Fornecedor principal','suppliers',p.supplierId||'')}
  ${F('p_app','Aplicação (veículos compatíveis)',{value:p.application||'',full:true,ph:'Ex.: Gol G5 1.0, Palio 1.4'})}
@@ -1890,7 +1955,7 @@ function renderParts(){
 reg({key:'parts',label:'Peças e estoque',icon:'box',group:'Cadastros',render:renderParts,badge:()=>state.parts.filter(partLow).length});
 
 /* ---------- fornecedores ---------- */
-function supForm(s={}){return `<div class="form-grid">${F('sp_name','Nome / razão social',{value:s.name||'',req:true,full:true})}${F('sp_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc'})}${F('sp_contact','Contato',{value:s.contact||''})}${F('sp_phone','WhatsApp / telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone'})}${F('sp_mail','E-mail',{value:s.email||'',type:'email'})}${F('sp_city','Cidade',{value:s.city||''})}${F('sp_cat','O que fornece',{value:s.category||'',full:true,ph:'Ex.: filtros, freios, pneus'})}${F('sp_notes','Observações (prazo, condições)',{type:'textarea',value:s.notes||'',full:true,rows:2})}</div>`}
+function supForm(s={}){return `<div class="form-grid">${F('sp_name','Nome / razão social',{value:s.name||'',req:true,full:true})}${F('sp_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc',ph:'00.000.000/0000-00'})}${F('sp_contact','Contato',{value:s.contact||''})}${F('sp_phone','WhatsApp / telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone'})}${F('sp_mail','E-mail',{value:s.email||'',type:'email'})}${F('sp_city','Cidade',{value:s.city||''})}${F('sp_cat','O que fornece',{value:s.category||'',full:true,ph:'Ex.: filtros, freios, pneus'})}${F('sp_notes','Observações (prazo, condições)',{type:'textarea',value:s.notes||'',full:true,rows:2})}</div>`}
 A['new-supplier']=()=>openSup('');A['edit-supplier']=el=>openSup(el.dataset.id);
 function openSup(id){const s=id?getSupplier(id):{};showModal(id?'Editar fornecedor':'Novo fornecedor',supForm(s),`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="save-supplier" data-id="${id}">Salvar</button>`,'wide')}
 A['save-supplier']=async el=>{
@@ -2152,7 +2217,7 @@ reg({key:'finance',label:'Financeiro',icon:'wallet',group:'Gestão',render:rende
 A['new-mech']=()=>openMech('');A['edit-mech']=el=>openMech(el.dataset.id);
 function openMech(id){
  const m=id?getMech(id):{};
- showModal(id?'Editar membro':'Novo membro da equipe',`<div class="form-grid">${F('m_name','Nome',{value:m.name||'',req:true,full:true})}${F('m_role','Função',{opts:state.lists.roles,value:m.role||'Mecânico'})}${F('m_phone','WhatsApp',{value:m.phone?fmtPhone(m.phone):'',mask:'phone'})}${F('m_comm','Comissão sobre mão de obra (%)',{value:m.commissionPct||'',help:'Calculada sobre os serviços da OS entregue.'})}${M('m_sal','Salário fixo (R$)',m.salary||'')}${Chk('m_active','Ativo',m.active!==false)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="save-mech" data-id="${id}">Salvar</button>`,'wide');
+ showModal(id?'Editar membro':'Novo membro da equipe',`<div class="form-grid">${F('m_name','Nome',{value:m.name||'',req:true,full:true})}${F('m_role','Função',{opts:state.lists.roles,value:m.role||'Mecânico'})}${F('m_phone','WhatsApp',{value:m.phone?fmtPhone(m.phone):'',mask:'phone'})}${F('m_comm','Comissão sobre mão de obra (%)',{mask:'pct',value:String(m.commissionPct||'').replace('.',','),help:'Calculada sobre os serviços da OS entregue.'})}${M('m_sal','Salário fixo (R$)',m.salary||'')}${Chk('m_active','Ativo',m.active!==false)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="save-mech" data-id="${id}">Salvar</button>`,'wide');
 }
 A['save-mech']=async el=>{
  if(!V('m_name'))return bad('m_name','Informe o nome.');const pct=Number(V('m_comm').replace(',','.'))||0;if(pct<0||pct>100)return bad('m_comm','A comissão deve estar entre 0 e 100%.');
@@ -2415,14 +2480,15 @@ A['tx-receipt-wa']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id)
 const LIST_NAMES={serviceCats:'Categorias de serviço',partCats:'Categorias de peças',expenseCats:'Categorias de despesas',incomeCats:'Categorias de receitas',payMethods:'Formas de pagamento',sources:'Como o cliente conheceu a oficina',fuels:'Combustíveis',colors:'Cores',roles:'Funções da equipe',fuelLevels:'Níveis de combustível',checklist:'Itens da vistoria de entrada',assetCats:'Categorias de equipamentos'};
 function renderSettings(){
  const f=tabOf('settings','shop'),s=state.shop,st=state.settings;
- const tabs=[{k:'shop',l:'Dados da oficina'},{k:'texts',l:'Textos dos documentos'},{k:'fees',l:'Taxas de cartão'},{k:'lists',l:'Listas'},{k:'sec',l:'Segurança'},{k:'backup',l:'Backup'},{k:'data',l:'Dados'}];
+ const tabs=[{k:'shop',l:'Dados da oficina'},{k:'texts',l:'Textos dos documentos'},{k:'fees',l:'Taxas de cartão'},{k:'lists',l:'Listas'},{k:'sec',l:'Segurança'},{k:'plan',l:'Plano PRO'},{k:'backup',l:'Backup'},{k:'data',l:'Dados'}];
  let body='';
- if(f==='shop')body=`<div class="card"><div class="form-grid">${F('s_name','Nome da oficina (fantasia)',{value:s.name,req:true})}${F('s_legal','Razão social',{value:s.legalName})}${F('s_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc'})}${F('s_owner','Responsável',{value:s.owner})}${F('s_phone','Telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone'})}${F('s_wa','WhatsApp da oficina',{value:s.whatsapp?fmtPhone(s.whatsapp):'',mask:'phone'})}${F('s_mail','E-mail',{value:s.email,type:'email'})}${F('s_pix','Chave Pix',{value:s.pixKey})}${F('s_addr','Endereço',{value:s.address,full:true})}${F('s_city','Cidade',{value:s.city})}${F('s_uf','UF',{value:s.uf,attrs:'maxlength="2"',mask:'upper'})}${F('s_hours','Horário de funcionamento',{value:s.openingHours,full:true})}${F('s_slogan','Frase (aparece nos documentos)',{value:s.slogan,full:true})}
- ${SEC('Padrões')}${F('s_qp','Prefixo do orçamento',{value:s.quotePrefix})}${F('s_op','Prefixo da OS',{value:s.orderPrefix})}${F('s_qv','Validade do orçamento (dias)',{value:s.quoteValidityDays,mask:'digits'})}${F('s_wd','Garantia padrão (dias)',{value:s.warrantyDays,mask:'digits'})}${M('s_hr','Valor da hora técnica (R$)',s.hourRate)}${F('s_mk','Margem padrão sobre peças (%)',{value:s.partsMarkup})}${F('s_stock','Baixar estoque quando…',{opts:[{v:'run',l:'a OS entra em execução'},{v:'ready',l:'a OS fica pronta'}],value:s.stockDeductOn})}${F('s_rd','Avisar revisões com (dias)',{value:st.reminderDays,mask:'digits'})}${F('s_qf','Cobrar resposta de orçamento após (dias)',{value:st.quoteFollowDays,mask:'digits'})}
+ if(f==='shop')body=`<div class="card"><div class="form-grid">${F('s_name','Nome da oficina (fantasia)',{value:s.name,req:true})}${F('s_legal','Razão social',{value:s.legalName})}${F('s_doc','CNPJ / CPF',{value:s.document?fmtDoc(s.document):'',mask:'doc',ph:'00.000.000/0000-00'})}${F('s_owner','Responsável',{value:s.owner})}${F('s_phone','Telefone',{value:s.phone?fmtPhone(s.phone):'',mask:'phone'})}${F('s_wa','WhatsApp da oficina',{value:s.whatsapp?fmtPhone(s.whatsapp):'',mask:'phone'})}${F('s_mail','E-mail',{value:s.email,type:'email'})}${F('s_pix','Chave Pix',{value:s.pixKey})}${F('s_zip','CEP',{value:s.zip||'',mask:'cep',ph:'00000-000',attrs:'data-in="cep-lookup" data-pre="s"'})}${F('s_addr','Endereço (rua, número)',{value:s.address,full:true})}${F('s_city','Cidade',{value:s.city})}${F('s_uf','UF',{value:s.uf,attrs:'maxlength="2"',mask:'uf',ph:'SP'})}${F('s_hours','Horário de funcionamento',{value:s.openingHours,full:true})}${F('s_slogan','Frase (aparece nos documentos)',{value:s.slogan,full:true})}
+ ${SEC('Padrões')}${F('s_qp','Prefixo do orçamento',{value:s.quotePrefix})}${F('s_op','Prefixo da OS',{value:s.orderPrefix})}${F('s_qv','Validade do orçamento (dias)',{value:s.quoteValidityDays,mask:'digits'})}${F('s_wd','Garantia padrão (dias)',{value:s.warrantyDays,mask:'digits'})}${M('s_hr','Valor da hora técnica (R$)',s.hourRate)}${F('s_mk','Margem padrão sobre peças (%)',{value:String(s.partsMarkup??'').replace('.',','),mask:'pct'})}${F('s_stock','Baixar estoque quando…',{opts:[{v:'run',l:'a OS entra em execução'},{v:'ready',l:'a OS fica pronta'}],value:s.stockDeductOn})}${F('s_rd','Avisar revisões com (dias)',{value:st.reminderDays,mask:'digits'})}${F('s_qf','Cobrar resposta de orçamento após (dias)',{value:st.quoteFollowDays,mask:'digits'})}
  </div><div class="mt12 row" style="border:0">${s.logo?`<img src="${s.logo}" style="max-height:60px;border:1px solid var(--line);border-radius:8px;background:#fff">`:'<span class="muted small">Sem logotipo</span>'}${btn(s.logo?'Trocar logotipo':'Enviar logotipo','logo-up',{icon:'plus'})}${s.logo?btn('Remover','logo-del',{cls:'sm'}):''}</div><div class="mt12"><button class="btn primary" data-action="save-shop">${ICON.check}Salvar dados</button></div></div>`;
  else if(f==='texts')body=`<div class="card"><div class="form-grid">${F('s_qt','Condições do orçamento',{type:'textarea',value:s.quoteTerms,full:true,rows:4})}${F('s_au','Autorização de serviço (assinada na vistoria)',{type:'textarea',value:s.authText,full:true,rows:4})}${F('s_wt','Termo de garantia (use {dias} para o prazo)',{type:'textarea',value:s.warrantyText,full:true,rows:4})}${F('s_dl','Termo de entrega',{type:'textarea',value:s.deliveryText,full:true,rows:3})}</div><div class="mt12"><button class="btn primary" data-action="save-texts">Salvar textos</button> <button class="btn" data-action="reset-texts">Restaurar padrão</button></div></div>`;
- else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
+ else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{mask:'pct',value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{mask:'pct',value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
  else if(f==='lists')body=`<div class="card"><p class="muted small">Uma opção por linha. Estas listas aparecem nos cadastros e formulários.</p><div class="form-grid">${Object.entries(LIST_NAMES).map(([k,l])=>F('ls_'+k,l,{type:'textarea',value:(state.lists[k]||[]).join('\n'),rows:5})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-lists">Salvar listas</button></div></div>`;
+ else if(f==='plan')body=planCardHTML();
  else if(f==='sec')body=staffCardHTML()+`<div class="card"><h2>Acesso com senha</h2><div class="alert ok">${ICON.shield}<div>A senha é pedida sempre que o sistema abre${state.settings.lockMinutes?' e após '+state.settings.lockMinutes+' min sem uso':''}.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">${btn('Trocar senha','pw-change',{icon:'lock'})}${btn('Bloquear agora','lock-now',{icon:'lock'})}${btn('Gerar novo código de recuperação','pw-newcode',{icon:'key'})}</div><div class="form-grid mt12"><label>Bloquear automaticamente após<select data-ch="lock-min">${optHTML([{v:0,l:'Nunca'},{v:5,l:'5 minutos sem uso'},{v:15,l:'15 minutos sem uso'},{v:30,l:'30 minutos sem uso'},{v:60,l:'1 hora sem uso'}],state.settings.lockMinutes||0)}</select></label></div><p class="muted tiny mt12">A senha impede o acesso à tela do sistema. Para proteger também o arquivo de backup, use “Baixar backup com senha”.</p></div>
   <div class="card"><h2>Registro de atividades</h2>${state.audit.length?table([{h:'Quando',f:a=>brDT(a.at)},{h:'Quem',f:a=>esc(a.by||'—')},{h:'Área',f:a=>esc(a.module)},{h:'Ação',f:a=>esc(a.action)},{h:'Registro',f:a=>esc(a.record)}],state.audit.slice(0,40)):empty('shield','Sem registros','')}</div>`;
  else if(f==='backup')body=backupHTML();
@@ -2432,7 +2498,7 @@ function renderSettings(){
 }
 A['save-shop']=async()=>{
  if(!V('s_name'))return bad('s_name','Informe o nome da oficina.');if(V('s_doc')&&!validDoc(V('s_doc')))return bad('s_doc','CNPJ/CPF inválido.');if(V('s_mail')&&!validEmail(V('s_mail')))return bad('s_mail','E-mail inválido.');
- Object.assign(state.shop,{name:V('s_name'),legalName:V('s_legal'),document:digits(V('s_doc')),owner:V('s_owner'),phone:digits(V('s_phone')),whatsapp:digits(V('s_wa')),email:V('s_mail'),pixKey:V('s_pix'),address:V('s_addr'),city:V('s_city'),uf:V('s_uf'),openingHours:V('s_hours'),slogan:V('s_slogan'),quotePrefix:(V('s_qp')||'ORC').toUpperCase(),orderPrefix:(V('s_op')||'OS').toUpperCase(),quoteValidityDays:Number(V('s_qv'))||7,warrantyDays:Number(V('s_wd'))||0,hourRate:VC('s_hr'),partsMarkup:VN('s_mk'),stockDeductOn:V('s_stock')});
+ Object.assign(state.shop,{name:V('s_name'),legalName:V('s_legal'),document:digits(V('s_doc')),owner:V('s_owner'),phone:digits(V('s_phone')),whatsapp:digits(V('s_wa')),email:V('s_mail'),pixKey:V('s_pix'),zip:V('s_zip'),address:V('s_addr'),city:V('s_city'),uf:V('s_uf'),openingHours:V('s_hours'),slogan:V('s_slogan'),quotePrefix:(V('s_qp')||'ORC').toUpperCase(),orderPrefix:(V('s_op')||'OS').toUpperCase(),quoteValidityDays:Number(V('s_qv'))||7,warrantyDays:Number(V('s_wd'))||0,hourRate:VC('s_hr'),partsMarkup:VN('s_mk'),stockDeductOn:V('s_stock')});
  state.settings.reminderDays=Number(V('s_rd'))||30;state.settings.quoteFollowDays=Number(V('s_qf'))||3;
  audit('Configurações','Salvou dados da oficina');await persist();toast('Dados salvos.','ok');render();
 };
@@ -2467,9 +2533,9 @@ function showLock(mode){
   <label class="lk">Nova senha (mínimo 6)<span class="pw"><input id="lk_p1" type="password" autocomplete="new-password">${eye('lk_p1')}</span></label>
   <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-recover">Redefinir senha</button><button class="btn" data-action="lock-back">Voltar</button>`;
  else h=`${logo}<h1>${esc(state.shop.name)}</h1><p>${state.settings.ownerName?'Olá, '+esc(state.settings.ownerName)+'! ':''}Digite sua senha para entrar</p>
-  ${staffOn()?`<div class="lk-roles"><button type="button" class="lk-role ${lockRole==='owner'?'on':''}" data-action="lock-role" data-r="owner">Proprietário</button><button type="button" class="lk-role ${lockRole==='staff'?'on':''}" data-action="lock-role" data-r="staff">Funcionário</button></div>`:''}
-  <label class="lk"><span class="pw"><input id="lk_p1" type="password" autocomplete="current-password" placeholder="${lockRole==='staff'&&staffOn()?'Senha do funcionário':'Senha'}">${eye('lk_p1')}</span></label>
-  <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-login">Entrar</button><button class="btn link" data-action="lock-forgot">Esqueci minha senha</button>`;
+  ${true?`<div class="lk-roles"><button type="button" class="lk-role ${lockRole==='owner'?'on':''}" data-action="lock-role" data-r="owner">Proprietário</button><button type="button" class="lk-role ${lockRole==='staff'?'on':''}" data-action="lock-role" data-r="staff">Funcionário</button></div>`:''}
+  ${lockRole==='staff'&&!staffOn()?`<div class="alert warn" style="text-align:left"><div><b>O acesso do funcionário ainda não foi criado.</b><br>Entre como <b>Proprietário</b> e crie em Configurações → Segurança → Acesso do funcionário.</div></div><button class="btn primary" data-action="lock-role" data-r="owner">Entrar como Proprietário</button>`:`<label class="lk"><span class="pw"><input id="lk_p1" type="password" autocomplete="current-password" placeholder="${lockRole==='staff'?'Senha do funcionário':'Senha do proprietário'}">${eye('lk_p1')}</span></label>
+  <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-login">Entrar</button><button class="btn link" data-action="lock-forgot">Esqueci minha senha</button>`}`;
  L.innerHTML=`<div class="lockbox" data-mode="${mode}">${h}</div>`;
  setTimeout(()=>{const f=$('#lk_user')||$('#lk_code')||$('#lk_p1');f&&f.focus()},60);
 }
@@ -2494,6 +2560,7 @@ A['lock-done']=()=>{if(!$('#lk_ok').checked)return lockErr('Marque a opção con
 A['lock-login']=async()=>{
  if(Date.now()<blockedUntil)return lockErr('Muitas tentativas. Aguarde '+Math.ceil((blockedUntil-Date.now())/1000)+' segundos.');
  const p=($('#lk_p1')||{}).value||'';if(!p)return lockErr('Digite a senha.');
+ if(lockRole==='staff'&&!staffOn())return lockErr('O acesso do funcionário ainda não foi criado.');
  const isStaff=staffOn()&&lockRole==='staff',cs=isStaff?state.settings.staff:state.settings;
  if((await hashPw(p,isStaff?cs.salt:cs.pinSalt))===(isStaff?cs.hash:cs.pinHash))return unlockNow();
  failCount++;if(failCount>=5){blockedUntil=Date.now()+30000;failCount=0;lockErr('Senha incorreta várias vezes. Aguarde 30 segundos.')}else lockErr('Senha incorreta. Tente de novo.');
@@ -2809,6 +2876,7 @@ const TOURS=[
   K('[data-action="new-vehicle"]','Clique em “Novo veículo”','Todo orçamento e OS é ligado a um veículo.'),
   FLD('#v_cust_t','Dono do veículo','Digite o nome do cliente e escolha na lista que aparece.',()=>V('v_cust')),
   FLD('#v_plate','Placa','Digite a placa (ex.: ABC1D23). O sistema valida o formato, antigo ou Mercosul.',()=>V('v_plate').replace(/[^a-z0-9]/gi,'').length>=7),
+  FLD('#v_model','Modelo do veículo','Digite o modelo, por exemplo: Gol 1.0.',()=>V('v_model').trim().length>1),
   I('#v_nextkm','Próxima revisão','Informe quando o carro deve voltar. O sistema avisa você para lembrar o cliente, e isso gera retorno.'),
   K('[data-action="save-vehicle"]','Salvar veículo','Pronto: o carro fica vinculado ao cliente.',{done:gone('#v_plate')})
  ]},
@@ -3053,7 +3121,7 @@ new MutationObserver(()=>{if(!isStaff()||_roleRaf)return;_roleRaf=requestAnimati
 /* ---- menu lateral: quem está logado e botão de bloquear ---- */
 const _bn3=buildNav;
 buildNav=function(){_bn3();const n=$('#sideNav');if(!n)return;
- n.insertAdjacentHTML('beforeend',`<div class="role-chip ${isStaff()?'staff':''}">${ico('shield')}<span>Entrou como<b>${isStaff()?esc(staffCfg().name):'Proprietário'}</b></span></div><button class="nav-btn" data-action="lock-now">${ico('key')}<span>Bloquear / trocar usuário</span></button>`);
+ n.insertAdjacentHTML('beforeend',`<div class="role-chip ${isStaff()?'staff':''}">${ico('shield')}<span>Entrou como<b>${isStaff()?esc(staffCfg().name):'Proprietário'}</b></span></div><button class="nav-btn" data-action="lock-now">${ico('key')}<span>Bloquear / trocar usuário</span></button>${!isStaff()&&!staffOn()?`<button class="nav-btn setup-staff" data-action="go-staff-setup">${ico('users')}<span>Criar acesso do funcionário</span></button>`:''}`);
  if(isStaff())n.querySelectorAll('.demo-nav[data-action="demo-toggle"]').forEach(e=>e.remove());
 };
 
@@ -3081,6 +3149,145 @@ A['staff-save']=async()=>{
  st.staff=nx;audit('Segurança',on?'Atualizou o acesso do funcionário':'Desligou o acesso do funcionário');
  await persist();toast('Acesso do funcionário salvo.','ok');render();
 };
+
+A['go-staff-setup']=()=>{UI.tab.settings='sec';go('settings')};
+
+/* ============================================================
+   PLANO PRO · ativação por código assinado (funciona offline)
+   O código é assinado com uma chave privada que fica só com o dono do
+   sistema (gerador-de-codigos.html). Aqui só existe a chave PÚBLICA.
+   ============================================================ */
+const PLAN_CFG={
+ k:'pSvgZExFgfB69qUIBC4ulxqjMrgaYZyw7yxvC/LG78o=',
+ whats:'',                       // WhatsApp de vendas (somente números, com 55). Ex.: '5511999998888'
+ trialDays:15,                   // dias de teste PRO na primeira vez que o sistema é usado
+ freeCustomers:30, freeOrders:30,// limites do plano Grátis
+ freeReports:['quotes','orders'],// relatórios liberados no Grátis
+ price:'R$ 150,00',
+};
+const PLAN_ALPHA='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const PLAN_BASE=Date.UTC(2026,0,1)/864e5; // dia 0 dos códigos = 01/01/2026
+let _planKey=null,_planFails=0,_planLock=0;
+// Código no formato 57815-ABKJU (5 números + 5 letras): 14 bits de validade + 3 de série + 23 de assinatura (HMAC).
+const PLAN_L=26n**5n,PLAN_M=(1n<<40n)-1n,PLAN_A=0x9E3779B97Fn,PLAN_B=0x5A3C96E1B7n;
+const PLAN_AI=(()=>{let x=PLAN_A;for(let i=0;i<6;i++)x=(x*(2n-PLAN_A*x))&PLAN_M;return x})(); // embaralha os números para o código parecer aleatório
+async function planMac(d){
+ if(!_planKey)_planKey=await crypto.subtle.importKey('raw',Uint8Array.from(atob(PLAN_CFG.k),c=>c.charCodeAt(0)),{name:'HMAC',hash:'SHA-256'},false,['sign']);
+ const m=new Uint8Array(await crypto.subtle.sign('HMAC',_planKey,new Uint8Array([d>>16&1,d>>8&255,d&255])));
+ return ((m[0]<<15)|(m[1]<<7)|(m[2]>>1))&0x7fffff;
+}
+async function planVerify(code){
+ if(Date.now()<_planLock)throw new Error('Muitas tentativas. Aguarde '+Math.ceil((_planLock-Date.now())/1000)+' segundos.');
+ const raw=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+ if(raw.length!==10)throw new Error('O código tem 5 números e 5 letras, como 57815-ABKJU. Confira se digitou tudo.');
+ if(!/^\d{5}[A-Z]{5}$/.test(raw))throw new Error('Formato inválido. O código é 5 números, traço e 5 letras, como 57815-ABKJU.');
+ let lt=0n;for(const ch of raw.slice(5))lt=lt*26n+BigInt(ch.charCodeAt(0)-65);
+ const w=BigInt(raw.slice(0,5))*PLAN_L+lt;
+ if(w>>40n)throw new Error('Código inválido. Confira com quem te enviou.');
+ const v=((w-PLAN_B)*PLAN_AI)&PLAN_M;
+ if(!crypto||!crypto.subtle)throw new Error('Este navegador não consegue validar o código. Abra o sistema pelo endereço seguro (https).');
+ const d=Number(v>>23n),mac=Number(v&0x7fffffn);
+ if(v>>40n||mac!==await planMac(d)){if(++_planFails>=5){_planLock=Date.now()+60000;_planFails=0}throw new Error('Código inválido. Confira com quem te enviou.')}
+ _planFails=0;const days=d>>3;
+ const e=days===0?'0':new Date((PLAN_BASE+days)*864e5).toISOString().slice(0,10);
+ return{p:'pro',e,n:'',i:String(d&7)};
+}
+function planState(){const st=state.settings;if(!st.plan)st.plan={};if(!st.plan.trialStart){st.plan.trialStart=todayISO();if(!window.__DEMO)setTimeout(()=>persist().catch(()=>{}),0)}return st.plan}
+function daysBetween(a,b){return Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5)}
+function planInfo(){
+ if(window.__DEMO)return{pro:true,kind:'demo',label:'Demonstração'};
+ const pl=planState(),t=todayISO();
+ if(pl.lic&&pl.lic.p==='pro'){
+  const e=pl.lic.e;
+  if(!e||e==='0')return{pro:true,kind:'license',life:true,label:'PRO vitalício',name:pl.lic.n};
+  const left=daysBetween(t,e);
+  if(left>=0)return{pro:true,kind:'license',left,exp:e,label:'PRO',name:pl.lic.n,soon:left<=15};
+  var expired=e;
+ }
+ const tl=PLAN_CFG.trialDays-daysBetween(pl.trialStart,t);
+ if(tl>0)return{pro:true,kind:'trial',left:tl,label:'Teste PRO',expired};
+ return{pro:false,kind:'free',label:'Grátis',expired};
+}
+const isPro=()=>planInfo().pro;
+function upsell(why){
+ const wa=PLAN_CFG.whats?`<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${PLAN_CFG.whats}?text=${encodeURIComponent('Olá! Quero ativar o plano PRO do Meu Mecânico.')}">${ICON.wa}Falar no WhatsApp</a>`:'';
+ showModal('Recurso do plano PRO',`<div class="alert warn">${ICON.lock}<div>${why}</div></div>
+ <p class="small">O plano PRO libera <b>clientes e ordens de serviço sem limite</b>, <b>todos os relatórios</b> (PDF, WhatsApp e planilha) e o <b>acesso do funcionário</b>.</p>
+ <p class="muted small">Plano PRO mensal: <b>${PLAN_CFG.price}</b> por mês, com tudo liberado.</p>`,
+ `<button class="btn" data-action="close-modal">Agora não</button>${wa}<button class="btn primary" data-action="plan-go">${ICON.key}Ativar meu código</button>`);
+}
+A['plan-go']=()=>{closeAllModals();UI.tab.settings='plan';go('settings')};
+function planGate(ok,why){if(ok())return true;upsell(why);return false}
+{
+ const _sc=A['save-customer'];A['save-customer']=function(el){
+  if(!el.dataset.id&&!isPro()&&state.customers.length>=PLAN_CFG.freeCustomers)return upsell(`O plano Grátis permite até <b>${PLAN_CFG.freeCustomers} clientes</b>. Você chegou ao limite.`);
+  return _sc.apply(this,arguments)};
+ const _so=A['save-new-order'];A['save-new-order']=function(){
+  if(!isPro()&&state.orders.length>=PLAN_CFG.freeOrders)return upsell(`O plano Grátis permite até <b>${PLAN_CFG.freeOrders} ordens de serviço</b>. Você chegou ao limite.`);
+  return _so.apply(this,arguments)};
+ const _ro=A['rep-open'];A['rep-open']=function(el){
+  if(!isPro()&&!PLAN_CFG.freeReports.includes(el.dataset.id))return upsell('Este relatório faz parte do plano PRO.');
+  return _ro.apply(this,arguments)};
+ const _ss=A['staff-save'];A['staff-save']=function(){
+  if(VB('sf_on')&&!isPro())return upsell('O acesso separado para funcionário faz parte do plano PRO.');
+  return _ss.apply(this,arguments)};
+}
+const PLAN_GROUPS=[
+ ['Atendimento e oficina',[
+  ['Clientes e veículos sem limite','Cadastro completo com CPF/CNPJ, RG, CEP automático, WhatsApp, histórico de cada carro e placa antiga ou Mercosul.'],
+  ['Orçamentos sem limite','Monte com peças e serviços, envie por WhatsApp, imprima ou salve em PDF e transforme em OS com um clique.'],
+  ['Ordens de serviço sem limite','Vistoria de entrada, diagnóstico, andamento por etapas, serviço adicional com autorização do cliente, garantia e entrega.'],
+  ['Agenda','Calendário de horários; o cliente que chega vira OS direto da agenda.']]],
+ ['Estoque e catálogo',[
+  ['Peças e estoque','Entrada e baixa automática pela OS, estoque mínimo, aviso de reposição e margem sobre o custo.'],
+  ['Catálogo de serviços','Lista de serviços com preço e tempo, pronta para usar nos orçamentos.']]],
+ ['Financeiro (só o dono vê)',[
+  ['Contas a receber e a pagar','Pagamento com entrada e parcelas, recibo em PDF ou WhatsApp, livro-caixa e resultado do período.'],
+  ['Taxas de cartão e comissões','A taxa da maquininha entra como despesa sozinha; comissão da equipe calculada por OS.'],
+  ['Os 13 relatórios','Orçamentos, OS, serviços mais vendidos, preços, estoque, reposição, a receber, a pagar, resultado, caixa, comissões, clientes e agenda. Cada um em PDF, impressão, WhatsApp ou planilha (Excel/CSV).']]],
+ ['Equipe e segurança',[
+  ['Acesso do funcionário','Senha própria: o funcionário abre OS, estoque e agenda sem ver o financeiro. Tudo o que ele faz aparece para o dono.'],
+  ['Senha, código de recuperação e bloqueio automático','O sistema só abre com senha e trava sozinho após alguns minutos parado.'],
+  ['Backup com senha e pontos de restauração','Salve seus dados em arquivo e volte atrás se algo der errado.']]],
+ ['Sempre com você',[
+  ['Funciona sem internet','Instalável no celular e no computador; os dados ficam no seu aparelho.'],
+  ['Modo demonstração e tutorial guiado','Treine a equipe com dados de exemplo, sem mexer nos dados reais.'],
+  ['Atualizações incluídas','Todas as melhorias futuras do sistema entram no plano enquanto ele estiver em dia (por tempo limitado, nesta condição de lançamento).']]]
+];
+function planCardHTML(){
+ const i=planInfo(),pl=planState();
+ let st;
+ if(i.kind==='license'&&i.life)st=`<div class="alert ok">${ICON.shield}<div><b>Plano PRO vitalício ativo</b>${i.name?' para '+esc(i.name):''}. Sem vencimento.</div></div>`;
+ else if(i.kind==='license')st=`<div class="alert ${i.soon?'warn':'ok'}">${ICON.shield}<div><b>Plano PRO ativo</b>${i.name?' para '+esc(i.name):''} até <b>${brDate(i.exp)}</b> (${i.left} dia${i.left===1?'':'s'}).${i.soon?' Está perto de vencer: peça a renovação para não perder os recursos.':''}</div></div>`;
+ else if(i.kind==='trial')st=`<div class="alert warn">${ICON.alert}<div><b>Você está nos ${PLAN_CFG.trialDays} dias grátis:</b> restam <b>${i.left} dia${i.left===1?'':'s'}</b> com tudo liberado. Depois, para continuar com o pacote completo, ative o plano PRO (${PLAN_CFG.price}/mês). Seus dados nunca são apagados.</div></div>`;
+ else if(i.kind==='demo')st=`<div class="alert ok">${ICON.eye}<div>Na demonstração todos os recursos PRO ficam liberados.</div></div>`;
+ else st=`<div class="alert warn">${ICON.lock}<div><b>Seu período grátis terminou.</b>${i.expired?' A licença venceu em '+brDate(i.expired)+'.':''} Seus dados continuam salvos e o sistema segue funcionando no modo limitado (até ${PLAN_CFG.freeCustomers} clientes e ${PLAN_CFG.freeOrders} OS). Ative o PRO para liberar tudo.</div></div>`;
+ const wa=PLAN_CFG.whats?`<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${PLAN_CFG.whats}?text=${encodeURIComponent('Olá! Quero ativar o plano PRO do Meu Mecânico.')}">${ICON.wa}Pedir meu código</a>`:'';
+ const groups=PLAN_GROUPS.map(([t,its])=>`<div class="pro-grp"><h3>${esc(t)}</h3>${its.map(([a,b])=>`<div class="pro-it"><span class="pro-ck">${ICON.check}</span><div><b>${esc(a)}</b><small>${esc(b)}</small></div></div>`).join('')}</div>`).join('');
+ return `<div class="pro-hero"><div class="pro-badge">PLANO PRO</div><h2>O pacote completo para a sua oficina</h2>
+ <div class="pro-price"><b>${PLAN_CFG.price}</b><span>por mês</span></div>
+ <p><b>${PLAN_CFG.trialDays} dias grátis</b> para testar tudo, sem compromisso. Sem taxa de adesão e sem fidelidade.</p></div>
+ <div class="card">${st}
+ <h2 class="mt12">Ativar meu plano</h2>
+ <p class="muted small">1) Peça seu código pelo WhatsApp. 2) Cole abaixo. 3) Toque em Ativar. O código é conferido aqui mesmo, sem internet.</p>
+ <div class="form-grid">${F('pl_code','Código de ativação',{full:true,ph:'57815-ABKJU',mask:'plancode'})}</div>
+ <div class="mt12" style="display:flex;gap:8px;flex-wrap:wrap">${btn('Ativar código','plan-activate',{cls:'accent',icon:'key'})}${wa}${pl.lic?btn('Remover licença deste aparelho','plan-remove',{icon:'trash'}):''}</div>
+ <p class="muted tiny mt12">O código tem 5 números e 5 letras (o traço entra sozinho) e vale pelo período contratado (30 dias por pagamento).</p></div>
+ <div class="card"><h2>Tudo o que está dentro do plano PRO</h2><div class="pro-grid">${groups}</div></div>
+ <div class="card"><h2>E sem o PRO?</h2><p class="small">Depois do período grátis o sistema continua abrindo e seus dados ficam guardados, mas com limite de ${PLAN_CFG.freeCustomers} clientes e ${PLAN_CFG.freeOrders} ordens de serviço, só 2 relatórios (orçamentos e OS) e sem o acesso separado do funcionário.</p></div>`;
+}
+A['plan-activate']=async()=>{
+ const code=V('pl_code');if(!code)return bad('pl_code','Cole o código que você recebeu.');
+ let p;try{p=await planVerify(code)}catch(e){return bad('pl_code',e.message)}
+ if(p.e&&p.e!=='0'&&daysBetween(todayISO(),p.e)<0)return bad('pl_code','Este código venceu em '+brDate(p.e)+'. Peça a renovação.');
+ const pl=planState();pl.lic=p;pl.code=code.trim();pl.activatedAt=iso();
+ audit('Plano','Ativou o plano PRO',p.n||'');await persist();toast('Plano PRO ativado!','ok');buildNav();render();
+};
+A['plan-remove']=()=>confirmBox('Remover a licença?','Este aparelho volta para o plano Grátis. Você pode ativar o código de novo quando quiser.',async()=>{const pl=planState();delete pl.lic;delete pl.code;await persist();toast('Licença removida.','ok');render()},{yes:'Remover'});
+{
+ const _bn2=buildNav;buildNav=function(){_bn2();if(isStaff())return;const n=$('#sideNav'),i=planInfo();
+  if(n)n.insertAdjacentHTML('beforeend',`<button class="nav-btn plan-nav" data-action="plan-go">${ico('key')}<span>${i.kind==='license'?'Plano '+i.label:i.kind==='trial'?'Teste PRO · '+i.left+' d':i.kind==='demo'?'Plano PRO':'Ativar plano PRO'}</span></button>`)}
+}
 
 /* ============================================================
    INICIALIZAÇÃO
