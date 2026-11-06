@@ -1,4 +1,4 @@
-const CACHE='meumecanico-v1200';
+const CACHE='meumecanico-v1400';
 const ASSETS=['./','./index.html','./manifest.json','./manual.html','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png','./icons/icon-180.png','./icons/favicon-64.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}))});
 self.addEventListener('activate',e=>{e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('meumecanico-')&&k!==CACHE).map(k=>caches.delete(k))))]))});

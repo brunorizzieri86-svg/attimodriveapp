@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.2.0.0</title>
+<title>MEU MECÂNICO · V1.4.0.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -213,6 +213,28 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
 .rep-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}.rep-bar label{display:flex;flex-direction:column;font-size:12px;gap:3px;font-weight:600}.rep-bar select,.rep-bar input{padding:7px 9px;border:1px solid #cbd2db;border-radius:8px;font:inherit}
 .rep-card p{min-height:38px}.grp-title{margin:20px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted,#6a7584)}
 
+.lk-confirm{display:flex;gap:12px;align-items:flex-start;background:#2a1d12;border:2px solid var(--accent,#f26a1b);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;color:#fff}
+.lk-confirm input{width:26px;height:26px;flex:none;margin:2px 0 0;accent-color:#f26a1b;cursor:pointer}
+.lk-confirm span{display:grid;gap:3px;font-size:14px}.lk-confirm small{color:#d9c3b1;font-size:12px;line-height:1.4}
+.lockbox .btn[disabled]{opacity:.45;cursor:not-allowed}
+.lk-hint{font-size:12.5px!important;color:#ffb785!important;margin:0}.lk-hint.ok{color:#7fe0a3!important}
+/* tutorial guiado */
+.tut-hole{position:fixed;display:none;border-radius:10px;box-shadow:0 0 0 9999px rgba(8,12,18,.62),0 0 0 3px #f26a1b,0 0 18px 4px rgba(242,106,27,.55);z-index:9000;pointer-events:none;transition:left .18s,top .18s,width .18s,height .18s;animation:tutpulse 1.6s infinite}
+@keyframes tutpulse{50%{box-shadow:0 0 0 9999px rgba(8,12,18,.62),0 0 0 5px #ff9a58,0 0 26px 8px rgba(242,106,27,.7)}}
+.tut-card{position:fixed;z-index:9001;width:min(350px,94vw);background:#fff;color:#1d232b;border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.5);padding:14px 16px 14px;transition:left .18s,top .18s}
+.tut-card h3{margin:2px 0 6px;font-size:16px}.tut-card p{margin:0 0 10px;font-size:13.5px;line-height:1.55;color:#38424f}
+.tut-prog{height:4px;background:#eceff3;border-radius:9px;margin:-4px 0 8px;overflow:hidden}.tut-prog i{display:block;height:100%;background:#f26a1b;transition:width .2s}
+.tut-do{background:#fff1e6;border:1px solid #f6cfb5;color:#8a3a0a;border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:700;margin-bottom:10px}
+.tut-ok{background:#e6f6ec;color:#17683a;border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:700;margin-bottom:10px}
+.tut-bad{background:#fdecec;color:#a8362b;border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:700;margin-bottom:10px}
+.tut-btns{display:flex;gap:8px;align-items:center}
+/* perfis */
+.lk-roles{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#0e131a;padding:4px;border-radius:11px}
+.lk-role{background:none;border:0;color:#aab4c2;padding:9px 6px;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}.lk-role.on{background:var(--accent,#f26a1b);color:#fff}
+.role-chip{display:flex;gap:10px;align-items:center;margin:14px 10px 4px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,.07);color:#cfd6df;font-size:11.5px}.role-chip b{display:block;font-size:13px;color:#fff}.role-chip.staff{background:rgba(242,106,27,.18)}
+.chk.perm{align-items:flex-start;gap:10px}.chk.perm span{display:grid;gap:2px}.chk.perm small{font-size:12px}
+.lk-confirm span,.lk-confirm span *{text-transform:none!important;letter-spacing:normal!important}.lk-confirm b{font-size:14px;color:#fff}.lk-confirm small{display:block;font-weight:500}
+
 </style>
 </head>
 <body>
@@ -222,7 +244,7 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.2.0.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.4.0.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -249,7 +271,7 @@ body.locked .app-shell{filter:blur(14px);pointer-events:none}
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.2.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.4.0.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -371,7 +393,7 @@ const getBlob=id=>db?idbGet('blobs',id):Promise.resolve(null);
 const delBlob=id=>db?idbDel('blobs',id):Promise.resolve();
 
 const AUDIT_MAX=600;
-function audit(module,action,record=''){if(!state)return;state.audit.unshift({id:uid('aud'),at:iso(),module,action,record});if(state.audit.length>AUDIT_MAX)state.audit.length=AUDIT_MAX}
+function audit(module,action,record=''){if(!state)return;state.audit.unshift({id:uid('aud'),at:iso(),module,action,record,by:window.__ROLE==='staff'?'Funcionário':'Proprietário'});if(state.audit.length>AUDIT_MAX)state.audit.length=AUDIT_MAX}
 
 async function loadState(){
  try{db=await openDB()}catch(e){console.error(e);db=null;memoryMode=true}
@@ -605,7 +627,8 @@ window.addEventListener('beforeunload',e=>{if(DIRTY){e.preventDefault();e.return
 function modOf(n){return MODS.find(m=>m.key===n)}
 function render(){
  if(!state)return;
- let m=modOf(R.name);if(!m){R={name:'home',sub:'',id:''};m=modOf('home')}
+ let m=modOf(R.name);if(m&&typeof modAllowed==='function'&&!modAllowed(m.key)){m=null;toast('Esta área é exclusiva do proprietário.','err')}
+ if(!m){R={name:'home',sub:'',id:''};m=modOf('home');if(location.hash!=='#/home')history.replaceState(null,'','#/home')}
  const v=$('#view');let html;
  try{html=m.render(R)}catch(err){console.error(err);html=`<div class="card"><h2>Não foi possível abrir esta tela</h2><p class="muted">${esc(err.message)}</p><p><button class="btn primary" data-route="home">Voltar ao início</button></p></div>`}
  v.innerHTML=(typeof demoBanner==='function'?demoBanner():'')+html;
@@ -619,8 +642,8 @@ function render(){
 const FABS={home:'fab-home',orders:'new-order',quotes:'new-quote',customers:'new-customer',vehicles:'new-vehicle',agenda:'new-appt',services:'new-service',parts:'new-part',suppliers:'new-supplier',finance:'new-tx',team:'new-mech',assets:'new-asset',documents:'new-doc'};
 function configureFab(){const f=$('#fab');if(!f)return;const a=FABS[R.name];f.style.display=a&&!R.sub||(a&&R.sub==='kanban')?'':'none';f.dataset.action=a||'';f.innerHTML=ICON.plus;f.title='Novo registro'}
 function buildNav(){
- const ORD=['Principal','Atendimento','Cadastros','Gestão','Sistema'],groups=[...new Set(MODS.filter(m=>m.group).map(m=>m.group))].sort((a,b)=>ORD.indexOf(a)-ORD.indexOf(b));
- $('#sideNav').innerHTML=groups.map(g=>`<div class="nav-title">${esc(g)}</div>`+MODS.filter(m=>m.group===g).map(m=>`<button class="nav-btn" data-route="${m.key}">${ico(m.icon)}<span>${esc(m.label)}</span><span class="nb hidden" data-badge="${m.key}"></span></button>`).join('')).join('');
+ const ORD=['Principal','Atendimento','Cadastros','Gestão','Sistema'],groups=[...new Set(MODS.filter(m=>m.group&&(typeof modAllowed!=='function'||modAllowed(m.key))).map(m=>m.group))].sort((a,b)=>ORD.indexOf(a)-ORD.indexOf(b));
+ $('#sideNav').innerHTML=groups.map(g=>`<div class="nav-title">${esc(g)}</div>`+MODS.filter(m=>m.group===g&&(typeof modAllowed!=='function'||modAllowed(m.key))).map(m=>`<button class="nav-btn" data-route="${m.key}">${ico(m.icon)}<span>${esc(m.label)}</span><span class="nb hidden" data-badge="${m.key}"></span></button>`).join('')).join('');
  const mob=[['home','Início','home'],['orders','OS','clip'],['customers','Clientes','users'],['agenda','Agenda','cal'],['more','Mais','more']];
  $('#mobileNav').innerHTML=mob.map(([k,l,i])=>`<button data-route="${k}">${ico(i)}<span>${l}</span></button>`).join('');
  $('#searchBtn').innerHTML=ICON.search+'<span>Buscar cliente, placa, OS, peça…</span><kbd>Ctrl K</kbd>';
@@ -639,7 +662,7 @@ document.addEventListener('click',async e=>{
  try{await fn(a,e)}catch(err){console.error(err);toast('⚠ '+(err&&err.message||'Não foi possível concluir a ação.'),'err')}
 });
 document.addEventListener('keydown',e=>{
- if(e.key==='Escape'&&topModal()&&!$('.tour-card')){closeModal();return}
+ if(e.key==='Escape'&&topModal()&&!$('.tut-card')){closeModal();return}
  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();A['global-search']()}
 });
 
@@ -2368,7 +2391,7 @@ A['rep-wa']=()=>{
 };
 H['rep-wa-cust']=el=>{const c=getCustomer(el.value);if(c)$('#rw_p').value=fmtPhone(c.phone)};
 A['rep-wa-go']=()=>{const p=digits(V('rw_p')),t=V('rw_t');if(p.length<10)return bad('rw_p','Informe o número com DDD.');if(!t)return bad('rw_t','A mensagem está vazia.');closeModal();openWA(p,t)};
-const reportBtn=(key,label='Relatório / PDF')=>btn(label,'rep-open',{id:key,icon:'file'});
+let reportBtn=(key,label='Relatório / PDF')=>btn(label,'rep-open',{id:key,icon:'file'});
 
 function renderReports(){
  const groups=[...new Set(REPORTS.map(r=>r.group))];
@@ -2400,8 +2423,8 @@ function renderSettings(){
  else if(f==='texts')body=`<div class="card"><div class="form-grid">${F('s_qt','Condições do orçamento',{type:'textarea',value:s.quoteTerms,full:true,rows:4})}${F('s_au','Autorização de serviço (assinada na vistoria)',{type:'textarea',value:s.authText,full:true,rows:4})}${F('s_wt','Termo de garantia (use {dias} para o prazo)',{type:'textarea',value:s.warrantyText,full:true,rows:4})}${F('s_dl','Termo de entrega',{type:'textarea',value:s.deliveryText,full:true,rows:3})}</div><div class="mt12"><button class="btn primary" data-action="save-texts">Salvar textos</button> <button class="btn" data-action="reset-texts">Restaurar padrão</button></div></div>`;
  else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
  else if(f==='lists')body=`<div class="card"><p class="muted small">Uma opção por linha. Estas listas aparecem nos cadastros e formulários.</p><div class="form-grid">${Object.entries(LIST_NAMES).map(([k,l])=>F('ls_'+k,l,{type:'textarea',value:(state.lists[k]||[]).join('\n'),rows:5})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-lists">Salvar listas</button></div></div>`;
- else if(f==='sec')body=`<div class="card"><h2>Acesso com senha</h2><div class="alert ok">${ICON.shield}<div>A senha é pedida sempre que o sistema abre${state.settings.lockMinutes?' e após '+state.settings.lockMinutes+' min sem uso':''}.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">${btn('Trocar senha','pw-change',{icon:'lock'})}${btn('Bloquear agora','lock-now',{icon:'lock'})}${btn('Gerar novo código de recuperação','pw-newcode',{icon:'key'})}</div><div class="form-grid mt12"><label>Bloquear automaticamente após<select data-ch="lock-min">${optHTML([{v:0,l:'Nunca'},{v:5,l:'5 minutos sem uso'},{v:15,l:'15 minutos sem uso'},{v:30,l:'30 minutos sem uso'},{v:60,l:'1 hora sem uso'}],state.settings.lockMinutes||0)}</select></label></div><p class="muted tiny mt12">A senha impede o acesso à tela do sistema. Para proteger também o arquivo de backup, use “Baixar backup com senha”.</p></div>
-  <div class="card"><h2>Registro de atividades</h2>${state.audit.length?table([{h:'Quando',f:a=>brDT(a.at)},{h:'Área',f:a=>esc(a.module)},{h:'Ação',f:a=>esc(a.action)},{h:'Registro',f:a=>esc(a.record)}],state.audit.slice(0,40)):empty('shield','Sem registros','')}</div>`;
+ else if(f==='sec')body=staffCardHTML()+`<div class="card"><h2>Acesso com senha</h2><div class="alert ok">${ICON.shield}<div>A senha é pedida sempre que o sistema abre${state.settings.lockMinutes?' e após '+state.settings.lockMinutes+' min sem uso':''}.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">${btn('Trocar senha','pw-change',{icon:'lock'})}${btn('Bloquear agora','lock-now',{icon:'lock'})}${btn('Gerar novo código de recuperação','pw-newcode',{icon:'key'})}</div><div class="form-grid mt12"><label>Bloquear automaticamente após<select data-ch="lock-min">${optHTML([{v:0,l:'Nunca'},{v:5,l:'5 minutos sem uso'},{v:15,l:'15 minutos sem uso'},{v:30,l:'30 minutos sem uso'},{v:60,l:'1 hora sem uso'}],state.settings.lockMinutes||0)}</select></label></div><p class="muted tiny mt12">A senha impede o acesso à tela do sistema. Para proteger também o arquivo de backup, use “Baixar backup com senha”.</p></div>
+  <div class="card"><h2>Registro de atividades</h2>${state.audit.length?table([{h:'Quando',f:a=>brDT(a.at)},{h:'Quem',f:a=>esc(a.by||'—')},{h:'Área',f:a=>esc(a.module)},{h:'Ação',f:a=>esc(a.action)},{h:'Registro',f:a=>esc(a.record)}],state.audit.slice(0,40)):empty('shield','Sem registros','')}</div>`;
  else if(f==='backup')body=backupHTML();
  else body=`<div class="card"><h2>Modo Demonstração</h2><p class="muted small">Preenche o sistema com uma oficina fictícia (clientes, orçamentos, OS, agenda, estoque e financeiro) para você ver tudo funcionando. Seus dados reais não são alterados e nada é salvo.</p>${btn(window.__DEMO?'Sair da demonstração':'Ativar modo demonstração','demo-toggle',{cls:'accent',icon:'eye'})}</div>
  <div class="card"><h2>Apagar tudo</h2><p class="muted small">Remove todos os cadastros e começa do zero. Um ponto de restauração é criado antes.</p>${btn('Apagar todos os dados','wipe-all',{cls:'danger',icon:'trash'})}</div>`;
@@ -2426,6 +2449,7 @@ async function hashPw(pw,salt){
  catch{return sha256(salt+pw)}
 }
 const newRecoveryCode=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=crypto.getRandomValues(new Uint8Array(12));return [...r].map(x=>a[x%a.length]).join('').replace(/(.{4})(?=.)/g,'$1-')};
+let lockRole=(()=>{try{return localStorage.getItem('mm_role')==='staff'?'staff':'owner'}catch{return 'owner'}})();
 let lockTimer=null,lastAct=Date.now(),failCount=0,blockedUntil=0;
 function showLock(mode){
  mode=mode||(state.settings.pinHash?'login':'setup');
@@ -2443,30 +2467,35 @@ function showLock(mode){
   <label class="lk">Nova senha (mínimo 6)<span class="pw"><input id="lk_p1" type="password" autocomplete="new-password">${eye('lk_p1')}</span></label>
   <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-recover">Redefinir senha</button><button class="btn" data-action="lock-back">Voltar</button>`;
  else h=`${logo}<h1>${esc(state.shop.name)}</h1><p>${state.settings.ownerName?'Olá, '+esc(state.settings.ownerName)+'! ':''}Digite sua senha para entrar</p>
-  <label class="lk"><span class="pw"><input id="lk_p1" type="password" autocomplete="current-password" placeholder="Senha">${eye('lk_p1')}</span></label>
+  ${staffOn()?`<div class="lk-roles"><button type="button" class="lk-role ${lockRole==='owner'?'on':''}" data-action="lock-role" data-r="owner">Proprietário</button><button type="button" class="lk-role ${lockRole==='staff'?'on':''}" data-action="lock-role" data-r="staff">Funcionário</button></div>`:''}
+  <label class="lk"><span class="pw"><input id="lk_p1" type="password" autocomplete="current-password" placeholder="${lockRole==='staff'&&staffOn()?'Senha do funcionário':'Senha'}">${eye('lk_p1')}</span></label>
   <div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-login">Entrar</button><button class="btn link" data-action="lock-forgot">Esqueci minha senha</button>`;
  L.innerHTML=`<div class="lockbox" data-mode="${mode}">${h}</div>`;
  setTimeout(()=>{const f=$('#lk_user')||$('#lk_code')||$('#lk_p1');f&&f.focus()},60);
 }
 const lockErr=m=>{const e=$('#lock_err');if(e){e.textContent=m;e.style.display=''}};
-function unlockNow(){$('#lock').classList.remove('on');$('#lock').innerHTML='';document.body.classList.remove('locked');lastAct=Date.now();failCount=0;render()}
+function unlockNow(){window.__ROLE=(staffOn()&&lockRole==='staff')?'staff':'owner';try{localStorage.setItem('mm_role',window.__ROLE)}catch{}buildNav();$('#lock').classList.remove('on');$('#lock').innerHTML='';document.body.classList.remove('locked');lastAct=Date.now();failCount=0;render()}
 A['lock-eye']=el=>{const i=document.getElementById(el.dataset.t);i.type=i.type==='password'?'text':'password'};
-A['lock-forgot']=()=>showLock('recover');A['lock-back']=()=>showLock('login');
+A['lock-role']=el=>{lockRole=el.dataset.r;showLock('login')};
+A['lock-forgot']=()=>{if(staffOn()&&lockRole==='staff')return lockErr('Peça ao proprietário para redefinir a senha do funcionário (Configurações → Segurança).');showLock('recover')};A['lock-back']=()=>showLock('login');
 A['lock-setup']=async()=>{
  const p=($('#lk_p1')||{}).value||'';if(p.length<6)return lockErr('A senha precisa ter pelo menos 6 caracteres.');if(p!==$('#lk_p2').value)return lockErr('As duas senhas não são iguais.');
  if(/^(123456|111111|000000|senha|password|123123)$/i.test(p))return lockErr('Essa senha é muito fácil de adivinhar. Escolha outra.');
  const st=state.settings;st.ownerName=($('#lk_user').value||'').trim();st.pinSalt=uuid();st.pinHash=await hashPw(p,st.pinSalt);st.pinEnabled=true;
  const code=newRecoveryCode();st.recSalt=uuid();st.recHash=await hashPw(code.replace(/-/g,''),st.recSalt);st.lockMinutes=st.lockMinutes||15;
  audit('Segurança','Criou a senha de acesso');await persist({snapshot:false});
- $('#lock').querySelector('.lockbox').innerHTML=`<div class="brandmark">${ICON.shield}</div><h1>Guarde este código</h1><p>Se você esquecer a senha, só este <b>código de recuperação</b> permite criar outra. Ele aparece <b>uma única vez</b>.</p><div class="reccode">${code}</div><div style="display:flex;gap:8px;justify-content:center"><button class="btn" data-action="lock-print-code" data-c="${code}">Imprimir</button><button class="btn" data-action="lock-copy-code" data-c="${code}">Copiar</button></div><label class="chk" style="justify-content:center"><input type="checkbox" id="lk_ok"> Já guardei o código em local seguro</label><div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" data-action="lock-done">Entrar no sistema</button>`;
+ $('#lock').querySelector('.lockbox').innerHTML=`<div class="brandmark">${ICON.shield}</div><h1>Guarde este código</h1><p>Se você esquecer a senha, só este <b>código de recuperação</b> permite criar outra. Ele aparece <b>uma única vez</b>.</p><div class="reccode">${code}</div><div style="display:flex;gap:8px;justify-content:center"><button class="btn" data-action="lock-print-code" data-c="${code}">Imprimir</button><button class="btn" data-action="lock-copy-code" data-c="${code}">Copiar</button><button class="btn" data-action="lock-save-code" data-c="${code}">Baixar</button></div><label class="lk-confirm" for="lk_ok"><input type="checkbox" id="lk_ok" data-ch="lk-ok"><span><b>Confirmo que guardei o código</b><small>Anotei em papel, tirei foto ou salvei no gerenciador de senhas. Sem ele, não há como recuperar a senha.</small></span></label><div id="lock_err" class="modal-err" style="display:none"></div><button class="btn primary" id="lk_go" data-action="lock-done" disabled>Entrar no sistema</button><p class="lk-hint" id="lk_hint">⬆ Marque a caixa acima para liberar o botão “Entrar no sistema”.</p>`;
 };
 A['lock-copy-code']=el=>{navigator.clipboard&&navigator.clipboard.writeText(el.dataset.c).then(()=>toast('Código copiado.','ok'))};
 A['lock-print-code']=el=>previewDoc('Código de recuperação',`<h2>Código de recuperação — ${esc(state.shop.name)}</h2><p>Guarde em local seguro. Ele permite criar uma nova senha de acesso.</p><div style="font-size:28px;font-weight:800;letter-spacing:3px;margin:20px 0">${el.dataset.c}</div>`);
+H['lk-ok']=el=>{const b=$('#lk_go'),h=$('#lk_hint');if(b)b.disabled=!el.checked;if(h){h.textContent=el.checked?'✔ Tudo certo! Pode entrar no sistema.':'⬆ Marque a caixa acima para liberar o botão “Entrar no sistema”.';h.classList.toggle('ok',el.checked)}const e=$('#lock_err');if(e)e.style.display='none'};
+A['lock-save-code']=el=>{download('codigo-de-recuperacao-meu-mecanico.txt',new Blob(['MEU MECÂNICO — código de recuperação de senha\r\n\r\n'+el.dataset.c+'\r\n\r\nGuarde em local seguro. Quem tiver este código pode criar uma nova senha.'],{type:'text/plain;charset=utf-8'}));toast('Arquivo baixado. Guarde em local seguro.','ok')};
 A['lock-done']=()=>{if(!$('#lk_ok').checked)return lockErr('Marque a opção confirmando que guardou o código.');unlockNow()};
 A['lock-login']=async()=>{
  if(Date.now()<blockedUntil)return lockErr('Muitas tentativas. Aguarde '+Math.ceil((blockedUntil-Date.now())/1000)+' segundos.');
  const p=($('#lk_p1')||{}).value||'';if(!p)return lockErr('Digite a senha.');
- if((await hashPw(p,state.settings.pinSalt))===state.settings.pinHash)return unlockNow();
+ const isStaff=staffOn()&&lockRole==='staff',cs=isStaff?state.settings.staff:state.settings;
+ if((await hashPw(p,isStaff?cs.salt:cs.pinSalt))===(isStaff?cs.hash:cs.pinHash))return unlockNow();
  failCount++;if(failCount>=5){blockedUntil=Date.now()+30000;failCount=0;lockErr('Senha incorreta várias vezes. Aguarde 30 segundos.')}else lockErr('Senha incorreta. Tente de novo.');
  $('#lk_p1').value='';$('#lk_p1').focus();
 };
@@ -2621,29 +2650,6 @@ H.gs=debounce(el=>{
 },150);
 document.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeAllModals()},true);
 
-/* ---------- aulas práticas ---------- */
-const LESSONS=[
- {k:'cust',t:'Cadastrar cliente e veículo',steps:[['customers','Abra “Clientes”','Clique em Clientes no menu.'],['#fab, [data-action="new-customer"]','Clique em “Novo cliente”','Preencha nome e WhatsApp — só isso já basta para enviar orçamentos.'],['vehicles','Cadastre o veículo','Em Veículos, informe a placa; o sistema valida o formato.']]},
- {k:'quote',t:'Fazer e enviar um orçamento',steps:[['quotes','Abra “Orçamentos”','Aqui ficam todos os orçamentos.'],['[data-action="new-quote"]','Clique em “Novo orçamento”','Escolha cliente e veículo. Pode cadastrar novos ali mesmo.'],['quotes','Adicione serviços e peças','Use “Adicionar serviço ou peça” e veja o total mudar.'],['quotes','Envie por WhatsApp','Clique em “Salvar e enviar por WhatsApp”. A mensagem vai pronta, com os itens e o total.']]},
- {k:'os',t:'Aprovar o orçamento e abrir a OS',steps:[['quotes','Abra o orçamento enviado','Na lista, clique no orçamento.'],['quotes','Clique em “Aprovar e criar OS”','Os itens vão para a ordem de serviço automaticamente.'],['orders','Acompanhe no quadro','Arraste o cartão entre as colunas conforme o serviço avança.']]},
- {k:'pay',t:'Receber com entrada e parcelas',steps:[['orders','Abra a OS','Vá na aba “Pagamento”.'],['orders','Clique em “Entrada + parcelas”','Marque “Combinar entrada”, defina o valor e o número de parcelas.'],['finance','Acompanhe em Financeiro','As parcelas aparecem em “A receber”, com botão de cobrança por WhatsApp.']]}
-];
-A['open-lessons']=()=>showModal('Aulas práticas',`<p class="muted small">Cada aula leva você pelas telas reais do sistema, destacando os botões certos.</p>${LESSONS.map(l=>`<div class="row"><div class="grow"><b>${esc(l.t)}</b><div class="small muted">${l.steps.length} passos</div></div><button class="btn accent sm" data-action="lesson-start" data-k="${l.k}">Começar</button></div>`).join('')}`,`<button class="btn" data-action="close-modal">Fechar</button>`,'wide');
-let TOUR=null;
-A['lesson-start']=el=>{closeAllModals();TOUR={l:LESSONS.find(x=>x.k===el.dataset.k),i:0};tourShow()};
-function tourShow(){
- $$('.tour-card,.tour-hl').forEach(x=>x.classList.contains('tour-hl')?x.classList.remove('tour-hl'):x.remove());
- if(!TOUR)return;const s=TOUR.l.steps[TOUR.i];
- if(modOf(s[0])&&R.name!==s[0]){location.hash='#/'+s[0]}
- setTimeout(()=>{
-  let target=null;try{target=s[0].startsWith('[')||s[0].startsWith('#')?document.querySelector(s[0]):document.querySelector(`#sideNav [data-route="${s[0]}"]`)||document.querySelector('.head-actions .btn.accent')}catch{}
-  if(target)target.classList.add('tour-hl');
-  document.body.insertAdjacentHTML('beforeend',`<div class="tour-card"><div class="tiny muted">${esc(TOUR.l.t)} · passo ${TOUR.i+1} de ${TOUR.l.steps.length}</div><b>${esc(s[1])}</b><p class="small">${esc(s[2])}</p><div class="row" style="border:0;padding:0"><button class="btn sm" data-action="tour-end">Sair</button><span class="grow"></span>${TOUR.i>0?'<button class="btn sm" data-action="tour-prev">Voltar</button>':''}<button class="btn sm primary" data-action="tour-next">${TOUR.i<TOUR.l.steps.length-1?'Próximo':'Concluir'}</button></div></div>`);
- },250);
-}
-A['tour-next']=()=>{if(TOUR.i>=TOUR.l.steps.length-1){A['tour-end']();toast('Aula concluída! 🎉','ok');return}TOUR.i++;tourShow()};
-A['tour-prev']=()=>{TOUR.i--;tourShow()};
-A['tour-end']=()=>{TOUR=null;$$('.tour-hl').forEach(x=>x.classList.remove('tour-hl'));$$('.tour-card').forEach(x=>x.remove())};
 
 /* ============================================================
    MODO DEMONSTRAÇÃO: dados fictícios só na memória.
@@ -2751,12 +2757,330 @@ A['demo-go']=()=>activateDemo();
 const demoBanner=()=>window.__DEMO?`<div class="demo-banner"><div><b>Modo Demonstração ativo</b><small>Dados fictícios para você conhecer o sistema. Nada é salvo e nenhuma mensagem é enviada.</small></div><button class="btn sm" data-action="demo-toggle">Sair da demonstração</button></div>`:'';
 
 /* ações que alterariam dados reais ficam bloqueadas durante a demonstração */
-['wipe-all','bk-restore','snap-restore','bk-dec-go','load-demo','import-contacts','pw-change','pw-save','pw-newcode','pw-newcode-go','lock-now'].forEach(k=>{
+['staff-save','wipe-all','bk-restore','snap-restore','bk-dec-go','load-demo','import-contacts','pw-change','pw-save','pw-newcode','pw-newcode-go','lock-now'].forEach(k=>{
  const orig=A[k];if(!orig)return;
  A[k]=function(...a){if(window.__DEMO){return showModal('Indisponível na demonstração',`<p>Esta ação mexe nos dados e na segurança do sistema. Saia da demonstração para usá-la.</p>`,`<button class="btn" data-action="close-modal">Entendi</button><button class="btn accent" data-action="demo-toggle">Sair da demonstração</button>`,'sm')}return orig.apply(this,a)};
 });
 const _bn=buildNav;
 buildNav=function(){_bn();const n=$('#sideNav');if(n)n.insertAdjacentHTML('beforeend',`<div class="nav-title">Conhecer</div><button class="nav-btn demo-nav" data-action="demo-toggle">${ico('eye')}<span>${window.__DEMO?'Sair da demonstração':'Modo demonstração'}</span></button>`)};
+
+/* ============================================================
+   TUTORIAL GUIADO: destaca o botão certo, espera o clique e avança sozinho.
+   Roda dentro da demonstração, então pode clicar e preencher à vontade.
+   ============================================================ */
+const nav=r=>`#sideNav [data-route="${r}"],#mobileNav [data-route="${r}"]`;
+const NAVNAME={orders:'Ordens de serviço',quotes:'Orçamentos',agenda:'Agenda',customers:'Clientes',vehicles:'Veículos',parts:'Peças e estoque',finance:'Financeiro',reports:'Relatórios',settings:'Configurações'};
+const NAVK=r=>({mode:'click',sel:nav(r)+(r==='orders'||r==='quotes'||r==='agenda'||r==='customers'?'':',#mobileNav [data-route="more"]'),title:'Abra “'+NAVNAME[r]+'”',text:'Clique em “'+NAVNAME[r]+'” no menu.',route:r});
+const I=(sel,title,text,o={})=>({mode:'info',sel,title,text,...o});
+const K=(sel,title,text,o={})=>({mode:'click',sel,title,text,...o});
+const FLD=(sel,title,text,ok,o={})=>({mode:'fill',sel,title,text,ok,...o});
+const gone=sel=>()=>!document.querySelector(sel);
+const TABK=(key,k,title,text)=>K(`.tab[data-key="${key}"][data-k="${k}"]`,title,text);
+const firstQuoteSent=()=>{const q=state.quotes.find(x=>x.status==='Enviado');return q?'#/quotes/view/'+q.id:'#/quotes'};
+const payOrder=()=>{const o=state.orders.find(x=>['Em execução','Aguardando'].includes(x.status)&&orderPay(x).unplanned>0&&docTotals(x).total>0);return o?'#/orders/view/'+o.id:'#/orders'};
+
+const TOURS=[
+ {k:'intro',t:'Conhecendo o sistema',d:'Um passeio pelo menu e pelas telas principais.',steps:[
+  I('.metric','Seu painel do dia','Na tela Início você vê quantos veículos estão na oficina, o faturamento do mês, o que há a receber e os orçamentos esperando resposta. Clique em qualquer quadro para ir direto ao assunto.',{go:'#/home'}),
+  I('#sideNav','Menu lateral','Todas as áreas ficam aqui, agrupadas: Atendimento (dia a dia), Cadastros, Gestão (dinheiro e equipe) e Sistema. Os números laranja mostram o que precisa de atenção.'),
+  I('#searchBtn','Busca rápida','Digite o nome do cliente, a placa, o número da OS ou uma peça. Atalho no computador: Ctrl + K.'),
+  I('#bellBtn','Avisos','O sino reúne pendências: orçamentos sem resposta, contas vencendo, peças acabando, revisões a lembrar.'),
+  NAVK('orders'),
+  I('.tabs','Abas da tela','Cada tela tem abas para filtrar: Quadro, Em andamento, Prontas, A receber, Entregues e Todas.'),
+  I('#list-orders','O quadro de OS','Cada coluna é uma etapa do serviço. Arraste o cartão de uma coluna para outra conforme o carro avança. O sistema registra tudo no histórico da OS.'),
+  NAVK('quotes'),
+  I('[data-action="new-quote"]','Orçamentos','Aqui você cria propostas, envia pelo WhatsApp e, quando o cliente aprova, transforma em OS com um clique.'),
+  NAVK('agenda'),
+  I('#view .card','Agenda em calendário','Veja o mês, a semana ou o dia. Clique em um dia para ver e marcar horários, com aviso de conflito de box e mecânico.'),
+  {...NAVK('finance'),owner:true},
+  {...I('.tabs','Financeiro','Resumo do caixa, contas a receber, contas a pagar, lançamentos, contas e resultado do mês.'),owner:true},
+  {...NAVK('reports'),owner:true},
+  {...I('.rep-card','Relatórios','Todo relatório abre na tela e pode ir para PDF, impressora, WhatsApp ou Excel.'),owner:true},
+  K('#sideNav .demo-nav','Modo demonstração','Este botão liga e desliga a demonstração. Você está nela agora: nada do que fizer é salvo.',{optional:true})
+ ]},
+ {k:'cust',t:'Cadastrar cliente e veículo',d:'Do cadastro ao carro vinculado.',steps:[
+  NAVK('customers'),
+  K('[data-action="new-customer"]','Clique em “Novo cliente”','Este botão abre a ficha de cadastro.'),
+  FLD('#c_name','Nome do cliente','Digite um nome, por exemplo: Maria Teste.',()=>V('c_name').trim().length>2),
+  FLD('#c_phone','WhatsApp do cliente','Digite o número com DDD. É por ele que o orçamento e os avisos saem pelo WhatsApp.',()=>digits(V('c_phone')).length>=10),
+  I('#c_source','De onde veio o cliente?','Opcional, mas ajuda a saber qual divulgação traz mais clientes.'),
+  K('[data-action="save-customer"]','Salvar','Clique em Salvar. Se faltar algo obrigatório, o campo fica vermelho na própria janela.',{done:gone('#c_name')}),
+  NAVK('vehicles'),
+  K('[data-action="new-vehicle"]','Clique em “Novo veículo”','Todo orçamento e OS é ligado a um veículo.'),
+  FLD('#v_cust_t','Dono do veículo','Digite o nome do cliente e escolha na lista que aparece.',()=>V('v_cust')),
+  FLD('#v_plate','Placa','Digite a placa (ex.: ABC1D23). O sistema valida o formato, antigo ou Mercosul.',()=>V('v_plate').replace(/[^a-z0-9]/gi,'').length>=7),
+  I('#v_nextkm','Próxima revisão','Informe quando o carro deve voltar. O sistema avisa você para lembrar o cliente, e isso gera retorno.'),
+  K('[data-action="save-vehicle"]','Salvar veículo','Pronto: o carro fica vinculado ao cliente.',{done:gone('#v_plate')})
+ ]},
+ {k:'quote',t:'Fazer e enviar um orçamento',d:'Monte a proposta e mande pelo WhatsApp.',steps:[
+  NAVK('quotes'),
+  K('[data-action="new-quote"]','Clique em “Novo orçamento”','Abre o editor de orçamento.',{done:()=>R.sub==='new'}),
+  FLD('#q_cust_t','Escolha o cliente','Digite parte do nome e clique no cliente na lista. Se ele não existir, use a opção “+ Cadastrar” da própria lista.',()=>V('q_cust')),
+  FLD('#q_veh_t','Escolha o veículo','Clique no campo e escolha o veículo do cliente.',()=>V('q_veh')),
+  I('#q_comp','Relato do cliente','Escreva o problema como o cliente contou. Ele aparece no PDF e na OS.'),
+  K('[data-action="q-add"]','Adicionar serviços e peças','Clique para abrir o catálogo.',{done:()=>!!document.querySelector('#pk_count')}),
+  K('#modalRoot .pick-item','Marque um serviço','Clique em um serviço da lista para marcá-lo. Dá para marcar vários.',{done:()=>PICK&&Object.keys(PICK.sel).length>0}),
+  I('#modalRoot [data-action="pick-tab"][data-k="part"]','Peças e pacotes','Nas outras abas você acha peças do estoque, pacotes prontos (ex.: revisão completa) e itens avulsos.'),
+  K('[data-action="pick-done"]','Adicionar selecionados','Os itens entram no orçamento.',{done:gone('#pk_count')}),
+  I('#items_box','Ajuste quantidade e preço','Altere a quantidade, o preço ou o desconto de cada linha. A caixinha “Aprov.” deixa um item fora do total.'),
+  I('#tot_box','Total automático','Mão de obra, peças, desconto e total, sempre atualizados.'),
+  K('[data-action="quote-save-send"]','Salvar e enviar por WhatsApp','Salva o orçamento e prepara a mensagem pronta para o cliente.',{done:()=>!!document.querySelector('#wa_text')}),
+  I('#wa_text','Mensagem pronta','O texto já vem com os itens e o total. Você pode editar antes de enviar.'),
+  K('[data-action="quote-wa-go"]','Enviar','No uso real, abre o WhatsApp do cliente. Na demonstração só mostra a prévia.',{done:()=>!document.querySelector('#wa_text')})
+ ]},
+ {k:'os',t:'Aprovar e transformar em OS',d:'Quando o cliente disser sim.',steps:[
+  I('.screen-title','Detalhe do orçamento','Esta tela mostra o orçamento enviado. Aqui você marca se o cliente aprovou ou recusou, reenvia e imprime.',{go:firstQuoteSent}),
+  K('[data-action="quote-convert"]','Aprovar e criar OS','Os itens vão automaticamente para a ordem de serviço.',{done:()=>R.name==='orders'&&R.sub==='view'}),
+  I('.stepper','Etapas da OS','Clique em uma etapa para mover a OS: Aguardando, Diagnóstico, Aprovação, Execução, Pronta e Entregue. Ao iniciar, as peças saem do estoque; ao entregar, a comissão é calculada.'),
+  I('.tabs','Abas da OS','Serviços (itens da OS), Vistoria e fotos (checklist, avarias no desenho do carro, fotos e assinatura do cliente), Pagamento e Histórico.'),
+  I('[data-action="os-pdf"]','PDF da OS','Imprime ou salva a ordem de serviço, o termo de entrada e o comprovante de entrega.'),
+  I('[data-action="os-wa-menu"]','Avisar o cliente','Mensagens prontas: carro recebido, aprovação de itens extras, carro pronto, lembrete.'),
+  NAVK('orders'),
+  I('#list-orders','De volta ao quadro','A nova OS aparece na primeira coluna. É só arrastar conforme o serviço andar.')
+ ]},
+ {k:'pay',owner:true,t:'Receber com entrada e parcelas',d:'Combine o pagamento e acompanhe as cobranças.',steps:[
+  I('.screen-title','Uma OS pronta para cobrar','Esta é a OS de um cliente que ainda não pagou nada.',{go:payOrder}),
+  K('.tab[data-key^="os-"][data-k="pay"]','Aba “Pagamento”','Os valores e as cobranças da OS ficam nesta aba.'),
+  K('[data-action="os-pay"]','Entrada + parcelas','Abre o plano de pagamento.',{done:()=>!!document.querySelector('#pay_body')}),
+  K('#pe_on','Combinar entrada','Marque para cobrar um valor agora e parcelar o restante.',{optional:true}),
+  FLD('#pe_v','Valor da entrada','Digite quanto o cliente paga agora, por exemplo 100,00. O restante vira parcelas.',()=>VC('pe_v')>0,{optional:true}),
+  I('.planbox','Monte o plano','Defina o valor da entrada, a forma de pagamento, o número de parcelas e o primeiro vencimento. Taxas de cartão são calculadas sozinhas.'),
+  K('[data-action="pay-confirm"]','Gerar cobranças','Cria a entrada e as parcelas no financeiro.',{done:gone('#pay_body')}),
+  I('[data-action="os-receive-all"]','Receber','Quando o cliente pagar, use “Receber” em cada cobrança. O valor entra no caixa.',{optional:true}),
+  NAVK('finance'),
+  TABK('finance','rec','Contas a receber','Todas as parcelas pendentes ficam aqui, com botão de cobrança por WhatsApp.'),
+  I('[data-action="tx-receive"]','Receber ou pagar','Um clique registra o pagamento e escolhe em qual conta o dinheiro entrou.',{optional:true})
+ ]},
+ {k:'agenda',t:'Marcar um horário na agenda',d:'Agendamento com aviso de conflito.',steps:[
+  NAVK('agenda'),
+  K('[data-action="new-appt"]','Novo agendamento','Abre o formulário de horário.'),
+  FLD('#a_cust_t','Cliente','Escolha o cliente na lista.',()=>V('a_cust')),
+  FLD('#a_date','Data','Escolha o dia.',()=>V('a_date')),
+  FLD('#a_time','Horário','Informe a hora. Se o box ou o mecânico já estiverem ocupados, o sistema avisa.',()=>V('a_time')),
+  I('#a_bay','Box e mecânico','Distribua o trabalho entre boxes e mecânicos para não encavalar serviços.',{optional:true}),
+  K('[data-action="save-appt"]','Salvar','O horário aparece no calendário e na agenda de hoje do painel.',{done:gone('#a_time')})
+ ]},
+ {k:'parts',t:'Estoque de peças',d:'Cadastro, estoque mínimo e lista de compras.',steps:[
+  NAVK('parts'),
+  K('[data-action="restock-list"]','Lista de compras','Mostra o que está abaixo do mínimo e gera a lista para o fornecedor.',{done:()=>!!document.querySelector('#modalRoot .modal')}),
+  I('#modalRoot .modal','Reposição automática','Peças abaixo do estoque mínimo entram aqui sozinhas. Dá para imprimir ou enviar por WhatsApp ao fornecedor.'),
+  K('#modalRoot [data-action="close-modal"]','Fechar','Feche a janela para continuar.',{done:()=>!document.querySelector('#modalRoot .modal')}),
+  K('[data-action="new-part"]','Nova peça','Abre o cadastro de peça.'),
+  FLD('#p_name','Nome da peça','Ex.: Filtro de óleo.',()=>V('p_name').trim().length>2),
+  FLD('#p_price','Preço de venda','Informe quanto cobra. Se preencher custo e margem, o sistema calcula o preço.',()=>VC('p_price')>0),
+  I('#p_min','Estoque mínimo','Quando a quantidade chegar nesse número, o sistema avisa para repor.'),
+  K('[data-action="save-part"]','Salvar peça','A peça fica disponível nos orçamentos e a saída é automática ao usar na OS.',{done:gone('#p_name')})
+ ]},
+ {k:'reports',owner:true,t:'Relatórios, PDF e WhatsApp',d:'Gere, imprima e envie qualquer relatório.',steps:[
+  NAVK('reports'),
+  I('.rep-card','Central de relatórios','Vendas, estoque, financeiro, equipe e clientes. Escolha um para abrir.'),
+  K('[data-action="rep-open"][data-id="result"]','Abra “Resultado do período”','Mostra entradas, saídas e lucro.',{done:()=>!!document.querySelector('#docFrame')}),
+  I('.rep-bar','Período','Troque entre este mês, mês passado, 90 dias, ano, tudo ou datas personalizadas.'),
+  I('#docFrame','Documento pronto','Este é o documento com o cabeçalho da sua oficina, igual ao que sai impresso.'),
+  I('[data-action="print-frame"]','Imprimir ou PDF','No Windows, escolha “Salvar como PDF” como impressora para gerar o arquivo.'),
+  I('[data-action="rep-wa"]','WhatsApp','Envia um resumo em texto. Escolha um cliente ou digite o número.'),
+  I('[data-action="rep-csv"]','Planilha','Baixa os dados em CSV para abrir no Excel.'),
+  K('#modalRoot [data-action="close-modal"]','Fechar','Feche a janela. Os botões de relatório também estão dentro de Orçamentos, OS, Estoque, Agenda, Financeiro e Clientes.',{done:()=>!document.querySelector('#modalRoot .modal')})
+ ]},
+ {k:'backup',owner:true,t:'Segurança e backup',d:'Proteja os dados da oficina.',steps:[
+  NAVK('settings'),
+  TABK('settings','sec','Aba Segurança','Aqui você troca a senha, define o bloqueio automático e gera um novo código de recuperação.'),
+  TABK('settings','backup','Aba Backup','Faça cópias dos seus dados.'),
+  I('#view .card','Cópia de segurança','Exporte um arquivo (com senha, se quiser) e guarde em pen drive ou nuvem. O sistema também cria pontos de restauração sozinho todo dia.'),
+  I('#sideNav .demo-nav','Pronto!','Você viu o essencial. Para voltar aos seus dados reais, saia da demonstração.',{optional:true})
+ ]}
+];
+TOURS.forEach(t=>t.steps.forEach(s=>{if(s.route&&!s.go)s.go=null}));
+
+let TUT=null,TUTIV=null;
+const visEl=sel=>{if(!sel)return null;try{return [...document.querySelectorAll(sel)].find(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'})||null}catch{return null}};
+A['open-lessons']=()=>{
+ let done={};try{done=JSON.parse(localStorage.getItem('mm_tours')||'{}')}catch{}
+ const list=TOURS.filter(l=>!(l.owner&&window.__ROLE==='staff'));
+ showModal('Tutorial guiado',`<p class="muted small">Escolha uma aula. O sistema destaca o botão certo, espera você clicar e passa para o próximo passo. Tudo acontece na <b>demonstração</b>, com dados fictícios: pode clicar e preencher à vontade, nada é salvo.</p>${list.map(l=>`<div class="row"><div class="grow"><b>${esc(l.t)}</b> ${done[l.k]?'<span class="badge green">feita</span>':''}<div class="small muted">${esc(l.d)} · ${l.steps.length} passos</div></div><button class="btn accent sm" data-action="lesson-start" data-k="${l.k}">${done[l.k]?'Refazer':'Começar'}</button></div>`).join('')}`,`<button class="btn" data-action="close-modal">Fechar</button>`,'wide');
+};
+A['lesson-start']=el=>{
+ const t=TOURS.find(x=>x.k===el.dataset.k);closeAllModals();
+ if(!window.__DEMO)activateDemo();
+ TUT={t:{...t,steps:t.steps.filter(x=>!(x.owner&&window.__ROLE==='staff'))},i:0,went:{},seen:{},t0:Date.now(),nudge:''};
+ clearInterval(TUTIV);TUTIV=setInterval(tutTick,220);tutEnter();
+};
+function tutStep(){return TUT&&TUT.t.steps[TUT.i]}
+function tutEnter(){
+ const s=tutStep();if(!s)return;TUT.t0=Date.now();TUT.nudge='';TUT.scrolled=false;
+ if(s.go!==undefined&&s.go!==null){const h=typeof s.go==='function'?s.go():s.go;if(h&&location.hash!==h){location.hash=h}}
+ tutDraw(true);
+}
+function tutNextStep(){
+ if(!TUT)return;
+ if(TUT.i>=TUT.t.steps.length-1)return tutFinish();
+ TUT.i++;
+ // pula passos opcionais cujo alvo não existe nesta tela
+ tutEnter();
+}
+function tutFinish(){
+ const t=TUT.t;try{const d=JSON.parse(localStorage.getItem('mm_tours')||'{}');d[t.k]=true;localStorage.setItem('mm_tours',JSON.stringify(d))}catch{}
+ const rest=TOURS.filter(x=>x.k!==t.k);
+ tutClear();
+ showModal('Aula concluída! 🎉',`<p>Você terminou <b>${esc(t.t)}</b>.</p><p class="muted small">Continue praticando na demonstração ou escolha outra aula. Quando quiser voltar aos seus dados reais, clique em “Sair da demonstração”.</p>`,`<button class="btn" data-action="demo-toggle">Sair da demonstração</button><button class="btn accent" data-action="open-lessons">Outras aulas</button><button class="btn" data-action="close-modal">Continuar explorando</button>`,'sm');
+}
+function tutClear(){TUT=null;clearInterval(TUTIV);TUTIV=null;$$('.tut-card,.tut-hole').forEach(x=>x.remove())}
+A['tut-end']=()=>tutClear();
+A['tut-prev']=()=>{if(!TUT||TUT.i===0)return;TUT.i--;tutEnter()};
+A['tut-skip']=()=>tutNextStep();
+A['tut-next']=()=>{
+ const s=tutStep();if(!s)return;
+ if(s.mode==='fill'&&s.ok&&!s.ok()){TUT.nudge='Falta preencher o campo destacado antes de continuar.';const e=visEl(s.sel);if(e)e.focus();return tutDraw()}
+ tutNextStep();
+};
+document.addEventListener('click',e=>{
+ if(!TUT||e.target.closest('.tut-card'))return;
+ const s=tutStep();if(!s||s.mode!=='click'||!s.sel)return;
+ let hit=false;try{hit=!!e.target.closest(s.sel)}catch{}
+ if(!hit)return;
+ const idx=TUT.i,t0=Date.now();
+ const wait=()=>{if(!TUT||TUT.i!==idx)return;if(!s.done||s.done())tutNextStep();else if(Date.now()-t0>2500){TUT.nudge='Ainda não deu certo. Veja o aviso em vermelho na tela, corrija e clique de novo no item destacado.';tutDraw()}else setTimeout(wait,150)};
+ setTimeout(wait,320);
+},true);
+function tutTick(){
+ if(!TUT)return;const s=tutStep();
+ // passos de clique/info avançam sozinhos quando a condição já foi cumprida de outra forma
+ if(s.mode==='click'&&s.done&&s.done()&&s.sel&&!visEl(s.sel)&&Date.now()-TUT.t0>900){return tutNextStep()}
+ if(s.optional&&s.sel&&!visEl(s.sel)&&Date.now()-TUT.t0>1500)return tutNextStep();
+ tutDraw();
+}
+function tutDraw(first){
+ if(!TUT)return;const s=tutStep(),n=TUT.t.steps.length;
+ const el=visEl(s.sel);
+ let hole=$('.tut-hole'),card=$('.tut-card');
+ if(!hole){document.body.insertAdjacentHTML('beforeend','<div class="tut-hole"></div>');hole=$('.tut-hole')}
+ if(!card){document.body.insertAdjacentHTML('beforeend','<div class="tut-card" role="dialog" aria-live="polite"></div>');card=$('.tut-card')}
+ const missing=!el&&s.sel;const late=missing&&Date.now()-TUT.t0>3500;
+ const act=s.mode==='click'?'<div class="tut-do">👉 Clique no item destacado</div>':s.mode==='fill'?'<div class="tut-do">✍️ Preencha o campo destacado e clique em Próximo</div>':'';
+ const fillOk=s.mode==='fill'&&s.ok&&s.ok();
+ const sig=[TUT.i,missing,late,TUT.nudge,fillOk].join('|');
+ if(card.dataset.sig!==sig){
+  card.dataset.sig=sig;
+  card.innerHTML=`<div class="tut-prog"><i style="width:${Math.round((TUT.i+1)/n*100)}%"></i></div><div class="tiny muted">${esc(TUT.t.t)} · passo ${TUT.i+1} de ${n}</div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>${act}${fillOk?'<div class="tut-ok">✔ Perfeito, pode seguir.</div>':''}${TUT.nudge?`<div class="tut-bad">${esc(TUT.nudge)}</div>`:''}${late?'<div class="tut-bad">Não achei este item nesta tela. Use “Pular” para seguir.</div>':missing?'<div class="tiny muted">Procurando…</div>':''}<div class="tut-btns"><button class="btn sm" data-action="tut-end">Sair</button><span class="grow"></span>${TUT.i>0?'<button class="btn sm" data-action="tut-prev">Voltar</button>':''}${s.mode==='click'?'<button class="btn sm" data-action="tut-skip">Pular</button>':`<button class="btn sm primary" data-action="tut-next">${TUT.i<n-1?'Próximo':'Concluir'}</button>`}</div>`;
+ }
+ if(el){
+  const r0=el.getBoundingClientRect();
+  if(!TUT.scrolled){TUT.scrolled=true;if(r0.top<70||r0.bottom>innerHeight-200)el.scrollIntoView({block:'center',behavior:'smooth'})}
+  const r=el.getBoundingClientRect(),p=6;
+  Object.assign(hole.style,{display:'block',left:(r.left-p)+'px',top:(r.top-p)+'px',width:(r.width+2*p)+'px',height:(r.height+2*p)+'px'});
+  const cw=card.offsetWidth||340,ch=card.offsetHeight||200;let x,y;
+  if(innerWidth<700){x=(innerWidth-cw)/2;y=r.top>innerHeight/2?12:innerHeight-ch-12}
+  else if(r.bottom+ch+16<innerHeight){y=r.bottom+p+12;x=r.left}
+  else if(r.top-ch-16>0){y=r.top-ch-p-12;x=r.left}
+  else if(r.right+cw+16<innerWidth){x=r.right+p+12;y=Math.max(12,r.top)}
+  else{x=Math.max(12,r.left-cw-p-12);y=Math.max(12,r.top)}
+  x=Math.max(12,Math.min(x,innerWidth-cw-12));y=Math.max(12,Math.min(y,innerHeight-ch-12));
+  card.style.left=x+'px';card.style.top=y+'px';
+ }else{
+  hole.style.display='none';
+  card.style.left=Math.max(12,(innerWidth-(card.offsetWidth||340))/2)+'px';card.style.top=Math.max(12,innerHeight/2-(card.offsetHeight||200)/2)+'px';
+ }
+}
+window.addEventListener('resize',()=>TUT&&tutDraw());
+document.addEventListener('keydown',e=>{if(TUT&&e.key==='Escape')tutClear()});
+
+/* atalho no menu lateral e no painel */
+const _bn2=buildNav;
+buildNav=function(){_bn2();const n=$('#sideNav');if(n)n.insertAdjacentHTML('beforeend',`<button class="nav-btn demo-nav" data-action="open-lessons">${ico('book')}<span>Tutorial guiado</span></button>`)};
+
+/* ============================================================
+   PERFIS: PROPRIETÁRIO (tudo) e FUNCIONÁRIO (sem dinheiro da oficina)
+   Os dois usam os mesmos dados: o que um faz aparece para o outro.
+   ============================================================ */
+window.__ROLE='owner';
+const PERM_DEF={finance:false,reports:false,costs:false,team:false,receive:true};
+const PERM_LABELS=[
+ ['finance','Ver o Financeiro','Contas a receber e a pagar, caixa, resultado e valores em aberto dos clientes.'],
+ ['reports','Ver relatórios','Faturamento, resultado e demais relatórios da oficina (a tabela de preços e a agenda sempre ficam liberadas).'],
+ ['costs','Ver custo e margem das peças','Se desmarcado, o funcionário vê só o preço de venda.'],
+ ['team','Ver equipe, salários e comissões','Cadastro da equipe e pagamento de comissões.'],
+ ['receive','Registrar pagamentos na OS','Receber o cliente na entrega do veículo (entrada, parcelas, “Receber agora”).']
+];
+const staffCfg=()=>{const s=(state&&state.settings&&state.settings.staff)||{};return {enabled:!!s.enabled&&!!s.hash,name:s.name||'Funcionário',perms:{...PERM_DEF,...(s.perms||{})},hash:s.hash,salt:s.salt}};
+const staffOn=()=>!!(state&&state.settings&&state.settings.staff&&state.settings.staff.enabled&&state.settings.staff.hash);
+const isStaff=()=>window.__ROLE==='staff';
+const can=p=>!isStaff()||!!staffCfg().perms[p];
+function modAllowed(key){
+ if(!isStaff())return true;
+ if(key==='settings')return false;
+ if(key==='finance')return can('finance');
+ if(key==='reports')return can('reports');
+ if(key==='team')return can('team');
+ return true;
+}
+/* avisos do sino e da home: sem itens de áreas bloqueadas */
+const _att0=attentionItems;
+attentionItems=function(){return _att0().filter(i=>!i.r||modAllowed(i.r[0]))};
+/* botões de relatório: funcionário só vê os liberados */
+const _rb0=reportBtn;
+reportBtn=function(key,label){return (!isStaff()||can('reports')||['prices','agenda','restock'].includes(key))?_rb0(key,label):''};
+
+/* ---- esconde o que o perfil não pode ver (telas e janelas) ---- */
+function hideCols(root,re){
+ root.querySelectorAll('table').forEach(t=>{
+  const ths=[...t.querySelectorAll('thead th')];
+  ths.map((th,i)=>re.test(th.textContent.trim())?i:-1).filter(i=>i>=0).reverse().forEach(i=>{
+   ths[i].remove();t.querySelectorAll('tbody tr').forEach(tr=>{const c=tr.children[i];if(c)c.remove()})
+  })
+ })
+}
+function applyRole(){
+ if(!isStaff())return;
+ const roots=[document.getElementById('view'),document.getElementById('modalRoot')].filter(Boolean);
+ roots.forEach(r=>{
+  if(!can('finance')){
+   r.querySelectorAll('.metric').forEach(m=>{if(/Faturado|A receber|Total pago|Em aberto|Saldo|A pagar|Ticket/i.test(m.textContent))m.remove()});
+   r.querySelectorAll('.card').forEach(c=>{const h=c.querySelector(':scope > h2, :scope > .card-head h2');if(h&&/Entradas e saídas/i.test(h.textContent))c.remove()});
+   r.querySelectorAll('[data-action="new-tx"],[data-action="tx-wa"],[data-action="tx-receipt"],[data-route="finance"]').forEach(e=>e.remove());
+   r.querySelectorAll('.quick[data-a="new-tx"]').forEach(e=>e.remove());
+   hideCols(r,/^(Total pago|Em aberto)$/);
+  }
+  if(!can('receive')){r.querySelectorAll('[data-action="os-pay"],[data-action="os-receive-all"],[data-action="tx-receive"],[data-action="os-receive-go"]').forEach(e=>e.remove())}
+  if(!can('costs')){
+   hideCols(r,/^(Custo|Margem|Custo un\.?|Valor em estoque)$/i);
+   ['p_cost','p_mk'].forEach(id=>{const e=r.querySelector('#'+id);const l=e&&e.closest('label');if(l)l.remove()});
+  }
+ });
+}
+let _roleRaf=0;
+new MutationObserver(()=>{if(!isStaff()||_roleRaf)return;_roleRaf=requestAnimationFrame(()=>{_roleRaf=0;applyRole()})}).observe(document.body,{childList:true,subtree:true});
+
+/* ---- menu lateral: quem está logado e botão de bloquear ---- */
+const _bn3=buildNav;
+buildNav=function(){_bn3();const n=$('#sideNav');if(!n)return;
+ n.insertAdjacentHTML('beforeend',`<div class="role-chip ${isStaff()?'staff':''}">${ico('shield')}<span>Entrou como<b>${isStaff()?esc(staffCfg().name):'Proprietário'}</b></span></div><button class="nav-btn" data-action="lock-now">${ico('key')}<span>Bloquear / trocar usuário</span></button>`);
+ if(isStaff())n.querySelectorAll('.demo-nav[data-action="demo-toggle"]').forEach(e=>e.remove());
+};
+
+/* ---- configuração (Configurações → Segurança) ---- */
+function staffCardHTML(){
+ const c=staffCfg(),p=c.perms;
+ return `<div class="card"><h2>Acesso do funcionário</h2>
+ <p class="muted small">Crie uma senha separada para quem trabalha na oficina. O funcionário abre OS, orçamentos, agenda, clientes, veículos e estoque, mas <b>não vê o financeiro</b>. Tudo o que ele fizer aparece para você automaticamente, porque os dois usam os mesmos dados.</p>
+ ${c.enabled?`<div class="alert ok">${ICON.shield}<div>Acesso do funcionário <b>ativo</b>. Na tela de entrada aparece a escolha “Proprietário” ou “Funcionário”.</div></div>`:`<div class="alert warn">${ICON.alert}<div>Acesso do funcionário <b>desligado</b>. Hoje só o proprietário entra.</div></div>`}
+ <div class="form-grid mt12">${Chk('sf_on','Ativar acesso do funcionário',c.enabled)}${F('sf_name','Nome que aparece no sistema',{value:c.name,ph:'Ex.: Equipe, Atendimento'})}${F('sf_pw',c.hash?'Nova senha do funcionário (deixe vazio para manter)':'Senha do funcionário (mínimo 6)',{type:'password',full:true})}</div>
+ <h3 style="margin:14px 0 6px">O que o funcionário pode ver</h3>
+ <div style="display:grid;gap:8px">${PERM_LABELS.map(([k,l,h])=>`<label class="chk perm"><input type="checkbox" id="sp_${k}" ${p[k]?'checked':''}><span><b>${l}</b><small class="muted">${h}</small></span></label>`).join('')}</div>
+ <p class="muted tiny mt12">Sempre bloqueado para o funcionário: Configurações, backup, troca de senha do proprietário e restauração de dados.</p>
+ <div class="mt12">${btn('Salvar acesso do funcionário','staff-save',{cls:'accent',icon:'check'})}</div></div>`;
+}
+A['staff-save']=async()=>{
+ if(isStaff())return toast('Somente o proprietário altera isto.','err');
+ const on=VB('sf_on'),pw=V('sf_pw'),st=state.settings,cur=st.staff||{};
+ if(on&&!cur.hash&&!pw)return bad('sf_pw','Defina uma senha para o funcionário.');
+ if(pw&&pw.length<6)return bad('sf_pw','Use pelo menos 6 caracteres.');
+ if(pw&&(await hashPw(pw,st.pinSalt))===st.pinHash)return bad('sf_pw','Use uma senha diferente da do proprietário.');
+ const nx={...cur,enabled:on,name:(V('sf_name')||'Funcionário').trim(),perms:{}};
+ PERM_LABELS.forEach(([k])=>nx.perms[k]=VB('sp_'+k));
+ if(pw){nx.salt=uuid();nx.hash=await hashPw(pw,nx.salt)}
+ st.staff=nx;audit('Segurança',on?'Atualizou o acesso do funcionário':'Desligou o acesso do funcionário');
+ await persist();toast('Acesso do funcionário salvo.','ok');render();
+};
 
 /* ============================================================
    INICIALIZAÇÃO
