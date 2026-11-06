@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<title>MEU MECÂNICO · V1.7.1.0</title>
+<title>MEU MECÂNICO · V1.7.9.0</title>
 <style>
 :root{--bg:#f1f2f4;--surface:#fff;--surface2:#f7f8fa;--ink:#1a1f27;--muted:#657080;--line:#e0e4ea;--dark:#11161d;--dark2:#1d2735;--accent:#f26a1b;--accent2:#c4520f;--accentSoft:#fff1e8;--green:#2b8a5a;--red:#c0392b;--amber:#b7791f;--blue:#2b6cb0;--shadow:0 8px 28px rgba(17,22,29,.07);--radius:14px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:light}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
@@ -301,6 +301,46 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
 .perm-presets{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
 .perm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin-top:8px}
 
+.btn.deliver{background:#bfe3ff;border-color:#8cc8f4;color:#0a4a7c;font-weight:600}.btn.deliver:hover{background:#a6d7fb}
+.btn.gold{background:#f6b800;border-color:#d99e00;color:#3b2a00;font-weight:700}.btn.gold:hover{background:#e3a700}
+.pay-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.pay-guide .pg{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card,#fff);opacity:.6}
+.pay-guide .pg .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#e5e9ef;font-weight:700;flex:none}
+.pay-guide .pg small{display:block;color:var(--muted,#6a7584);font-size:12px}
+.pay-guide .pg.now{opacity:1;border-color:#f6b800;box-shadow:0 0 0 3px #f6b80033}.pay-guide .pg.now .n{background:#f6b800;color:#3b2a00}
+.pay-guide .pg.done{opacity:1}.pay-guide .pg.done .n{background:#1fa855;color:#fff}
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.pay-opt{text-align:left;border:2px solid var(--line);border-radius:14px;padding:16px;background:#fff;cursor:pointer;display:grid;gap:6px;font:inherit;color:inherit}
+.pay-opt b{font-size:16px;display:flex;gap:8px;align-items:center}.pay-opt span{color:var(--muted,#6a7584);font-size:13px}
+.pay-opt:first-child{border-color:#f6b800;background:#fffaf0}.pay-opt:hover{transform:translateY(-1px);box-shadow:0 4px 14px #0002}
+.extra-box{border:2px solid #f6b800;background:#fffaf0;border-radius:14px;padding:14px 16px;margin:12px 0}
+.eb-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.eb-v{margin-left:auto;font-weight:800;font-size:18px}
+.extra-box ul{margin:8px 0 8px 18px;padding:0}.eb-steps{list-style:none;padding:0;margin:6px 0;display:grid;gap:4px;font-size:13px}
+.eb-steps b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#f6b800;color:#3b2a00;margin-right:6px}
+.eb-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:760px){.pay-guide,.pay-opts{grid-template-columns:1fr}}
+
+.btn.red{background:#d92d20;border-color:#b42318;color:#fff;font-weight:700}.btn.red:hover{background:#b42318}
+.extra-box{border-color:#d92d20;background:#fef3f2}.eb-v{color:#b42318}
+.eb-steps b{background:#d92d20;color:#fff}
+.extra-box .badge,td .badge.bad{background:#d92d20;color:#fff;border-color:#d92d20}
+
+.q-steps{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.q-steps span{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:600;font-size:13px}
+.q-steps b,.q-n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#1d6fd6;color:#fff;font-weight:800;flex:none;font-size:13px}
+.q-sh{display:flex;gap:12px;align-items:center;margin-bottom:12px}.q-sh h2{margin:0}.q-sh p{margin:2px 0 0}
+.q-add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.q-valid{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.q-valid>label,.q-valid .field{flex:1;min-width:170px}.q-chips{display:flex;gap:6px}
+.q-side .q-sh{margin-bottom:8px}.q-check{margin-top:12px}.q-todo{display:grid;gap:6px;margin-top:6px}
+
+.sticky{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 92px);overflow:auto}
+.q-live{margin-bottom:10px;max-height:34vh;overflow:auto}.ql-h{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#6a7584);margin-bottom:4px}
+.ql-r{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:13px}
+@media(max-width:820px){.sticky{position:static;max-height:none;overflow:visible}}
+
+.adj-help{margin:6px 0 12px 18px;padding:0;font-size:13px;display:grid;gap:4px}.adj-prev{background:#f3f6fb;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+
+.pick-new{margin-bottom:8px;display:inline-flex}
+
 </style>
 </head>
 <body>
@@ -310,7 +350,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
   <div class="brand"><div class="brandmark"><svg class="ico s24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><b>MEU MECÂNICO</b><small>GESTÃO DE OFICINA</small></div></div>
   <nav id="sideNav"></nav>
   <button class="btn accent hidden" id="installBtn2" data-action="install-app" style="margin:0 14px 10px;width:calc(100% - 28px)">⬇ Instalar aplicativo</button>
-  <div class="side-footer">MEU MECÂNICO · V1.7.1.0<br>Dados guardados localmente neste computador.</div>
+  <div class="side-footer">MEU MECÂNICO · V1.7.9.0<br>Dados guardados localmente neste computador.</div>
 </aside>
 <main class="main">
   <header class="topbar">
@@ -337,7 +377,7 @@ input[data-mask="plate"]{font-family:ui-monospace,Consolas,monospace;font-weight
    (arquitetura herdada do MEU TERREIRO: 100% offline, IndexedDB,
     pontos de restauração, trilha de auditoria, backup criptografado)
    ============================================================ */
-const APP={name:'MEU MECÂNICO',version:'1.7.1.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
+const APP={name:'MEU MECÂNICO',version:'1.7.9.0',schema:1,db:'meumecanico_db',sub:'Gestão completa de oficina'};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const iso=()=>new Date().toISOString();
 const pad=n=>String(n).padStart(2,'0');
@@ -873,7 +913,7 @@ function migrate(s){
  const base=seedState();
  s.shop={...base.shop,...(s.shop||{})};
  s.settings={...base.settings,...(s.settings||{})};s.settings.cardFees={...base.settings.cardFees,...(s.settings.cardFees||{})};s.settings.autoFolder={...base.settings.autoFolder,...(s.settings.autoFolder||{})};
- s.lists={...clone(DEFAULT_LISTS),...(s.lists||{})};
+ s.accounts=s.accounts||[];ensureFixedAccounts(s.accounts);s.lists={...clone(DEFAULT_LISTS),...(s.lists||{})};
  for(const k of COLLECTIONS)if(!Array.isArray(s[k]))s[k]=k==='templates'?defaultTemplates():[];
  for(const t of defaultTemplates())if(!s.templates.some(x=>x.key===t.key))s.templates.push(t);
  if(!s.shopId)s.shopId=uuid();
@@ -1316,7 +1356,7 @@ function svcForm(s={}){
  const L=state.lists;
  return `<div class="form-grid">
  ${F('s_name','Nome do serviço',{value:s.name||'',req:true,full:true,ph:'Ex.: Troca de pastilhas de freio (eixo)'})}
- ${F('s_cat','Categoria',{opts:L.serviceCats,value:s.category||L.serviceCats[0]})}
+ ${catField('s_cat','Categoria','serviceCats',s.category)}
  ${F('s_code','Código interno',{value:s.code||'',ph:'Opcional'})}
  ${M('s_price','Valor da mão de obra (R$)',s.price||0,{req:true})}
  ${F('s_hours','Tempo estimado (horas)',{mask:'dec',value:s.hours?String(s.hours).replace('.',','):'',ph:'Ex.: 1,5',help:'Usado na agenda e para calcular o valor pela hora técnica.'})}
@@ -1335,8 +1375,8 @@ A['save-service']=async el=>{
  if(!V('s_name'))return bad('s_name','Informe o nome do serviço.');
  if(!VC('s_price')&&!confirmedZero('s_price'))return;
  const d={name:V('s_name'),category:V('s_cat'),code:V('s_code'),price:VC('s_price'),hours:VN('s_hours'),warrantyDays:Number(V('s_war'))||0,kmInterval:Number(V('s_km'))||0,monthsInterval:Number(V('s_mo'))||0,description:V('s_desc'),commissionable:VB('s_comm'),active:VB('s_active')};
- if(el.dataset.id){const s=getService(el.dataset.id);Object.assign(s,d,{example:false});audit('Serviços','Editou',s.name)}else{state.services.push({id:uid('svc'),...d});audit('Serviços','Cadastrou',d.name)}
- await persist();closeModal();toast('Serviço salvo.','ok');render();
+ if(el.dataset.id){const s=getService(el.dataset.id);Object.assign(s,d,{example:false});audit('Serviços','Editou',s.name)}else{const ns={id:uid('svc'),...d};state.services.push(ns);audit('Serviços','Cadastrou',d.name);window.__newSvc=ns.id}
+ await persist();closeModal();toast('Serviço salvo.','ok');render();if(window.__newSvc){pickAfterSave('s:'+window.__newSvc);window.__newSvc=null}
 };
 function confirmedZero(id){if(window.__zeroOk===id)return true;window.__zeroOk=id;bad(id,'O valor está zerado. Se for realmente gratuito, clique em Salvar de novo.');return false}
 function svcList(){
@@ -1347,7 +1387,21 @@ function svcList(){
  return table([{h:'Serviço',f:s=>`<b>${esc(s.name)}</b>${s.example?' <span class="badge gray">exemplo</span>':''}<div class="tiny muted">${esc(s.category)}${s.code?' · '+esc(s.code):''}</div>`},{h:'Tempo',f:s=>s.hours?num(s.hours,1)+' h':'—'},{h:'Revisão',f:s=>[s.kmInterval?num(s.kmInterval)+' km':'',s.monthsInterval?s.monthsInterval+' meses':''].filter(Boolean).join(' / ')||'—'},{h:'Garantia',f:s=>s.warrantyDays?s.warrantyDays+' dias':'—'},{h:'Valor',cls:'num',f:s=>`<b>${money(s.price)}</b>`},{h:'',cls:'num',f:s=>`<button class="btn xs" data-action="edit-service" data-id="${s.id}">${ICON.edit}</button> <button class="btn xs danger" data-action="del-service" data-id="${s.id}">${ICON.trash}</button>`}],pg.rows,{click:s=>`data-action="edit-service" data-id="${s.id}"`})+pg.html;
 }
 A['del-service']=el=>{const s=getService(el.dataset.id);confirmBox('Excluir serviço?',`<b>${esc(s.name)}</b> será removido do catálogo. Orçamentos e OS já criados <b>não</b> são alterados.`,async()=>{state.services=state.services.filter(x=>x.id!==s.id);audit('Serviços','Excluiu',s.name);await persist();render()},{danger:true,yes:'Excluir'})};
-A['svc-adjust']=()=>showModal('Reajustar valores',`<p>Aplique um reajuste percentual em todos os serviços do filtro atual${UI.f.svcCat?' (categoria <b>'+esc(UI.f.svcCat)+'</b>)':' (todos os serviços ativos)'}.</p><div class="form-grid">${F('adj_pct','Reajuste (%)',{mask:'pctneg',value:'',ph:'Ex.: 8 (use negativo para reduzir)'})}${Chk('adj_round','Arredondar para o real mais próximo',true)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="svc-adjust-go">Aplicar reajuste</button>`,'sm');
+const adjList=()=>state.services.filter(s=>s.active!==false&&(!UI.f.svcCat||s.category===UI.f.svcCat));
+const adjNew=(price,p,round)=>{let v=Math.round(price*(1+p/100));if(round)v=Math.round(v/100)*100;return v};
+function adjPreview(){
+ const box=$('#adj_prev');if(!box)return;const p=VN('adj_pct')||0,round=VB('adj_round'),L=adjList();
+ if(!p){box.innerHTML='<div class="muted small">Digite o percentual (ou clique num atalho acima) para ver como ficam os preços antes de aplicar.</div>';return}
+ const ex=L.slice(0,3),old=sum(L,s=>s.price),nw=sum(L,s=>adjNew(s.price,p,round));
+ box.innerHTML=`<div class="adj-prev"><b>Prévia: ${L.length} serviço(s) vão ${p>0?'subir':'baixar'} ${num(Math.abs(p),2)}%</b>${ex.map(s=>`<div class="ql-r"><span>${esc(s.name)}</span><span><s class="muted">${money(s.price)}</s> → <b>${money(adjNew(s.price,p,round))}</b></span></div>`).join('')}${L.length>3?`<div class="muted small">…e mais ${L.length-3}</div>`:''}<div class="ql-r"><span>Soma de todos os preços</span><span><s class="muted">${money(old)}</s> → <b>${money(nw)}</b></span></div></div>`;
+}
+H['adj-prev']=()=>adjPreview();
+A['adj-pct']=el=>{const n=$('#adj_pct');n.value=el.dataset.p;adjPreview()};
+A['svc-adjust']=()=>{showModal('Reajustar valores',`<p><b>Para que serve:</b> aumentar (ou reduzir) o preço de vários serviços de uma vez, por exemplo quando as peças e o aluguel ficam mais caros.</p>
+<ul class="adj-help"><li>Vale para <b>${adjList().length} serviço(s)</b> ${UI.f.svcCat?'da categoria <b>'+esc(UI.f.svcCat)+'</b>':'ativos de todas as categorias'}. Para mudar só uma categoria, feche e escolha a categoria no filtro.</li><li>Só muda o preço do <b>catálogo</b>. Orçamentos e OS que já existem <b>não mudam</b>.</li><li>O app guarda uma cópia de segurança antes de aplicar.</li></ul>
+<div class="form-grid">${F('adj_pct','Quanto reajustar (%)',{mask:'pctneg',value:'',ph:'Ex.: 8',attrs:'data-in="adj-prev"',help:'Positivo aumenta (8 = +8%). Negativo reduz (-5 = -5%). Ex.: serviço de R$ 100 com 8% vira R$ 108.',full:true})}
+<div class="full q-chips">${[['5','+5%'],['8','+8%'],['10','+10%'],['15','+15%'],['-5','−5%'],['-10','−10%']].map(([v,l])=>`<button type="button" class="btn xs" data-action="adj-pct" data-p="${v}">${l}</button>`).join('')}</div>
+${Chk('adj_round','Arredondar para o real mais próximo (sem centavos)',true,'data-ch="adj-prev"')}</div><div id="adj_prev" class="mt12"></div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="svc-adjust-go">Aplicar reajuste</button>`,'sm');adjPreview()};
 A['svc-adjust-go']=async()=>{const p=VN('adj_pct');if(!p||Math.abs(p)>100)return bad('adj_pct','Informe um percentual entre -100 e 100.');await safetySnapshot('Antes de reajustar serviços');let n=0;for(const s of state.services.filter(s=>s.active!==false&&(!UI.f.svcCat||s.category===UI.f.svcCat))){let v=Math.round(s.price*(1+p/100));if(VB('adj_round'))v=Math.round(v/100)*100;s.price=v;n++}audit('Serviços','Reajuste de '+p+'% em '+n+' serviços');await persist();closeModal();toast(n+' serviço(s) reajustado(s).','ok');render()};
 H['svc-cat']=el=>{UI.f.svcCat=el.value;UI.page.services=0;refreshList('services')};
 
@@ -1385,7 +1439,7 @@ function itemsTableHTML(items,o={}){
  if(!items.length)return `<div class="empty" style="padding:22px"><div class="small">Nenhum item. Use os botões acima para adicionar serviços, peças ou itens avulsos.</div></div>`;
  return `<div class="table-wrap"><table class="table items-table"><thead><tr><th></th><th>Descrição</th><th class="num">Qtd</th><th class="num">Valor unit.</th><th class="num">Desc.</th><th class="num">Total</th>${ctx==='order'||ctx==='quote'?'<th title="Item autorizado pelo cliente">Aprov.</th>':''}<th></th></tr></thead><tbody>${items.map((it,i)=>{
   const part=it.type==='part'?getPart(it.refId):null,low=part&&(it.approved!==false)&&Number(it.qty)>Number(part.qty);
-  return `<tr data-i="${i}" style="${it.approved===false?'opacity:.55':''}"><td>${typePill(it.type)}</td><td class="d">${ro?esc(it.name):`<input value="${esc(it.name)}" data-in="it-edit" data-f="name" data-i="${i}" aria-label="Descrição">`}${low?`<div class="tiny" style="color:var(--red)">⚠ estoque ${num(part.qty,1)} — insuficiente</div>`:''}${it.warrantyDays===0&&it.type==='service'?'':''}</td>
+  return `<tr data-i="${i}" style="${it.approved===false?'opacity:.55':''}"><td>${typePill(it.type)}</td><td class="d">${ro?esc(it.name):`<input value="${esc(it.name)}" data-in="it-edit" data-f="name" data-i="${i}" aria-label="Descrição">`}${low?`<div class="tiny" style="color:var(--red)">⚠ estoque ${num(part.qty,1)} — insuficiente</div>`:''}${it.extra?`<span class="badge bad" title="Serviço adicional">adicional</span>`:''}</td>
   <td class="q">${ro?num(it.qty,2):`<input value="${String(it.qty).replace('.',',')}" inputmode="decimal" data-in="it-edit" data-f="qty" data-i="${i}" aria-label="Quantidade">`}</td>
   <td class="p">${ro?money(it.price):`<input value="${moneyIn(it.price)}" inputmode="decimal" data-mask="money" data-in="it-edit" data-f="price" data-i="${i}" aria-label="Valor unitário">`}</td>
   <td class="p">${ro?money(it.discount||0):`<input value="${it.discount?moneyIn(it.discount):''}" placeholder="0,00" inputmode="decimal" data-mask="money" data-in="it-edit" data-f="discount" data-i="${i}" aria-label="Desconto do item">`}</td>
@@ -1422,7 +1476,8 @@ function pickerList(){
  if(t==='service')rows=state.services.filter(s=>s.active!==false&&matchQ(q,s.name,s.category,s.code)).slice(0,80).map(s=>({k:'s:'+s.id,title:s.name,sub:s.category+(s.hours?' · '+num(s.hours,1)+' h':''),price:s.price}));
  else if(t==='part')rows=state.parts.filter(p=>p.active!==false&&matchQ(q,p.name,p.sku,p.code,p.brand,p.application,p.category)).slice(0,80).map(p=>({k:'p:'+p.id,title:p.name+(p.brand?' · '+p.brand:''),sub:(p.sku?p.sku+' · ':'')+'estoque: '+num(p.qty,1)+' '+(p.unit||'un')+(p.qty<=0?' ⚠':''),price:p.price}));
  else if(t==='kit')rows=state.kits.filter(k=>k.active!==false&&matchQ(q,k.name)).map(k=>({k:'k:'+k.id,title:k.name,sub:k.items.length+' itens',price:docTotals({items:k.items}).total}));
- return search+`<div class="pick-list" id="pk_list">${rows.length?rows.map(r=>`<label class="pick-item ${PICK.sel[r.k]?'sel':''}"><input type="checkbox" data-ch="pick-sel" data-k="${esc(r.k)}" ${PICK.sel[r.k]?'checked':''}><div class="grow"><b>${esc(r.title)}</b><div class="sub tiny muted">${esc(r.sub)}</div></div><b>${money(r.price)}</b>${PICK.sel[r.k]?`<input type="number" min="0.01" step="any" value="${PICK.sel[r.k]}" data-in="pick-qty" data-k="${esc(r.k)}" title="Quantidade">`:''}</label>`).join(''):`<div class="empty small">${t==='part'&&!state.parts.length?'Nenhuma peça cadastrada. Cadastre em Peças & Estoque ou use “Item avulso”.':'Nada encontrado.'}</div>`}</div>`;
+ const newBtn=`<button type="button" class="combo-add pick-new" data-action="pick-new">+ Cadastrar ${t==='part'?'nova peça':t==='service'?'novo serviço':''} agora</button>`;
+ return (t==='service'||t==='part'?newBtn:'')+search+`<div class="pick-list" id="pk_list">${rows.length?rows.map(r=>`<label class="pick-item ${PICK.sel[r.k]?'sel':''}"><input type="checkbox" data-ch="pick-sel" data-k="${esc(r.k)}" ${PICK.sel[r.k]?'checked':''}><div class="grow"><b>${esc(r.title)}</b><div class="sub tiny muted">${esc(r.sub)}</div></div><b>${money(r.price)}</b>${PICK.sel[r.k]?`<input type="number" min="0.01" step="any" value="${PICK.sel[r.k]}" data-in="pick-qty" data-k="${esc(r.k)}" title="Quantidade">`:''}</label>`).join(''):`<div class="empty small">${t==='part'&&!state.parts.length?'Nenhuma peça cadastrada. Cadastre em Peças & Estoque ou use “Item avulso”.':'Nada encontrado.'}</div>`}</div>`;
 }
 const pickRefresh=()=>{const b=$('#pk_body');if(!b)return;const q=$('#pk_q'),pos=q?q.selectionStart:0,had=document.activeElement===q;b.innerHTML=pickerList();const n=Object.keys(PICK.sel).length;$('#pk_count').textContent=n?n+' item(ns) marcado(s)':'Nenhum item marcado';if(had){const nq=$('#pk_q');nq.focus();nq.setSelectionRange(pos,pos)}};
 A['pick-tab']=el=>{PICK.tab=el.dataset.k;PICK.q='';$$('#modalRoot .tab').forEach(t=>t.classList.toggle('on',t.dataset.k===PICK.tab));$('#pk_body').innerHTML=pickerList()};
@@ -1470,28 +1525,53 @@ H['disc']=()=>{ITEMCTX.onTotals&&ITEMCTX.onTotals();setDirty(true)};
 
 function quoteEditor(d,isNew){
  bindDraft(d,'quote');
- return `<div class="screen-head"><div class="screen-title"><h1>${isNew?'Novo orçamento':'Orçamento '+esc(d.code)}</h1><p>Monte os itens, confira o total e envie ao cliente pelo WhatsApp ou em PDF.</p></div><div class="head-actions"><button class="btn" data-action="quote-cancel">Cancelar</button><button class="btn primary" data-action="quote-save">${ICON.check}Salvar orçamento</button></div></div>
+ const sec=(n,t,sub,inner,extra='')=>`<div class="card q-sec"><div class="q-sh"><span class="q-n">${n}</span><div><h2>${t}</h2><p class="muted small">${sub}</p></div>${extra}</div>${inner}</div>`;
+ setTimeout(qCheckInit,0);
+ return `<div class="screen-head"><div class="screen-title"><h1>${isNew?'Novo orçamento':'Orçamento '+esc(d.code)}</h1><p>Siga os 4 passos: cliente, serviços, conferir o total e enviar.</p></div><div class="head-actions"><button class="btn" data-action="quote-cancel">Cancelar</button><button class="btn primary" data-action="quote-save">${ICON.check}Salvar orçamento</button></div></div>
+ <div class="q-steps"><span><b>1</b>Cliente e veículo</span><span><b>2</b>Serviços e peças</span><span><b>3</b>Conferir o total</span><span><b>4</b>Enviar ao cliente</span></div>
  <div class="grid g2-1">
  <div>
-  <div class="card"><h2>Cliente e veículo</h2><div class="form-grid">
+  ${sec(1,'Cliente e veículo','Quem está pedindo o orçamento e qual carro. Use “+ Cadastrar novo” se ainda não existir.',`<div class="form-grid">
    ${combo('q_cust','Cliente','customers',d.customerId,{req:true,after:'q-cust',full:true})}
    ${combo('q_veh','Veículo','vehicles',d.vehicleId,{dep:'q_cust',full:true,ph:'Escolha o cliente e depois o veículo'})}
-   ${F('q_km','Km atual do veículo',{value:d.km?num(d.km):'',mask:'km',attrs:'data-in="dirty"'})}
+   ${F('q_km','Km atual do veículo',{value:d.km?num(d.km):'',mask:'km',attrs:'data-in="dirty"',help:'Opcional. Ajuda a lembrar a próxima revisão.'})}
    ${F('q_date','Data do orçamento',{type:'date',value:d.date})}
-   ${F('q_valid','Válido até',{type:'date',value:d.validUntil})}
-   ${F('q_comp','Relato do cliente / problema',{type:'textarea',value:d.complaint,full:true,rows:2,ph:'Ex.: barulho ao frear, luz do motor acesa…'})}
-  </div></div>
-  <div class="card"><div class="card-head"><h2>Itens do orçamento</h2><div class="head-actions">${btn('Adicionar serviço ou peça','q-add',{cls:'accent sm',icon:'plus'})}${btn('Montar pelo diagnóstico','q-diag',{cls:'sm',icon:'search',title:'Sugere serviços a partir do relato do cliente'})}</div></div>
-   <div id="items_box">${itemsTableHTML(d.items,{ctx:'quote'})}</div></div>
-  <div class="card"><h2>Condições</h2><div class="form-grid">${F('q_terms','Condições e garantia (aparece no PDF)',{type:'textarea',value:d.terms,full:true,rows:4})}${F('q_notes','Observações internas (não aparecem para o cliente)',{type:'textarea',value:d.notes,full:true,rows:2})}</div></div>
+   <div class="full"><label>Válido até</label><div class="q-valid">${F('q_valid','',{type:'date',value:d.validUntil})}<div class="q-chips"><button type="button" class="btn xs" data-action="q-valid" data-d="7">7 dias</button><button type="button" class="btn xs" data-action="q-valid" data-d="15">15 dias</button><button type="button" class="btn xs" data-action="q-valid" data-d="30">30 dias</button></div></div><span class="field-help">Depois dessa data o orçamento aparece como vencido.</span></div>
+   ${F('q_comp','O que o cliente reclamou',{type:'textarea',value:d.complaint,full:true,rows:2,ph:'Ex.: barulho ao frear, luz do motor acesa…',help:'Escreva com as palavras do cliente. Aparece na OS e no PDF.'})}
+  </div>`)}
+  ${sec(2,'Serviços e peças','Adicione cada serviço ou peça. Desmarque “Aprov.” de um item se o cliente aprovar só uma parte.',`<div class="q-add-row">${btn('Adicionar serviço ou peça','q-add',{cls:'accent',icon:'plus'})}${btn('Montar pelo diagnóstico','q-diag',{icon:'search',title:'Sugere serviços a partir do relato do cliente'})}<span class="muted small">Dica: se não sabe o que cobrar, use “Montar pelo diagnóstico”.</span></div><div id="items_box">${itemsTableHTML(d.items,{ctx:'quote'})}</div>`)}
+  ${sec('+','Condições do orçamento','Garantia e avisos que o cliente lê no PDF.',`<div class="form-grid">${F('q_terms','Condições e garantia (aparece no PDF)',{type:'textarea',value:d.terms,full:true,rows:4})}${F('q_notes','Observações internas (não aparecem para o cliente)',{type:'textarea',value:d.notes,full:true,rows:2,help:'Só você e a equipe veem.'})}</div>`)}
  </div>
- <div><div class="card sticky"><h2>Resumo</h2><div id="tot_box">${qTotalsBox(d)}</div>
+ <div><div class="card sticky q-side"><div class="q-sh"><span class="q-n">3</span><div><h2>Conferir o total</h2></div></div><div id="q_live" class="q-live"></div><div id="tot_box">${qTotalsBox(d)}</div>
   <div class="form-grid mt12"><label>Desconto<select id="d_t" data-ch="disc">${optHTML([{v:'value',l:'R$ (valor)'},{v:'percent',l:'% (percentual)'}],d.discount.type)}</select></label>
   <label>Valor do desconto<input id="d_v" inputmode="decimal" value="${d.discount.v?(d.discount.type==='percent'?String(d.discount.v).replace('.',','):moneyIn(d.discount.v)):''}" placeholder="0,00" data-in="disc"></label></div>
-  <div class="mt12" style="display:grid;gap:8px">${btn('Salvar e enviar por WhatsApp','quote-save-send',{cls:'wa',icon:'wa',title:'Salva o orçamento e abre o WhatsApp do cliente com a mensagem pronta'})}${btn('Ver PDF / imprimir','quote-save-pdf',{icon:'print'})}</div>
-  <p class="muted tiny mt12">Itens desmarcados em “Aprov.” ficam fora do total — útil quando o cliente aprova só uma parte.</p></div></div>
+  <div id="q_check" class="q-check"></div>
+  <div class="q-sh mt12"><span class="q-n">4</span><div><h2>Enviar ao cliente</h2></div></div>
+  <div class="mt12" style="display:grid;gap:8px">${btn('Salvar e enviar por WhatsApp','quote-save-send',{cls:'wa',icon:'wa',title:'Salva o orçamento e abre o WhatsApp do cliente com a mensagem pronta'})}${btn('Ver PDF / imprimir','quote-save-pdf',{icon:'print'})}${btn('Só salvar','quote-save',{icon:'check'})}</div>
+  <p class="muted tiny mt12"><b>Depois:</b> quando o cliente aprovar, abra o orçamento e clique em “Aprovar e gerar OS”.</p></div></div>
  </div>`;
 }
+function qCheckRender(){
+ const box=document.getElementById('q_check');if(!box)return false;
+ const d=ITEMCTX&&ITEMCTX.draft,items=d&&d.items?d.items.filter(i=>i.approved!==false):[];
+ const live=document.getElementById('q_live');if(live)live.innerHTML=items.length?`<div class="ql-h">Itens lançados (${items.length})</div>${items.map(i=>`<div class="ql-r"><span>${esc(i.name||'(sem nome)')} <small class="muted">× ${num(i.qty,2)}</small></span><b>${money(docTotals({items:[i],discount:{type:'value',v:0}}).total)}</b></div>`).join('')}`:'<div class="muted small">Os itens que você lançar aparecem aqui, com o total logo abaixo.</div>';
+ const todo=[];
+ if(!V('q_cust'))todo.push(['Escolher o cliente','q-focus','q_cust_t']);
+ if(!V('q_veh'))todo.push(['Escolher o veículo','q-focus','q_veh_t']);
+ if(!items.length)todo.push(['Adicionar serviços ou peças','q-add','']);
+ box.innerHTML=todo.length?`<div class="alert warn">${ICON.alert}<div><b>Falta:</b></div></div><div class="q-todo">${todo.map(t=>`<button type="button" class="btn sm" data-action="${t[1]}" data-for="${t[2]}">${t[0]} →</button>`).join('')}</div>`:`<div class="alert ok">${ICON.check}<div><b>Tudo certo.</b> Pode enviar ao cliente.</div></div>`;
+ return true;
+}
+let QOBS=null;
+function qCheckInit(){
+ if(QOBS)QOBS.disconnect();const root=document.getElementById('view')||document.body;
+ if(!qCheckRender())return;
+ QOBS=new MutationObserver(()=>{if(!document.getElementById('q_check')){QOBS.disconnect();QOBS=null;return}clearTimeout(QOBS.t);QOBS.t=setTimeout(qCheckRender,80)});
+ QOBS.observe(root,{childList:true,subtree:true,characterData:true});
+ root.addEventListener('input',()=>setTimeout(qCheckRender,50));
+}
+A['q-focus']=el=>{const n=document.getElementById(el.dataset.for);if(n){n.scrollIntoView({behavior:'smooth',block:'center'});n.focus()}};
+A['q-valid']=el=>{const b=V('q_date')||todayISO();const n=document.getElementById('q_valid');if(n){n.value=addDays(b,Number(el.dataset.d));n.dispatchEvent(new Event('change',{bubbles:true}));setDirty(true)}};
 function readQuoteForm(){
  const d=QD;readDiscount(d);
  d.customerId=V('q_cust');d.vehicleId=V('q_veh');d.km=kmNum(V('q_km'));d.date=V('q_date');d.validUntil=V('q_valid');d.complaint=V('q_comp');d.terms=V('q_terms');d.notes=V('q_notes');
@@ -1754,7 +1834,7 @@ H['os-disc']=()=>{const o=getOrder(R.id);if(!o)return;o.discount={type:V('od_t')
 H['os-field']=()=>setDirty(true);
 A['os-extra']=el=>{ // serviço adicional → pedir autorização
  const o=getOrder(el.dataset.id);osBindItems(o);
- openItemPicker(items=>{items.forEach(i=>i.approved=false);o.items.push(...items);o.history.push({at:iso(),t:'Itens adicionais aguardando autorização'});ITEMCTX.onChange();setDirty(true);confirmBox('Pedir autorização agora?','Os itens foram incluídos como <b>não aprovados</b>. Salve a OS e envie a mensagem ao cliente; depois marque “Aprov.” quando ele autorizar.',async()=>{await persist();setDirty(false);osWA(o.id,'os_extra')},{yes:'Salvar e abrir WhatsApp',no:'Só incluir'})});
+ openItemPicker(items=>{items.forEach(i=>{i.approved=false;i.extra=true});o.items.push(...items);o.history.push({at:iso(),t:'Itens adicionais aguardando autorização'});ITEMCTX.onChange();setDirty(true);confirmBox('Pedir autorização agora?','Os itens ficaram <b>aguardando autorização</b> e ainda não entram no total. Envie o valor ao cliente; quando ele responder, use o quadro amarelo no topo da OS: <b>“Cliente autorizou”</b> ou <b>“Cliente recusou”</b>.',async()=>{await persist();setDirty(false);osWA(o.id,'os_extra')},{yes:'Salvar e abrir WhatsApp',no:'Só incluir'})});
 };
 
 /* ---------- vistoria: checklist, avarias, fotos, assinatura ---------- */
@@ -1802,16 +1882,16 @@ function payBody(){
  ${d.entry.on?`<div class="form-grid"><label>Valor da entrada<input id="pe_v" inputmode="decimal" data-mask="money" data-in="pay-field" data-f="entry.value" value="${d.entry.value?moneyIn(d.entry.value):''}" placeholder="0,00"></label>
  <label>Data<input type="date" id="pe_d" data-ch="pay-field" data-f="entry.date" value="${d.entry.date}"></label>
  <label>Forma<select id="pe_m" data-ch="pay-field" data-f="entry.method">${optHTML(state.lists.payMethods,d.entry.method)}</select></label>
- <label>Conta / caixa<select id="pe_a" data-ch="pay-field" data-f="entry.account">${optHTML(acc,d.entry.account)}</select></label>
+ <label>Conta / caixa<select id="pe_a" data-ch="pay-field" data-f="entry.account">${optHTML(acc,d.entry.account)}</select></label><button type="button" class="combo-add" data-action="acc-quick" data-for="pe_a">+ Cadastrar outra conta</button>
  ${Chk('pe_p','Entrada já recebida',d.entry.paid,'data-ch="pay-field" data-f="entry.paid"')}</div>`:''}</div>
  <div class="planbox"><div class="planhead"><b>Parcelas do restante</b> <span class="muted small">${money(plan.rest)}</span></div>
  <div class="form-grid"><label>Quantidade de parcelas<input id="pp_n" type="number" min="1" max="24" value="${d.n}" data-in="pay-field" data-f="n"></label>
  <label>1º vencimento<input type="date" id="pp_d" data-ch="pay-field" data-f="first" value="${d.first}"></label>
  <label>Forma<select id="pp_m" data-ch="pay-field" data-f="method">${optHTML(state.lists.payMethods,d.method)}</select></label>
- <label>Conta / caixa<select id="pp_a" data-ch="pay-field" data-f="account">${optHTML(acc,d.account)}</select></label>
+ <label>Conta / caixa<select id="pp_a" data-ch="pay-field" data-f="account">${optHTML(acc,d.account)}</select></label><button type="button" class="combo-add" data-action="acc-quick" data-for="pp_a">+ Cadastrar outra conta</button>
  <label>Juros do parcelamento (%)<input id="pp_i" value="${d.interestPct||''}" placeholder="0" data-in="pay-field" data-f="interestPct"></label>
  ${Chk('pp_mo','Vencimento todo mês (senão a cada 30 dias)',d.monthly,'data-ch="pay-field" data-f="monthly"')}</div>
- ${fee?`<div class="muted small mt12">Taxa da maquininha estimada: ${num(fee,2)}% (≈ ${money(Math.round(plan.base*fee/100))}) — será lançada como despesa quando o valor for recebido.</div>`:''}</div>
+ ${fee?`<div class="muted small mt12">Taxa da maquininha estimada: ${num(fee,2)}% (≈ ${money(Math.round(plan.base*fee/100))}) — será lançada como despesa quando o valor for recebido.</div>`:''}${(d.method==='Crédito'||d.method==='Débito')?`<div class="mt12">${cardHintHTML(d.method)}</div>`:''}</div>
  <div class="planbox"><div class="planhead"><b>Resumo</b></div>${plan.entry?`<div class="prow"><span>Entrada — ${brDate(d.entry.date)} (${d.entry.paid?'recebida':'a receber'})</span><b>${money(plan.entry)}</b></div>`:''}
  ${plan.rows.map(r=>`<div class="prow"><span>Parcela ${r.n}/${plan.rows.length} — ${brDate(r.due)}</span><b>${money(r.value)}</b></div>`).join('')}
  ${plan.interest?`<div class="prow"><span>Juros</span><b>${money(plan.interest)}</b></div>`:''}<div class="prow tot"><span>Total do plano</span><b>${money(plan.total)}</b></div></div>`;
@@ -1843,19 +1923,19 @@ A['pay-confirm']=async()=>{
 };
 A['os-receive-all']=el=>{
  const o=getOrder(el.dataset.id),p=orderPay(o);
- showModal('Receber agora',`<p>Registrar o recebimento de <b>${money(p.unplanned||p.balance)}</b> da OS ${esc(o.code)}?</p><div class="form-grid">${F('rc_m','Forma',{opts:state.lists.payMethods,value:'Pix'})}${F('rc_a','Conta / caixa',{opts:state.accounts.filter(a=>a.active!==false).map(a=>({v:a.id,l:a.name})),value:'acc_pix'})}${F('rc_d','Data',{type:'date',value:todayISO()})}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="os-receive-go" data-id="${o.id}">Confirmar recebimento</button>`,'sm');
+ showModal('Receber agora',`<p>Registrar o recebimento de <b>${money(p.unplanned||p.balance)}</b> da OS ${esc(o.code)}?</p><div class="form-grid">${F('rc_m','Forma',{opts:state.lists.payMethods,value:'Pix',attrs:'data-ch="rc-card"'})}${accField('rc_a','Conta / caixa','acc_pix')}${F('rc_d','Data',{type:'date',value:todayISO()})}</div><div id="rc_card"></div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="os-receive-go" data-id="${o.id}">Confirmar recebimento</button>`,'sm');RCBASE=()=>p.unplanned||p.balance;rcCardRefresh();
 };
 A['os-receive-go']=async el=>{
  const o=getOrder(el.dataset.id),p=orderPay(o);
  const pend=p.tx.filter(t=>t.status==='Pendente');let val=p.unplanned;
  if(!V('rc_d'))return bad('rc_d','Informe a data.');
  if(pend.length&&val===0){ // quita as pendentes
-  for(const t of pend){t.status='Recebido';t.paidAt=V('rc_d');t.date=V('rc_d');t.method=V('rc_m');t.accountId=V('rc_a');postCardFee(t)}
- }else if(val>0){const t={id:uid('tx'),type:'Receita',status:'Recebido',date:V('rc_d'),dueDate:V('rc_d'),paidAt:V('rc_d'),value:val,desc:'Pagamento · '+o.code,category:'Serviço (mão de obra)',accountId:V('rc_a'),method:V('rc_m'),orderId:o.id,customerId:o.customerId,vehicleId:o.vehicleId,createdAt:iso()};state.transactions.push(t);postCardFee(t)}
+  const cc=cardPick();for(const t of pend){t.value=cardAdj(cc,t.value);if(cc.m==='Crédito'&&cc.n>1)t.installments=cc.n;t.status='Recebido';t.paidAt=V('rc_d');t.date=V('rc_d');t.method=V('rc_m');t.accountId=V('rc_a');postCardFee(t)}
+ }else if(val>0){const cc=cardPick();const t={id:uid('tx'),type:'Receita',status:'Recebido',date:V('rc_d'),dueDate:V('rc_d'),paidAt:V('rc_d'),value:cardAdj(cc,val),installments:cc.m==='Crédito'&&cc.n>1?cc.n:0,desc:'Pagamento · '+o.code+(cc.m==='Crédito'&&cc.n>1?` (Crédito ${cc.n}x)`:''),category:'Serviço (mão de obra)',accountId:V('rc_a'),method:V('rc_m'),orderId:o.id,customerId:o.customerId,vehicleId:o.vehicleId,createdAt:iso()};state.transactions.push(t);postCardFee(t)}
  o.history.push({at:iso(),t:'Pagamento recebido'});await persist();closeModal();toast('Pagamento registrado.','ok');render();
 };
 function postCardFee(t){
- if(!['Débito','Crédito'].includes(t.method))return;const pct=cardFeePct(t.method,1);if(!pct)return;
+ if(!['Débito','Crédito'].includes(t.method))return;const pct=cardFeePct(t.method,t.installments||1);if(!pct)return;
  const fee=Math.round(t.value*pct/100);if(fee<=0)return;
  state.transactions.push({id:uid('tx'),type:'Despesa',status:'Pago',date:t.paidAt||todayISO(),dueDate:t.paidAt||todayISO(),paidAt:t.paidAt||todayISO(),value:fee,desc:'Taxa de cartão · '+(t.desc||''),category:'Taxa de cartão',accountId:t.accountId,method:t.method,feeOf:t.id,createdAt:iso()});
 }
@@ -1887,14 +1967,12 @@ function osView(o,tab){
   <div class="card"><div class="card-head"><h2>Avarias</h2>${o.damages.length?btn('Limpar','dmg-clear',{id:o.id,cls:'sm'}):''}</div><p class="muted small">Clique no desenho onde existe riscos, amassados ou peças faltando.</p>${carHTML(o)}${o.damages.map((d,i)=>`<div class="row" style="padding:6px 0"><span class="pin static">${i+1}</span><span class="grow">${esc(d.note||'')}</span><button class="btn xs danger" data-action="dmg-del" data-id="${o.id}" data-i="${i}">${ICON.x}</button></div>`).join('')}</div></div>
   <div class="card"><div class="card-head"><h2>Fotos (${o.photos.length})</h2>${btn('Adicionar fotos','photo-add',{id:o.id,cls:'accent sm',icon:'plus'})}</div>${o.photos.length?`<div class="photos">${o.photos.map((f,i)=>`<div class="ph"><img src="${f}" data-action="photo-view" data-id="${o.id}" data-i="${i}" alt="Foto ${i+1}"><button class="btn xs danger" data-action="photo-del" data-id="${o.id}" data-i="${i}">${ICON.x}</button></div>`).join('')}</div>`:'<div class="muted small">Nenhuma foto. Registre o estado do veículo na entrada e as peças trocadas.</div>'}</div>`;
  }else if(tab==='pay'){
-  body=`<div class="grid g3" style="margin-bottom:14px">${kpi('Total da OS',money(p.total),'',{icon:'wallet'})}${kpi('Recebido',money(p.paid),'',{k:'k-green',icon:'check'})}${kpi('Saldo',money(p.balance),p.late?'há parcela em atraso':'',{k:p.late?'k-red':'k-warn',icon:'clock'})}</div>
-  <div class="card"><div class="card-head"><h2>Cobranças</h2><div class="head-actions">${p.unplanned>0?btn('Entrada + parcelas','os-pay',{id:o.id,cls:'accent sm',icon:'plus'}):''}${p.balance>0?btn('Receber agora','os-receive-all',{id:o.id,cls:'sm',icon:'check'}):''}${p.balance>0?btn('Cobrar por WhatsApp','os-wa',{id:o.id,cls:'wa sm',icon:'wa'}).replace('data-id','data-key="cobranca" data-id'):''}</div></div>
-  ${p.tx.length?table([{h:'Vencimento',f:x=>brDate(x.dueDate||x.date)},{h:'Descrição',f:x=>esc(x.desc)},{h:'Forma',f:x=>esc(x.method||'')},{h:'Valor',cls:'num',f:x=>money(x.value)},{h:'Situação',f:x=>txChip(x)},{h:'',cls:'num',f:x=>x.status==='Pendente'?`<button class="btn xs" data-action="tx-receive" data-id="${x.id}">Receber</button>`:''}],p.tx.sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date))):empty('wallet','Nenhuma cobrança lançada','Defina a forma de pagamento: à vista, ou entrada + parcelas.',p.total?btn('Definir pagamento','os-pay',{id:o.id,cls:'accent',icon:'plus'}):'')}</div>`;
+  body=payTabHTML(o,p);
  }else body=`<div class="card"><h2>Histórico</h2>${timelineHTML([...o.history].reverse().map(h=>({t:h.t,s:brDT(h.at)})))}</div>`;
  return `<div class="screen-head"><div class="detail-hero"><div class="screen-title"><h1>${esc(o.code)} ${osChip(o)} ${payChip(o)}</h1><p><a href="#/customers/view/${o.customerId}">${esc(c.name)}</a> · ${plateHTML(v)} ${esc(vehLabel(v))} · entrada ${brDT(o.openedAt)}</p></div></div>
- <div class="head-actions"><button class="btn" data-route="orders">${ICON.chevl}Voltar</button>${btn('Mensagem ao cliente','os-wa-menu',{id:o.id,cls:'wa',icon:'wa'})}<button class="btn" data-action="os-pdf" data-id="${o.id}">${ICON.print}PDF da OS</button>${['Pronta','Entregue'].includes(o.status)?`<button class="btn" data-action="os-pdf" data-id="${o.id}" data-kind="delivery">${ICON.print}Termo de entrega</button>`:''}${o.status!=='Cancelada'&&o.status!=='Entregue'?`<button class="btn danger" data-action="os-status" data-id="${o.id}" data-st="Cancelada">Cancelar OS</button>`:''}</div></div>
+ <div class="head-actions"><button class="btn" data-route="orders">${ICON.chevl}Voltar</button>${btn('Mensagem ao cliente','os-wa-menu',{id:o.id,cls:'wa',icon:'wa'})}<button class="btn" data-action="os-pdf" data-id="${o.id}">${ICON.print}PDF da OS</button>${['Pronta','Entregue'].includes(o.status)?`<button class="btn" data-action="os-pdf" data-id="${o.id}" data-kind="delivery">${ICON.print}Termo de entrega</button>`:''}${['Entregue','Cancelada'].includes(o.status)?`<button class="btn" data-action="os-reopen" data-id="${o.id}">Reabrir OS</button>`:''}${o.status!=='Cancelada'&&o.status!=='Entregue'?`<button class="btn danger" data-action="os-status" data-id="${o.id}" data-st="Cancelada">Cancelar OS</button>`:''}</div></div>
  ${o.status!=='Cancelada'?stepper+nextStepHTML(o):'<div class="alert warn">'+ICON.alert+'<div>Esta OS foi cancelada.</div></div>'}
- ${o.items.some(i=>i.approved===false)&&orderActive(o)?`<div class="alert warn">${ICON.alert}<div><b>Há itens aguardando autorização do cliente.</b> Eles não entram no total até serem aprovados.</div>${btn('Pedir autorização','os-wa',{id:o.id,cls:'sm wa'}).replace('data-id','data-key="os_extra" data-id')}</div>`:''}
+ ${extraBoxHTML(o)}
  ${tabsHTML('os-'+o.id,tabs,tab)}${body}`;
 }
 H['x']=()=>{};
@@ -1914,8 +1992,8 @@ function nextStepHTML(o){
   case 'Aguardando aprovação':n='Passo 3';t='Espere o cliente aprovar';d='Quando ele responder que aprova, avance para executar. Se faltar peça, marque “Aguardando peça”.';acts=st('Em execução','Cliente aprovou: executar')+st('Aguardando peça','Falta peça','');break;
   case 'Aguardando peça':n='Passo 3';t='Esperando a peça chegar';d='Quando a peça chegar, volte para execução.';acts=st('Em execução','Peça chegou: executar');break;
   case 'Em execução':n='Passo 4';t='Faça o serviço e conclua';d='Ao terminar, marque como pronta. As peças usadas saem do estoque automaticamente.';acts=st('Pronta','Serviço pronto');break;
-  case 'Pronta':n='Passo 5 e 6';t=pay.balance>0?'Avise o cliente e receba o pagamento':'Avise o cliente e entregue';d=pay.balance>0?'Falta receber '+money(pay.balance)+'. Use a aba “Pagamento” para lançar entrada/parcelas e receber.':'Tudo pago. Entregue o veículo para encerrar a OS.';acts=`<button class="btn wa" data-action="os-wa" data-id="${o.id}" data-key="os_pronto">${ICON.wa}Avisar cliente</button>`+(pay.balance>0?`<button class="btn primary" data-action="os-open-pay" data-id="${o.id}">Receber</button>`:'')+st('Entregue','Entregar o veículo','');break;
-  case 'Entregue':n='Concluída';t=pay.balance>0?'Entregue, mas ainda há saldo a receber':'OS encerrada';d=pay.balance>0?'Falta receber '+money(pay.balance)+'.':'Garantia, histórico do veículo e comissão já foram registrados.';acts=pay.balance>0?`<button class="btn primary" data-action="os-open-pay" data-id="${o.id}">Receber agora</button>`:'';break;
+  case 'Pronta':n='Passo 5 e 6';t=pay.balance>0?'Avise o cliente e receba o pagamento':'Avise o cliente e entregue';d=pay.balance>0?'Falta receber '+money(pay.balance)+'. Use a aba “Pagamento” para lançar entrada/parcelas e receber.':'Tudo pago. Entregue o veículo para encerrar a OS.';acts=`<button class="btn wa" data-action="os-wa" data-id="${o.id}" data-key="os_pronto">${ICON.wa}Avisar cliente</button>`+(pay.balance>0?`<button class="btn gold" data-action="os-open-pay" data-id="${o.id}">Receber o pagamento</button>`:'')+st('Entregue','Entregar o veículo','deliver');break;
+  case 'Entregue':n='Concluída';t=pay.balance>0?'Entregue, mas ainda há saldo a receber':'OS encerrada';d=pay.balance>0?'Falta receber '+money(pay.balance)+'.':'Garantia, histórico do veículo e comissão já foram registrados.';acts=pay.balance>0?`<button class="btn gold" data-action="os-open-pay" data-id="${o.id}">Receber o pagamento</button>`:'';break;
   default:return '';
  }
  return `<div class="next-step"><span class="ns-n">${n}</span><div class="ns-t"><b>${t}</b><span>${d}</span></div><div style="display:flex;gap:8px;flex-wrap:wrap">${acts}</div></div>`;
@@ -1939,7 +2017,7 @@ function kanbanHTML(){
  const q=UI.q.orders||'';
  return osGuideHTML()+`<div class="kanban">${KCOLS.map(s=>{const rows=state.orders.filter(o=>o.status===s&&matchQ(q,o.code,custName(o.customerId),getVehicle(o.vehicleId)?.plate));const K=KINFO[s];
   return `<div class="kcol st-${K.n}" data-st="${s}" ondragover="event.preventDefault()" ondrop="osDrop(event,'${s}')"><div class="khead"><div><b>${K.n}. ${ORDER_CHIP[s][1]}</b><small>${K.sub}</small></div><span class="n">${rows.length}</span></div>${rows.map(o=>{const late=o.promisedAt&&o.promisedAt<iso().slice(0,16);const bal=orderPay(o).balance;const m=getMech(o.mechId);
-   const act=K.next?`<button type="button" class="btn sm primary kact" data-action="os-status" data-id="${o.id}" data-st="${K.next[0]}">${esc(K.next[1])}</button>`:`${readyWA(o)}<div class="kact2"><button type="button" class="btn sm kact" data-action="os-open-pay" data-id="${o.id}">${bal>0?'Receber '+money(bal):'Pago ✓'}</button><button type="button" class="btn sm kact" data-action="os-status" data-id="${o.id}" data-st="Entregue">Entregar</button></div>`;
+   const act=K.next?`<button type="button" class="btn sm primary kact" data-action="os-status" data-id="${o.id}" data-st="${K.next[0]}">${esc(K.next[1])}</button>`:`${readyWA(o)}<div class="kact2"><button type="button" class="btn sm kact ${bal>0?'gold':''}" data-action="os-open-pay" data-id="${o.id}">${bal>0?'Receber '+money(bal):'Pago ✓'}</button><button type="button" class="btn sm kact deliver" data-action="os-status" data-id="${o.id}" data-st="Entregue">Entregar</button></div>`;
    return `<div class="kcard ${late?'late':''}" draggable="true" ondragstart="event.dataTransfer.setData('text',this.dataset.id)" data-id="${o.id}" data-route="orders" data-sub="view"><div class="kc-top"><b>${esc(o.code)}</b>${plateHTML(o.vehicleId)}</div><div class="kc-cli">${esc(custName(o.customerId))}</div><div class="tiny muted">${esc(vehLabel(o.vehicleId))}</div><div class="kc-bot"><b>${money(docTotals(o).total)}</b><span class="tiny muted">${m?esc(m.name.split(' ')[0]):''}</span>${late?'<span class="badge bad">atrasada</span>':''}</div>${act}</div>`}).join('')||'<div class="tiny muted kempty">Nenhum veículo aqui</div>'}</div>`}).join('')}</div>`;
 }
 A['os-open-pay']=el=>{UI.tab['os-'+el.dataset.id]='pay';go('orders','view',el.dataset.id)};
@@ -1965,6 +2043,56 @@ function renderOrders(r){
 LISTS.orders=()=>tabOf('orders','board')==='board'?kanbanHTML():orderListHTML();
 reg({key:'orders',label:'Ordens de serviço',icon:'clip',group:'Atendimento',render:renderOrders,badge:()=>state.orders.filter(o=>o.status==='Pronta').length});
 
+/* ---------- aba Pagamento: passo a passo ---------- */
+function payTabHTML(o,p){
+ const pend=p.tx.filter(t=>t.status==='Pendente');
+ const s1=p.unplanned>0?'now':'done',s2=p.balance>0?(p.unplanned>0?'wait':'now'):'done',s3=o.status==='Entregue'?'done':(p.balance>0?'wait':(o.status==='Pronta'?'now':'wait'));
+ const stp=(n,st,t,d)=>`<div class="pg ${st}"><span class="n">${st==='done'?'✓':n}</span><div><b>${t}</b><small>${d}</small></div></div>`;
+ const guide=`<div class="pay-guide">${stp(1,s1,'Combine o pagamento','À vista, ou entrada + parcelas')}${stp(2,s2,'Receba o dinheiro','Botão dourado “Receber” em cada cobrança')}${stp(3,s3,'Entregue o veículo','Só depois de receber (ou com saldo, se você decidir)')}</div>`;
+ let action='';
+ if(!p.total)action=`<div class="alert warn">${ICON.alert}<div>Esta OS ainda não tem valor. Volte à aba <b>Serviços</b> e inclua os serviços e peças.</div></div>`;
+ else if(p.unplanned>0)action=`<div class="card pay-choose"><h2>Como o cliente vai pagar ${money(p.unplanned)}?</h2><p class="muted small">Escolha uma das opções abaixo.</p><div class="pay-opts">
+  <button class="pay-opt" data-action="os-receive-all" data-id="${o.id}"><b>${ICON.check}Cliente paga tudo agora</b><span>Pagou à vista (Pix, dinheiro, cartão). Registra o recebimento na hora.</span></button>
+  <button class="pay-opt" data-action="os-pay" data-id="${o.id}"><b>${ICON.plus}Entrada + parcelas</b><span>Combinar entrada, parcelar ou deixar para pagar depois. Gera as cobranças.</span></button></div></div>`;
+ else if(p.balance>0)action=`<div class="alert info">${ICON.alert}<div><b>Quando o cliente pagar, clique em “Receber” (dourado) na cobrança.</b> Falta receber ${money(p.balance)}.</div>${btn('Cobrar por WhatsApp','os-wa',{id:o.id,cls:'wa sm',icon:'wa'}).replace('data-id','data-key="cobranca" data-id')}</div>`;
+ else action=`<div class="alert ok">${ICON.shield}<div><b>Tudo recebido.</b> ${o.status==='Pronta'?'Agora é só entregar o veículo.':o.status==='Entregue'?'OS encerrada.':'Quando o serviço ficar pronto, entregue o veículo.'}</div>${o.status==='Pronta'?`<button class="btn deliver" data-action="os-status" data-id="${o.id}" data-st="Entregue">Entregar o veículo</button>`:''}</div>`;
+ const rows=[...p.tx].sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date));
+ const act=x=>x.status==='Pendente'?`<button class="btn xs gold" data-action="tx-receive" data-id="${x.id}">Receber</button> <button class="btn xs" data-action="edit-tx" data-id="${x.id}">Editar</button> <button class="btn xs danger" data-action="del-tx" data-id="${x.id}">Excluir</button>`:`<button class="btn xs" data-action="tx-receipt" data-id="${x.id}">Recibo</button> <button class="btn xs" data-action="tx-reopen" data-id="${x.id}" title="Desfazer o recebimento">Reabrir</button> <button class="btn xs" data-action="edit-tx" data-id="${x.id}">Editar</button> <button class="btn xs danger" data-action="del-tx" data-id="${x.id}">Excluir</button>`;
+ return `<div class="grid g3" style="margin-bottom:14px">${kpi('Total da OS',money(p.total),'',{icon:'wallet'})}${kpi('Recebido',money(p.paid),'',{k:'k-green',icon:'check'})}${kpi('Saldo',money(p.balance),p.late?'há parcela em atraso':'',{k:p.late?'k-red':'k-warn',icon:'clock'})}</div>
+ ${guide}${action}
+ ${rows.length?`<div class="card"><div class="card-head"><h2>Cobranças desta OS</h2>${p.unplanned>0?btn('Cobrar o restante','os-pay',{id:o.id,cls:'sm',icon:'plus'}):''}</div>${table([{h:'Vencimento',f:x=>brDate(x.dueDate||x.date)},{h:'Descrição',f:x=>esc(x.desc)},{h:'Forma',f:x=>esc(x.method||'')},{h:'Valor',cls:'num',f:x=>money(x.value)},{h:'Situação',f:x=>txChip(x)},{h:'',cls:'num',f:act}],rows)}</div>`:''}`;
+}
+/* ---------- serviço adicional: autorização do cliente ---------- */
+function extraBoxHTML(o){
+ const it=o.items.filter(i=>i.approved===false);if(!it.length||!orderActive(o))return '';
+ const tot=docTotals({items:it,discount:{type:'value',v:0}}).total;
+ return `<div class="extra-box"><div class="eb-h"><span class="badge bad">Serviço adicional</span><b>Aguardando autorização do cliente</b><span class="eb-v">+ ${money(tot)}</span></div>
+ <ul>${it.map(i=>`<li>${esc(i.name)} <span class="muted">× ${num(i.qty,2)}</span></li>`).join('')}</ul>
+ <ol class="eb-steps"><li><b>1</b> Envie o valor ao cliente (“Pedir autorização”)</li><li><b>2</b> Confira os itens em “Conferir itens da OS”</li><li><b>3</b> Ele respondeu? Clique em <i>Cliente autorizou</i> (entra no total e na cobrança) ou <i>Cliente recusou</i> (remove os itens)</li></ol>
+ <div class="eb-act">${btn('Pedir autorização (WhatsApp)','os-wa',{id:o.id,cls:'red',icon:'wa'}).replace('data-id','data-key="os_extra" data-id')}<button class="btn" data-action="os-goto-items" data-id="${o.id}">Conferir itens da OS</button><button class="btn green" data-action="os-extra-ok" data-id="${o.id}">${ICON.check}Cliente autorizou</button><button class="btn danger" data-action="os-extra-no" data-id="${o.id}">Cliente recusou</button></div></div>`;
+}
+A['os-extra-ok']=async el=>{
+ const o=getOrder(el.dataset.id),it=o.items.filter(i=>i.approved===false);if(!it.length)return;
+ const tot=docTotals({items:it,discount:{type:'value',v:0}}).total;
+ it.forEach(i=>i.approved=true);o.history.push({at:iso(),t:'Cliente autorizou serviço adicional (+'+money(tot)+')'});
+ if(['Em execução','Pronta','Entregue'].includes(o.status))stockApply(o);
+ audit('Ordens de serviço','Autorizou adicional',o.code);await persist();setDirty(false);render();
+ const p=orderPay(o);
+ if(p.unplanned>0)setTimeout(()=>confirmBox('Adicional aprovado: '+money(tot),`O total da OS agora é <b>${money(p.total)}</b>. Falta definir como o cliente paga o adicional (${money(p.unplanned)}).`,()=>{UI.tab['os-'+o.id]='pay';render();setTimeout(()=>A['os-pay']({dataset:{id:o.id}}),100)},{yes:'Definir pagamento',no:'Depois'}),150);
+ else toast('Adicional aprovado e incluído no total.','ok');
+};
+A['os-extra-no']=el=>{const o=getOrder(el.dataset.id);confirmBox('Cliente recusou o adicional?','Os itens aguardando autorização serão removidos da OS. O valor da OS não muda.',async()=>{const n=o.items.filter(i=>i.approved===false).length;o.items=o.items.filter(i=>i.approved!==false);o.history.push({at:iso(),t:'Cliente recusou serviço adicional ('+n+' item(ns) removido(s))'});audit('Ordens de serviço','Recusou adicional',o.code);await persist();setDirty(false);render()},{danger:true,yes:'Remover itens',no:'Voltar'})};
+A['os-reopen']=el=>{
+ const o=getOrder(el.dataset.id),was=o.status,to=was==='Entregue'?'Pronta':'Aguardando';
+ confirmBox('Reabrir a OS?',was==='Entregue'?`A OS <b>${esc(o.code)}</b> volta para <b>Pronta p/ retirada</b>. A garantia e a comissão serão recalculadas quando entregar de novo.`:`A OS <b>${esc(o.code)}</b> volta para <b>Aguardando</b> e as cobranças canceladas voltam a ficar pendentes.`,async()=>{
+  o.status=to;o.history.push({at:iso(),t:'OS reaberta: '+was+' → '+to});
+  if(was==='Entregue'){o.deliveredAt='';o.warrantyUntil='';state.commissions=state.commissions.filter(c=>c.orderId!==o.id)}
+  else for(const t of state.transactions)if(t.orderId===o.id&&t.status==='Cancelado')t.status='Pendente';
+  audit('Ordens de serviço','Reabriu',o.code);await persist();toast('OS reaberta.','ok');render()},{yes:'Reabrir OS'});
+};
+
+A['os-goto-items']=el=>{UI.tab['os-'+el.dataset.id]='main';go('orders','view',el.dataset.id);setTimeout(()=>{const t=document.getElementById('os_items');if(t)t.scrollIntoView({behavior:'smooth',block:'center'})},250)};
+
 /* ============================================================
    PEÇAS E ESTOQUE · FORNECEDORES · COMPRAS
    ============================================================ */
@@ -1974,7 +2102,7 @@ function partForm(p={}){
  return `<div class="form-grid">
  ${F('p_name','Nome da peça',{value:p.name||'',req:true,full:true,ph:'Ex.: Pastilha de freio dianteira'})}
  ${F('p_sku','Código / referência',{value:p.sku||''})}${F('p_brand','Marca',{value:p.brand||''})}
- ${F('p_cat','Categoria',{opts:L.partCats,value:p.category||L.partCats[0]})}${F('p_unit','Unidade',{opts:['un','L','kg','m','par','jogo','kit'],value:p.unit||'un'})}
+ ${catField('p_cat','Categoria','partCats',p.category)}${F('p_unit','Unidade',{opts:['un','L','kg','m','par','jogo','kit'],value:p.unit||'un'})}
  ${SEC('Preço')}
  ${M('p_cost','Custo (R$)',p.cost||0,{attrs:'data-in="p-price"'})}${F('p_mk','Margem sobre o custo (%)',{mask:'pct',value:String(p.markup??state.shop.partsMarkup??'').replace('.',','),attrs:'data-in="p-price"',help:'O preço de venda é sugerido automaticamente; você pode ajustar.'})}
  ${M('p_price','Preço de venda (R$)',p.price||0)}
@@ -1993,8 +2121,8 @@ A['save-part']=async el=>{
  if(V('p_sku')&&state.parts.some(x=>x.id!==el.dataset.id&&x.sku&&norm(x.sku)===norm(V('p_sku'))))return bad('p_sku','Já existe uma peça com este código.');
  if(!VC('p_price'))return bad('p_price','Informe o preço de venda.');
  const d={name:V('p_name'),sku:V('p_sku'),brand:V('p_brand'),category:V('p_cat'),unit:V('p_unit'),cost:VC('p_cost'),markup:VN('p_mk'),price:VC('p_price'),minQty:Number(V('p_min'))||0,location:V('p_loc'),supplierId:V('p_sup'),application:V('p_app'),active:VB('p_active')};
- if(el.dataset.id){Object.assign(getPart(el.dataset.id),d);audit('Peças','Editou',d.name)}else{const qty=VN('p_qty');const p={id:uid('prt'),...d,qty};state.parts.push(p);if(qty)state.stockMoves.push({id:uid('mv'),partId:p.id,type:'Entrada',qty,date:todayISO(),note:'Saldo inicial',cost:d.cost});audit('Peças','Cadastrou',d.name)}
- await persist();closeModal();toast('Peça salva.','ok');render();
+ if(el.dataset.id){Object.assign(getPart(el.dataset.id),d);audit('Peças','Editou',d.name)}else{const qty=VN('p_qty');const p={id:uid('prt'),...d,qty};state.parts.push(p);window.__newPart=p.id;if(qty)state.stockMoves.push({id:uid('mv'),partId:p.id,type:'Entrada',qty,date:todayISO(),note:'Saldo inicial',cost:d.cost});audit('Peças','Cadastrou',d.name)}
+ await persist();closeModal();toast('Peça salva.','ok');render();if(window.__newPart){pickAfterSave('p:'+window.__newPart);window.__newPart=null}
 };
 A['del-part']=el=>{const p=getPart(el.dataset.id);const used=state.orders.some(o=>o.items.some(i=>i.refId===p.id));confirmBox('Excluir peça?',used?`<b>${esc(p.name)}</b> já foi usada em ordens de serviço. Ela será <b>inativada</b> para preservar o histórico.`:`<b>${esc(p.name)}</b> será excluída.`,async()=>{if(used)p.active=false;else state.parts=state.parts.filter(x=>x.id!==p.id);await persist();render()},{danger:true,yes:used?'Inativar':'Excluir'})};
 A['stock-move']=el=>{
@@ -2209,8 +2337,8 @@ function txForm(t={}){
  ${M('t_val','Valor (R$)',t.value||'',{req:true})}
  ${F('t_cat','Categoria',{opts:[...(rev?state.lists.incomeCats:state.lists.expenseCats)],value:t.category||''})}
  ${F('t_due','Vencimento',{type:'date',value:t.dueDate||t.date||todayISO()})}
- ${F('t_method','Forma de pagamento',{opts:state.lists.payMethods,value:t.method||'Pix'})}
- ${F('t_acc','Conta / caixa',{opts:state.accounts.filter(a=>a.active!==false).map(a=>({v:a.id,l:a.name})),value:t.accountId||'acc_caixa'})}
+ ${F('t_method','Forma de pagamento',{opts:state.lists.payMethods,value:t.method||'Pix',attrs:'data-ch="tx-card"'})}<div id="t_cardhint" class="full">${cardHintHTML(t.method)}</div>
+ ${accField('t_acc','Conta / caixa',t.accountId||'acc_caixa')}
  ${rev?combo('t_cust','Cliente (opcional)','customers',t.customerId||''):combo('t_sup','Fornecedor (opcional)','suppliers',t.supplierId||'')}
  ${t.id?'':`${F('t_rep','Repetir / parcelar',{value:'1',mask:'digits',help:'Número de lançamentos mensais (ex.: 12 para aluguel do ano).'})}`}
  ${Chk('t_paid',rev?'Já recebido':'Já pago',t.status==='Recebido'||t.status==='Pago')}</div>`;
@@ -2229,20 +2357,22 @@ A['save-tx']=async el=>{
 A['del-tx']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id);confirmBox('Excluir lançamento?',`<b>${esc(t.desc)}</b> (${money(t.value)}) será excluído${t.orderId?'. A cobrança sairá do histórico da OS':''}.`,async()=>{state.transactions=state.transactions.filter(x=>x.id!==t.id&&x.feeOf!==t.id);audit('Financeiro','Excluiu',t.desc);await persist();closeAllModals();render()},{danger:true,yes:'Excluir'})};
 A['tx-receive']=el=>{
  const t=state.transactions.find(x=>x.id===el.dataset.id),rev=t.type==='Receita';
- showModal(rev?'Registrar recebimento':'Registrar pagamento',`<p><b>${esc(t.desc)}</b><br>Valor: <b>${money(t.value)}</b> · vencimento ${brDate(t.dueDate||t.date)}</p><div class="form-grid">${F('rc_d','Data',{type:'date',value:todayISO()})}${F('rc_m','Forma',{opts:state.lists.payMethods,value:t.method||'Pix'})}${F('rc_a','Conta / caixa',{opts:state.accounts.filter(a=>a.active!==false).map(a=>({v:a.id,l:a.name})),value:t.accountId||'acc_caixa'})}${M('rc_v','Valor recebido (R$)',t.value)}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="tx-receive-go" data-id="${t.id}">Confirmar</button>`,'sm');
+ showModal(rev?'Registrar recebimento':'Registrar pagamento',`<p><b>${esc(t.desc)}</b><br>Valor: <b>${money(t.value)}</b> · vencimento ${brDate(t.dueDate||t.date)}</p><div class="form-grid">${F('rc_d','Data',{type:'date',value:todayISO()})}${F('rc_m','Forma',{opts:state.lists.payMethods,value:t.method||'Pix',attrs:'data-ch="rc-card"'})}${accField('rc_a','Conta / caixa',t.accountId||'acc_caixa')}${M('rc_v','Valor recebido (R$)',t.value,{attrs:'data-in="rc-card"'})}</div><div id="rc_card"></div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="tx-receive-go" data-id="${t.id}">Confirmar</button>`,'sm');
+ RCBASE=()=>VC('rc_v')||t.value;rcCardRefresh();
 };
 A['tx-receive-go']=async el=>{
  const t=state.transactions.find(x=>x.id===el.dataset.id);if(!V('rc_d'))return bad('rc_d','Informe a data.');const v=VC('rc_v');if(!v)return bad('rc_v','Informe o valor.');
  if(v<t.value){ // recebimento parcial: divide
   state.transactions.push({...clone(t),id:uid('tx'),value:t.value-v,desc:t.desc+' (restante)'});
  }
- t.value=Math.min(v,t.value>v?v:v);t.status=t.type==='Receita'?'Recebido':'Pago';t.paidAt=V('rc_d');t.date=V('rc_d');t.method=V('rc_m');t.accountId=V('rc_a');
+ const cc=cardPick();t.value=cardAdj(cc,v);if(cc.m==='Crédito'&&cc.n>1){t.installments=cc.n;if(!/\dx\)/.test(t.desc))t.desc+=` (Crédito ${cc.n}x)`}t.status=t.type==='Receita'?'Recebido':'Pago';t.paidAt=V('rc_d');t.date=V('rc_d');t.method=V('rc_m');t.accountId=V('rc_a');
  if(t.type==='Receita')postCardFee(t);
  const o=t.orderId&&getOrder(t.orderId);if(o)o.history.push({at:iso(),t:'Recebido '+money(t.value)});
  audit('Financeiro',t.type==='Receita'?'Recebeu':'Pagou',t.desc);await persist();closeModal();toast('Registrado.','ok');
  if(t.type==='Receita'&&t.customerId&&getCustomer(t.customerId)?.phone)setTimeout(()=>confirmBox('Enviar recibo?','Quer mandar o recibo de pagamento por WhatsApp?',()=>{const c=getCustomer(t.customerId);openWA(c.phone,applyTemplate('recibo',{cliente:c,valor:money(t.value),referencia:t.desc}))},{yes:'Abrir WhatsApp',no:'Não'}),150);
  render();
 };
+A['tx-reopen']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id);if(!t)return;confirmBox('Reabrir este recebimento?',`<b>${esc(t.desc)}</b> (${money(t.value)}) volta para <b>Pendente</b>. A taxa de cartão lançada junto também é desfeita. Use quando o pagamento foi marcado por engano.`,async()=>{t.status='Pendente';t.paidAt='';t.date=t.dueDate||t.date;state.transactions=state.transactions.filter(x=>x.feeOf!==t.id);const o=t.orderId&&getOrder(t.orderId);if(o)o.history.push({at:iso(),t:'Recebimento reaberto: '+money(t.value)});audit('Financeiro','Reabriu',t.desc);await persist();closeAllModals();toast('Recebimento reaberto.','ok');render()},{yes:'Reabrir'})};
 A['tx-wa']=el=>{const t=state.transactions.find(x=>x.id===el.dataset.id),c=getCustomer(t.customerId);if(!c||!digits(c.phone))return toast('Cliente sem telefone.','err');const late=(t.dueDate||t.date)<todayISO();openWA(c.phone,applyTemplate(late?'cobranca':'venc_prox',{cliente:c,valor:money(t.value),vencimento:brDate(t.dueDate||t.date),referencia:t.desc}))};
 /* contas */
 A['new-acc']=()=>openAcc('');A['edit-acc']=el=>openAcc(el.dataset.id);
@@ -2259,7 +2389,7 @@ function txRows(filter){
 function txTable(rows,opt={}){
  rows.sort((a,b)=>(a.dueDate||a.date).localeCompare(b.dueDate||b.date)*(opt.desc?-1:1));const pg=paginate('fin-'+(opt.key||'x'),rows,40);
  if(!rows.length)return empty('wallet','Nada por aqui','');
- return table([{h:'Vencimento',f:t=>brDate(t.dueDate||t.date)},{h:'Descrição',f:t=>`<b>${esc(t.desc)}</b><div class="tiny muted">${esc(t.category||'')}${t.customerId?' · '+esc(custName(t.customerId)):''}${t.supplierId?' · '+esc(getSupplier(t.supplierId)?.name||''):''}</div>`},{h:'Conta',f:t=>esc(getAccount(t.accountId)?.name||'')},{h:'Valor',cls:'num',f:t=>`<b style="color:${t.type==='Receita'?'var(--green)':'var(--red)'}">${t.type==='Receita'?'':'− '}${money(t.value)}</b>`},{h:'Situação',f:t=>txChip(t)},{h:'',cls:'num',f:t=>`${t.status==='Pendente'?`<button class="btn xs accent" data-action="tx-receive" data-id="${t.id}">${t.type==='Receita'?'Receber':'Pagar'}</button> ${t.type==='Receita'&&t.customerId?`<button class="btn xs wa" data-action="tx-wa" data-id="${t.id}">${ICON.wa}</button> `:''}`:''}${t.type==='Receita'&&isDone(t)?`<button class="btn xs" data-action="tx-receipt" data-id="${t.id}" title="Recibo">${ICON.print}</button> `:''}<button class="btn xs" data-action="edit-tx" data-id="${t.id}">${ICON.edit}</button>`}],pg.rows)+pg.html;
+ return table([{h:'Vencimento',f:t=>brDate(t.dueDate||t.date)},{h:'Descrição',f:t=>`<b>${esc(t.desc)}</b><div class="tiny muted">${esc(t.category||'')}${t.customerId?' · '+esc(custName(t.customerId)):''}${t.supplierId?' · '+esc(getSupplier(t.supplierId)?.name||''):''}</div>`},{h:'Conta',f:t=>esc(getAccount(t.accountId)?.name||'')},{h:'Valor',cls:'num',f:t=>`<b style="color:${t.type==='Receita'?'var(--green)':'var(--red)'}">${t.type==='Receita'?'':'− '}${money(t.value)}</b>`},{h:'Situação',f:t=>txChip(t)},{h:'',cls:'num',f:t=>`${t.status==='Pendente'?`<button class="btn xs gold" data-action="tx-receive" data-id="${t.id}">${t.type==='Receita'?'Receber':'Pagar'}</button> ${t.type==='Receita'&&t.customerId?`<button class="btn xs wa" data-action="tx-wa" data-id="${t.id}">${ICON.wa}</button> `:''}`:''}${t.type==='Receita'&&isDone(t)?`<button class="btn xs" data-action="tx-receipt" data-id="${t.id}" title="Recibo">${ICON.print}</button> `:''}${isDone(t)?`<button class="btn xs" data-action="tx-reopen" data-id="${t.id}" title="Desfazer o recebimento">Reabrir</button> `:''}<button class="btn xs" data-action="edit-tx" data-id="${t.id}">${ICON.edit}</button>`}],pg.rows)+pg.html;
 }
 function monthSeries(n=6){
  const out=[];let m=monthKey(todayISO());
@@ -2354,6 +2484,57 @@ function renderDocs(){
  +`<div class="card">${state.documents.length?table([{h:'Documento',f:d=>`<b>${esc(d.name)}</b><div class="tiny muted">${esc(d.notes||'')}</div>`},{h:'Vencimento',f:d=>d.expires?(d.expires<todayISO()?badge('Vencido '+brDate(d.expires),'red'):d.expires<=addDays(todayISO(),30)?badge(brDate(d.expires),'warn'):brDate(d.expires)):'—'},{h:'',cls:'num',f:d=>`<button class="btn xs" data-action="edit-doc" data-id="${d.id}">${ICON.edit}</button> <button class="btn xs danger" data-action="del-doc" data-id="${d.id}">${ICON.trash}</button>`}],state.documents):empty('file','Nenhum documento','Cadastre alvarás e licenças para receber aviso antes de vencerem.',btn('Novo documento','new-doc',{cls:'accent',icon:'plus'}))}</div>`;
 }
 reg({key:'documents',label:'Documentos',icon:'file',group:'Gestão',render:renderDocs,badge:()=>state.documents.filter(d=>d.expires&&d.expires<=addDays(todayISO(),30)).length});
+
+/* ---------- cartão: parcelas 1–12x, com/sem juros e atalho para as taxas da maquininha ---------- */
+let RCBASE=()=>0;
+const grossOf=(base,p)=>p>0&&p<100?Math.round(base/(1-p/100)):base;
+function cardPick(){const m=V('rc_m');if(m!=='Crédito')return {m,n:1,j:'no'};return {m,n:Number(V('rc_n'))||1,j:V('rc_j')||'no'}}
+function cardAdj(cc,x){return cc.m==='Crédito'&&cc.j==='yes'?grossOf(x,cardFeePct('Crédito',cc.n)):x}
+const feesGoBtn=()=>isStaff()?'':`<button type="button" class="btn xs ${state.settings.cardFeesOk?'':'gold'}" data-action="go-fees">${state.settings.cardFeesOk?'Conferir taxas da maquininha':'Preencher taxas da maquininha'}</button>`;
+function cardHintHTML(m){
+ if(m!=='Crédito'&&m!=='Débito')return '';
+ return `<div class="alert ${state.settings.cardFeesOk?'info':'warn'}">${ICON.alert}<div>${state.settings.cardFeesOk?'A taxa da maquininha é lançada automaticamente como despesa ao receber.':'<b>As taxas da maquininha ainda são valores de exemplo.</b> Preencha as da sua maquininha para o cálculo ficar certo.'}</div>${feesGoBtn()}</div>`;
+}
+function rcCardRefresh(){
+ const box=$('#rc_card');if(!box)return;const cur=cardPick(),m=cur.m,base=RCBASE();
+ if(!base||(m!=='Crédito'&&m!=='Débito')){box.innerHTML='';return}
+ const p=cardFeePct(m,cur.n),gross=cur.j==='yes'?grossOf(base,p):base,fee=Math.round(gross*p/100);
+ const sel=m==='Crédito'?`<div class="form-grid mt12"><label>Parcelas no cartão<select id="rc_n" data-ch="rc-card">${optHTML(Array.from({length:12},(_,i)=>({v:String(i+1),l:(i+1)+'x'+(i?'':' (à vista no crédito)')+' — taxa '+num(cardFeePct('Crédito',i+1),2)+'%'})),String(cur.n))}</select></label>
+ <label>Juros<select id="rc_j" data-ch="rc-card">${optHTML([{v:'no',l:'Sem juros (a oficina paga a taxa)'},{v:'yes',l:'Com juros (cliente paga a taxa)'}],cur.j)}</select></label></div>`:'';
+ const info=m==='Crédito'
+  ?(cur.j==='yes'?`Cliente paga <b>${money(gross)}</b>${cur.n>1?` em ${cur.n}x de <b>${money(Math.round(gross/cur.n))}</b>`:''}. Taxa da maquininha ${num(p,2)}% (≈ ${money(fee)}) repassada ao cliente: a oficina recebe líquido <b>${money(base)}</b>.`
+   :`Cliente paga <b>${money(base)}</b>${cur.n>1?` em ${cur.n}x de <b>${money(Math.round(base/cur.n))}</b>`:''}. Taxa da maquininha ${num(p,2)}% (≈ ${money(fee)}) sai da oficina: líquido <b>${money(base-fee)}</b>.`)
+  :`Taxa do débito ${num(p,2)}% (≈ ${money(fee)}): líquido <b>${money(base-fee)}</b>.`;
+ box.innerHTML=`${cardHintHTML(m).includes('warn')?cardHintHTML(m):''}${sel}<div class="muted small mt12">${info} ${state.settings.cardFeesOk?feesGoBtn():''}</div>`;
+}
+H['rc-card']=()=>rcCardRefresh();
+H['tx-card']=el=>{const h=$('#t_cardhint');if(h)h.innerHTML=cardHintHTML(el.value)};
+A['go-fees']=()=>{closeAllModals();UI.tab.settings='fees';go('settings')};
+
+/* ---------- contas: 4 fixas (Caixa, Conta bancária, Pix, Maquininha) + cadastro na hora ---------- */
+const FIXED_ACC=[['acc_caixa','Caixa','Caixa'],['acc_banco','Conta bancária','Banco'],['acc_pix','Pix','Pix'],['acc_maq','Maquininha (cartões)','Cartão']];
+function ensureFixedAccounts(list){list=list||state.accounts;FIXED_ACC.forEach(([id,name,type])=>{let a=list.find(x=>x.id===id);if(!a)list.push({id,name,type,opening:0,active:true});else a.active=true})}
+const accOpts=()=>state.accounts.filter(a=>a.active!==false).map(a=>({v:a.id,l:a.name}));
+function accField(id,label,value,attrs=''){return `<div class="accfld"><button type="button" class="combo-add" data-action="acc-quick" data-for="${id}">+ Cadastrar outra conta</button>${F(id,label,{opts:accOpts(),value,attrs,help:'Onde o dinheiro entra: Caixa (dinheiro vivo), Conta bancária, Pix ou Maquininha (cartões).'})}</div>`}
+A['acc-quick']=el=>showModal('Cadastrar outra conta',`<p class="muted small">As contas <b>Caixa, Conta bancária, Pix e Maquininha</b> já existem sempre. Cadastre outra só se precisar (ex.: Cofre, Nubank, conta da esposa).</p><div class="form-grid">${F('qa_name','Nome da conta',{req:true,full:true,ph:'Ex.: Cofre'})}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="acc-quick-save" data-for="${el.dataset.for}">Cadastrar e usar</button>`,'sm');
+A['acc-quick-save']=async el=>{
+ const n=V('qa_name').trim();if(!n)return bad('qa_name','Informe o nome da conta.');
+ if(state.accounts.some(a=>norm(a.name)===norm(n)))return bad('qa_name','Já existe uma conta com esse nome.');
+ const a={id:uid('acc'),name:n,type:'Banco',opening:0,active:true};state.accounts.push(a);audit('Financeiro','Cadastrou conta',n);await persist();
+ closeModal();const sel=document.getElementById(el.dataset.for);if(sel){sel.innerHTML=optHTML(accOpts(),a.id);sel.dispatchEvent(new Event('change',{bubbles:true}))}toast('Conta cadastrada.','ok');
+};
+
+/* ---------- categoria nova na hora ---------- */
+function catField(id,label,list,value){return `<div class="accfld"><button type="button" class="combo-add" data-action="cat-quick" data-for="${id}" data-list="${list}">+ Cadastrar nova categoria</button>${F(id,label,{opts:state.lists[list],value:value||state.lists[list][0]})}</div>`}
+A['cat-quick']=el=>showModal('Cadastrar nova categoria',`<p class="muted small">A categoria fica salva e já aparece para os próximos cadastros.</p><div class="form-grid">${F('qc_name','Nome da categoria',{req:true,full:true,ph:'Ex.: Lataria e pintura'})}</div>`,`<button class="btn" data-action="close-modal">Cancelar</button><button class="btn primary" data-action="cat-quick-save" data-for="${el.dataset.for}" data-list="${el.dataset.list}">Cadastrar e usar</button>`,'sm');
+A['cat-quick-save']=async el=>{
+ const n=V('qc_name').trim();if(!n)return bad('qc_name','Informe o nome da categoria.');
+ const L=state.lists[el.dataset.list];if(L.some(x=>norm(x)===norm(n)))return bad('qc_name','Essa categoria já existe.');
+ L.push(n);await persist();closeModal();const sel=document.getElementById(el.dataset.for);if(sel){sel.innerHTML=optHTML(L,n)}toast('Categoria cadastrada.','ok');
+};
+/* ---------- cadastrar serviço/peça direto da janela "Adicionar itens" ---------- */
+A['pick-new']=()=>{const t=PICK.tab,q=PICK.q;if(t==='part'){A['new-part']()}else openSvcForm('');if(q){const n=document.getElementById(t==='part'?'p_name':'s_name');if(n)n.value=q}};
+function pickAfterSave(key){if(typeof PICK!=='undefined'&&PICK&&document.getElementById('pk_body')){PICK.sel[key]=1;PICK.q='';pickRefresh()}}
 
 /* ============================================================
    CENTRAL DE COMUNICAÇÃO: revisões, orçamentos, cobranças,
@@ -2606,7 +2787,7 @@ function renderSettings(){
   +`<div class="save-bar"><span class="muted small">Confira os dados e salve para valer nos documentos.</span><button class="btn primary" data-action="save-shop">${ICON.check}Salvar dados</button></div>`;
  }
  else if(f==='texts')body=`<div class="card"><div class="form-grid">${F('s_qt','Condições do orçamento',{type:'textarea',value:s.quoteTerms,full:true,rows:4})}${F('s_au','Autorização de serviço (assinada na vistoria)',{type:'textarea',value:s.authText,full:true,rows:4})}${F('s_wt','Termo de garantia (use {dias} para o prazo)',{type:'textarea',value:s.warrantyText,full:true,rows:4})}${F('s_dl','Termo de entrega',{type:'textarea',value:s.deliveryText,full:true,rows:3})}</div><div class="mt12"><button class="btn primary" data-action="save-texts">Salvar textos</button> <button class="btn" data-action="reset-texts">Restaurar padrão</button></div></div>`;
- else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha. Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa.</p><div class="form-grid">${F('fee_d','Débito (%)',{mask:'pct',value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{mask:'pct',value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
+ else if(f==='fees')body=`<div class="card"><p class="muted small">Informe as taxas cobradas pela sua maquininha (estão no contrato ou no app da maquininha). Ao receber no débito/crédito, a taxa é lançada automaticamente como despesa. No crédito você escolhe de 1x a 12x, <b>com juros</b> (cliente paga a taxa) ou <b>sem juros</b> (a oficina paga).</p>${st.cardFeesOk?'':`<div class="alert warn">${ICON.alert}<div><b>Estes valores são exemplos.</b> Troque pelos da sua maquininha e clique em “Salvar taxas”.</div></div>`}<div class="form-grid">${F('fee_d','Débito (%)',{mask:'pct',value:String(st.cardFees.debit).replace('.',',')})}${Array.from({length:12},(_,i)=>F('fee_'+(i+1),`Crédito ${i+1}x (%)`,{mask:'pct',value:String(st.cardFees.credit[i+1]??'').replace('.',',')})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-fees">Salvar taxas</button></div></div>`;
  else if(f==='lists')body=`<div class="card"><p class="muted small">Uma opção por linha. Estas listas aparecem nos cadastros e formulários.</p><div class="form-grid">${Object.entries(LIST_NAMES).map(([k,l])=>F('ls_'+k,l,{type:'textarea',value:(state.lists[k]||[]).join('\n'),rows:5})).join('')}</div><div class="mt12"><button class="btn primary" data-action="save-lists">Salvar listas</button></div></div>`;
  else if(f==='plan')body=planCardHTML();
  else if(f==='sec')body=staffCardHTML()+`<div class="card"><h2>Acesso com senha</h2><div class="alert ok">${ICON.shield}<div>A senha é pedida sempre que o sistema abre${state.settings.lockMinutes?' e após '+state.settings.lockMinutes+' min sem uso':''}.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">${btn('Trocar senha','pw-change',{icon:'lock'})}${btn('Bloquear agora','lock-now',{icon:'lock'})}${btn('Gerar novo código de recuperação','pw-newcode',{icon:'key'})}</div><div class="form-grid mt12"><label>Bloquear automaticamente após<select data-ch="lock-min">${optHTML([{v:0,l:'Nunca'},{v:5,l:'5 minutos sem uso'},{v:15,l:'15 minutos sem uso'},{v:30,l:'30 minutos sem uso'},{v:60,l:'1 hora sem uso'}],state.settings.lockMinutes||0)}</select></label></div><p class="muted tiny mt12">A senha impede o acesso à tela do sistema. Para proteger também o arquivo de backup, use “Baixar backup com senha”.</p></div>
@@ -2624,7 +2805,7 @@ A['save-shop']=async()=>{
 };
 A['save-texts']=async()=>{Object.assign(state.shop,{quoteTerms:V('s_qt'),authText:V('s_au'),warrantyText:V('s_wt'),deliveryText:V('s_dl')});await persist();toast('Textos salvos.','ok')};
 A['reset-texts']=async()=>{Object.assign(state.shop,{quoteTerms:DEFAULT_QUOTE_TERMS,authText:DEFAULT_AUTH,warrantyText:DEFAULT_WARRANTY,deliveryText:DEFAULT_DELIVERY});await persist();render()};
-A['save-fees']=async()=>{const n=id=>Number(V(id).replace(',','.'))||0;const bad_=[...Array(12).keys()].map(i=>'fee_'+(i+1)).concat('fee_d').find(id=>{const v=n(id);return v<0||v>30});if(bad_)return bad(bad_,'Taxa inválida (use entre 0 e 30).');state.settings.cardFees={debit:n('fee_d'),credit:Object.fromEntries([...Array(12).keys()].map(i=>[i+1,n('fee_'+(i+1))]))};await persist();toast('Taxas salvas.','ok')};
+A['save-fees']=async()=>{const n=id=>Number(V(id).replace(',','.'))||0;const bad_=[...Array(12).keys()].map(i=>'fee_'+(i+1)).concat('fee_d').find(id=>{const v=n(id);return v<0||v>30});if(bad_)return bad(bad_,'Taxa inválida (use entre 0 e 30).');state.settings.cardFeesOk=true;state.settings.cardFees={debit:n('fee_d'),credit:Object.fromEntries([...Array(12).keys()].map(i=>[i+1,n('fee_'+(i+1))]))};await persist();toast('Taxas salvas.','ok')};
 A['save-lists']=async()=>{for(const k of Object.keys(LIST_NAMES)){const arr=V('ls_'+k).split('\n').map(x=>x.trim()).filter(Boolean);if(!arr.length)return bad('ls_'+k,'A lista “'+LIST_NAMES[k]+'” não pode ficar vazia.');state.lists[k]=[...new Set(arr)]}await persist();toast('Listas salvas.','ok')};
 A['logo-up']=()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=async()=>{try{state.shop.logo=await compressImage(i.files[0],420,.85);await persist();render()}catch(e){toast('Imagem inválida.','err')}};i.click()};
 A['logo-del']=async()=>{state.shop.logo='';await persist();render()};
@@ -2772,6 +2953,15 @@ function attentionItems(){
  const out=[],today=todayISO(),Q=commQueues();
  const ready=state.orders.filter(o=>o.status==='Pronta');
  if(ready.length)out.push({k:'ready',t:ready.length+' veículo(s) pronto(s) para retirada',s:'Avise o cliente e receba o pagamento.',r:['orders'],label:'Ver prontas',tab:['orders','ready']});
+ const osGo=(list,tab)=>list.length===1?{open:{id:list[0].id,tab}}:{};
+ const extraO=state.orders.filter(o=>orderActive(o)&&o.items.some(i=>i.approved===false));
+ if(extraO.length)out.push({k:'extra',t:extraO.length+' OS com serviço adicional aguardando autorização',s:'Confira os itens e marque se o cliente autorizou ou recusou.',r:['orders'],label:'Conferir e validar',tab:['orders','board'],...osGo(extraO,'main')});
+ const noPay=state.orders.filter(o=>o.status==='Pronta'&&orderPay(o).total>0&&orderPay(o).unplanned>0);
+ if(noPay.length)out.push({k:'nopay',t:noPay.length+' OS pronta(s) sem forma de pagamento definida',s:'Defina à vista ou entrada + parcelas.',r:['orders'],label:'Definir pagamento',tab:['orders','ready'],...osGo(noPay,'pay')});
+ const owe=state.orders.filter(o=>o.status==='Entregue'&&orderPay(o).balance>0);
+ if(owe.length)out.push({k:'owe',t:owe.length+' OS entregue(s) com saldo a receber',s:money(sum(owe,o=>orderPay(o).balance))+' ainda não recebido.',r:['orders'],label:'Receber agora',tab:['orders','pay'],...osGo(owe,'pay')});
+ const paidReady=state.orders.filter(o=>o.status==='Pronta'&&orderPay(o).total>0&&orderPay(o).balance===0);
+ if(paidReady.length)out.push({k:'deliver',t:paidReady.length+' veículo(s) pago(s) esperando retirada',s:'Entregue o veículo para encerrar a OS.',r:['orders'],label:'Entregar',tab:['orders','ready'],...osGo(paidReady,'main')});
  const waitApr=state.orders.filter(o=>o.status==='Aguardando aprovação');
  if(waitApr.length)out.push({k:'apr',t:waitApr.length+' OS aguardando aprovação do cliente',s:'Cobre uma resposta pelo WhatsApp.',r:['orders'],label:'Abrir quadro',tab:['orders','board']});
  const late=state.transactions.filter(t=>t.type==='Receita'&&t.status==='Pendente'&&(t.dueDate||t.date)<today);
@@ -2790,7 +2980,7 @@ A['show-attention']=()=>{
  const it=attentionItems();
  showModal('Pendências',it.length?it.map(i=>`<div class="row"><div class="grow"><b>${esc(i.t)}</b><div class="small muted">${esc(i.s)}</div></div><button class="btn sm accent" data-action="att-go" data-k="${i.k}">${esc(i.label)}</button></div>`).join(''):empty('check','Tudo em dia','Nenhuma pendência no momento.'),`<button class="btn" data-action="close-modal">Fechar</button>`,'wide');
 };
-A['att-go']=el=>{const i=attentionItems().find(x=>x.k===el.dataset.k);closeModal();if(!i)return;if(i.tab)UI.tab[i.tab[0]]=i.tab[1];go(i.r[0])};
+A['att-go']=el=>{const i=attentionItems().find(x=>x.k===el.dataset.k);closeModal();if(!i)return;if(i.open){UI.tab['os-'+i.open.id]=i.open.tab;return go('orders','view',i.open.id)}if(i.tab)UI.tab[i.tab[0]]=i.tab[1];go(i.r[0])};
 A['fab-home']=()=>showModal('O que você quer fazer?',`<div class="quickgrid">${[['Novo orçamento','new-quote','file'],['Nova OS (entrada de veículo)','new-order','clip'],['Novo cliente','new-customer','users'],['Novo veículo','new-vehicle','car'],['Novo agendamento','new-appt','cal'],['Novo lançamento','new-tx','wallet']].map(([l,a,i])=>`<button class="quick" data-action="quick-go" data-a="${a}">${ICON[i]}<span>${l}</span></button>`).join('')}</div>`,`<button class="btn" data-action="close-modal">Fechar</button>`,'sm');
 A['quick-go']=el=>{closeModal();A[el.dataset.a]&&A[el.dataset.a]()};
 
@@ -3078,6 +3268,14 @@ const TOURS=[
   TABK('finance','rec','Contas a receber','Todas as parcelas pendentes ficam aqui, com botão de cobrança por WhatsApp.'),
   I('[data-action="tx-receive"]','Receber ou pagar','Um clique registra o pagamento e escolhe em qual conta o dinheiro entrou.',{optional:true})
  ]},
+ {k:'acc',owner:true,t:'Contas, caixa e cartão de crédito',d:'Para onde vai o dinheiro e como ficam as taxas da maquininha.',steps:[
+  NAVK('finance'),
+  I('.screen-title','Financeiro','Aqui você vê tudo o que entra e sai. Cada valor recebido fica guardado em uma “conta”.',{go:()=>{UI.tab.finance='acc';location.hash='#/finance'}}),
+  I('.grid.g3 .card','As 4 contas fixas','Caixa (dinheiro vivo), Conta bancária, Pix e Maquininha (cartões). Elas já existem sempre. Ao receber, escolha onde o dinheiro caiu.'),
+  I('[data-action="new-acc"]','Precisa de outra?','Cadastre aqui, ou direto na hora de receber, pelo botão “+ Cadastrar outra conta” acima do campo Conta / caixa.'),
+  I('.screen-title','Cartão de crédito de 1x a 12x','Ao receber, escolha a forma “Crédito”: aparecem as parcelas (1x a 12x) e a opção Sem juros (a oficina paga a taxa) ou Com juros (o cliente paga a taxa).',{go:()=>{UI.tab.settings='fees';location.hash='#/settings'}}),
+  I('#fee_d','Taxas da maquininha','Preencha com as taxas do contrato da sua maquininha. O app lança a taxa sozinho como despesa quando você recebe no cartão.'),
+ ]},
  {k:'agenda',t:'Marcar um horário na agenda',d:'Agendamento com aviso de conflito.',steps:[
   NAVK('agenda'),
   K('[data-action="new-appt"]','Novo agendamento','Abre o formulário de horário.'),
@@ -3316,6 +3514,7 @@ denyActions('delete',['del-appt','del-asset','del-customer','del-customer-force'
 denyActions('export',['export-customers','export-orders','export-parts','export-tx','export-vehicles','rep-csv']);
 denyActions('editcatalog',['new-part','save-part','new-service','save-service','new-supplier','save-supplier']);
 denyActions('stockmove',['stock-move','stock-move-go']);
+denyActions('cancel',['os-reopen']);denyActions('receive',['tx-reopen']);
 {const f=A['os-status'];A['os-status']=function(el){
  if(isStaff()){const st=el&&el.dataset&&el.dataset.st;
   if(st==='Cancelada'&&!can('cancel'))return toast('O proprietário não liberou o cancelamento de OS.','err');
@@ -3360,13 +3559,14 @@ A['go-staff-setup']=()=>{UI.tab.settings='sec';go('settings')};
    O código é assinado com uma chave privada que fica só com o dono do
    sistema (gerador-de-codigos.html). Aqui só existe a chave PÚBLICA.
    ============================================================ */
+const planPriceOn=()=>/\d/.test(PLAN_CFG.price);
 const PLAN_CFG={
  k:'pSvgZExFgfB69qUIBC4ulxqjMrgaYZyw7yxvC/LG78o=',
  whats:'',                       // WhatsApp de vendas (somente números, com 55). Ex.: '5511999998888'
  trialDays:15,                   // dias de teste PRO na primeira vez que o sistema é usado
  freeCustomers:30, freeOrders:30,// limites do plano Grátis
  freeReports:['quotes','orders'],// relatórios liberados no Grátis
- price:'R$ 150,00',
+ price:'EM BREVE', // quando definir o preço, troque por 'R$ 150,00'
 };
 const PLAN_ALPHA='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const PLAN_BASE=Date.UTC(2026,0,1)/864e5; // dia 0 dos códigos = 01/01/2026
@@ -3416,7 +3616,7 @@ function upsell(why){
  const wa=PLAN_CFG.whats?`<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${PLAN_CFG.whats}?text=${encodeURIComponent('Olá! Quero ativar o plano PRO do Meu Mecânico.')}">${ICON.wa}Falar no WhatsApp</a>`:'';
  showModal('Recurso do plano PRO',`<div class="alert warn">${ICON.lock}<div>${why}</div></div>
  <p class="small">O plano PRO libera <b>clientes e ordens de serviço sem limite</b>, <b>todos os relatórios</b> (PDF, WhatsApp e planilha) e o <b>acesso do funcionário</b>.</p>
- <p class="muted small">Plano PRO mensal: <b>${PLAN_CFG.price}</b> por mês, com tudo liberado.</p>`,
+ <p class="muted small">${planPriceOn()?`Plano PRO mensal: <b>${PLAN_CFG.price}</b> por mês, com tudo liberado.`:'Plano PRO: <b>valor em breve</b>. Por enquanto, aproveite tudo liberado.'}</p>`,
  `<button class="btn" data-action="close-modal">Agora não</button>${wa}<button class="btn primary" data-action="plan-go">${ICON.key}Ativar meu código</button>`);
 }
 A['plan-go']=()=>{closeAllModals();UI.tab.settings='plan';go('settings')};
@@ -3462,14 +3662,14 @@ function planCardHTML(){
  let st;
  if(i.kind==='license'&&i.life)st=`<div class="alert ok">${ICON.shield}<div><b>Plano PRO vitalício ativo</b>${i.name?' para '+esc(i.name):''}. Sem vencimento.</div></div>`;
  else if(i.kind==='license')st=`<div class="alert ${i.soon?'warn':'ok'}">${ICON.shield}<div><b>Plano PRO ativo</b>${i.name?' para '+esc(i.name):''} até <b>${brDate(i.exp)}</b> (${i.left} dia${i.left===1?'':'s'}).${i.soon?' Está perto de vencer: peça a renovação para não perder os recursos.':''}</div></div>`;
- else if(i.kind==='trial')st=`<div class="alert warn">${ICON.alert}<div><b>Você está nos ${PLAN_CFG.trialDays} dias grátis:</b> restam <b>${i.left} dia${i.left===1?'':'s'}</b> com tudo liberado. Depois, para continuar com o pacote completo, ative o plano PRO (${PLAN_CFG.price}/mês). Seus dados nunca são apagados.</div></div>`;
+ else if(i.kind==='trial')st=`<div class="alert warn">${ICON.alert}<div><b>Você está nos ${PLAN_CFG.trialDays} dias grátis:</b> restam <b>${i.left} dia${i.left===1?'':'s'}</b> com tudo liberado. Depois, para continuar com o pacote completo, ative o plano PRO${planPriceOn()?' ('+PLAN_CFG.price+'/mês)':' (valores em breve)'}. Seus dados nunca são apagados.</div></div>`;
  else if(i.kind==='demo')st=`<div class="alert ok">${ICON.eye}<div>Na demonstração todos os recursos PRO ficam liberados.</div></div>`;
  else st=`<div class="alert warn">${ICON.lock}<div><b>Seu período grátis terminou.</b>${i.expired?' A licença venceu em '+brDate(i.expired)+'.':''} Seus dados continuam salvos e o sistema segue funcionando no modo limitado (até ${PLAN_CFG.freeCustomers} clientes e ${PLAN_CFG.freeOrders} OS). Ative o PRO para liberar tudo.</div></div>`;
  const wa=PLAN_CFG.whats?`<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${PLAN_CFG.whats}?text=${encodeURIComponent('Olá! Quero ativar o plano PRO do Meu Mecânico.')}">${ICON.wa}Pedir meu código</a>`:'';
  const groups=PLAN_GROUPS.map(([t,its])=>`<div class="pro-grp"><h3>${esc(t)}</h3>${its.map(([a,b])=>`<div class="pro-it"><span class="pro-ck">${ICON.check}</span><div><b>${esc(a)}</b><small>${esc(b)}</small></div></div>`).join('')}</div>`).join('');
  return `<div class="pro-hero"><div class="pro-badge">PLANO PRO</div><h2>O pacote completo para a sua oficina</h2>
- <div class="pro-price"><b>${PLAN_CFG.price}</b><span>por mês</span></div>
- <p><b>${PLAN_CFG.trialDays} dias grátis</b> para testar tudo, sem compromisso. Sem taxa de adesão e sem fidelidade.</p></div>
+ <div class="pro-price"><b>${PLAN_CFG.price}</b>${planPriceOn()?'<span>por mês</span>':'<span>valores serão divulgados em breve</span>'}</div>
+ <p><b>${PLAN_CFG.trialDays} dias grátis</b> para testar tudo, sem compromisso.${planPriceOn()?' Sem taxa de adesão e sem fidelidade.':''}</p></div>
  <div class="card">${st}
  <h2 class="mt12">Ativar meu plano</h2>
  <p class="muted small">1) Peça seu código pelo WhatsApp. 2) Cole abaixo. 3) Toque em Ativar. O código é conferido aqui mesmo, sem internet.</p>
